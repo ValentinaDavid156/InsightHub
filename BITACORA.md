@@ -1,8 +1,123 @@
-# Bitácora
+# Bitácora de interacción con la IA — InsightHub
+
+> Registro exigido por el Principio 8 de la [Constitución](specs/CONSTITUTION.md): prompt textual, síntesis de la respuesta y decisión de la estudiante.
+> Herramienta: Claude Code (Anthropic). Fecha de las sesiones: 2026-11-07.
+> Alcance de la IA: **solo documentos** (`specs/`, `moscow.md`, esta bitácora). No escribió código de estructuras ni pruebas. Cada decisión de diseño la tomó la estudiante respondiendo preguntas con opciones y una recomendación.
+
+---
+
+## Sesión 1 — Encargo y preparación del repositorio
+
+**Prompt (textual):**
+> trabaja en esta carpeta con base a lo pedido de C:\Users\Valentina\OneDrive\Desktop\Estructuras_datos
+>
+> [Se pegó el contenido de `PROMPT_ClaudeCode.md`: rol de asistente de Spec-Driven Development, carpeta de trabajo, ocho reglas, lista de tareas A a H, cinco commits propuestos y las verificaciones finales.]
+
+Mensajes siguientes: «Instalo git y clono» · «continua».
+
+**Síntesis de la respuesta:**
+- Leyó `historias.md`, `moscow.md`, `CONSTITUTION.md` y el prompt; comprobó que `git` no estaba instalado y que `Desktop\InsightHub` no tenía `.git`.
+- Tras la instalación, clonó `https://github.com/ValentinaDavid156/InsightHub` junto a `Estructura-datos/` (en `Estructuras_datos\InsightHub`) y comparó el contenido con la copia suelta: era idéntico salvo los finales de línea. Se trabajó en el clon, que conserva el historial.
+- Renombró las carpetas con `git mv` (22 archivos conservados como renombres) y creó `07-monticulo/` y `08-lista-simple/`.
+
+**Decisión de la estudiante:** instalar git y clonar. Aprobó el mensaje del commit 1 (`416fa9e`, «refactor(specs): carpetas 00-producto, 01..08 y 99-sistema»).
+
+## Sesión 2 — `CONSTITUTION.md` v1.2
+
+**Prompt (textual):** «Sí, haz el commit» (tras el commit 1; la Constitución se trabajó a continuación).
+
+**Síntesis de la respuesta:** quitó `entrega-1` y `entrega-2` y propuso cuatro choques más.
+
+**Decisiones de la estudiante:**
+1. Mantener «3 pruebas por operación», agrupadas por criterio en `tasks.md`.
+2. Agregar `refactor` y `docs` a los tipos de commit.
+3. «Un commit por tarea» rige solo la implementación; los documentos de spec se pueden agrupar.
+4. Presencia de 30 s en consola y web; el sondeo cada ~5 s solo si se hace la web.
+
+## Sesión 3 — `historias.md` v1.2
+
+**Síntesis de la respuesta:** separó CA-37 (consola) de CA-38 (web) y CA-29 (palabra) de CA-39 (fecha); reescribió HU-01 y HU-14 desde el valor para el miembro; quitó de HU-12 el aviso de respuestas aceptadas y lo pasó a HU-08. Total: 39 criterios, sin renumerar los existentes. Verificado por comando: 14 historias, todas con al menos 2 criterios.
+
+**Decisiones de la estudiante:** agregar CA-38 y CA-39 al final (no renumerar); aviso de respuesta aceptada en HU-08; HU-01 y HU-14 redactadas desde el valor para el miembro.
+
+## Sesión 4 — `moscow.md` v1.2 y `estructuras.md` v1.2
+
+**Prompt (textual):** «Sí, haz el commit» (commit 2, `4c44ad7`, «spec(producto): historias, MoSCoW y estructuras v1.2»).
+
+**Síntesis de la respuesta:** quitó «se parte del código ya preparado» y reestimó escribiendo cada estructura. Los Must pasan de 12.25 h a **17.75 h (+5.5 h)** y los Should de 6.25 h a 9 h. Sumó 2.5 h de specs, plans, tasks, `99-sistema` y trazabilidad, y subió el cierre de 5 h a 6 h (informe 3 h, `ANALISIS.md` 1.5 h, bitácora y README 0.5 h, sustentación 1 h). Con 20 h solo quedaban 9.5 h netas y no cabían los Must. Agregó la fila «representación de las relaciones» y las rutas nuevas en `estructuras.md`.
+
+**Decisión de la estudiante:** subir el total a **29 h** (18.5 h netas; los Must caben con 0.75 h de margen).
+
+## Sesión 5 — Pila (`02-pila`)
+
+**Síntesis de la respuesta:** partió de `Semana10/pila.py` (`PilaEnlazada`). CA-30 y CA-31 quedan en la pila; la regla de pantallas repetidas queda en `dominio/navegacion.py`.
+
+**Decisiones de la estudiante:** la pila avisa con un error y la navegación lo traduce; no apilar si la pantalla es igual a la actual; historial sin límite; el uso desde el árbol general se menciona sin criterio propio.
+
+## Sesión 6 — Cola (`03-cola`)
+
+**Síntesis de la respuesta:** partió de `ColaEnlazada` de `Semana10/cola.py` (no de la circular); agregó `contiene`.
+
+**Decisiones de la estudiante:** CA-06 es del grafo (no de la cola); detectar solicitudes repetidas con `contiene`; solo se atiende la primera solicitud; leer notificaciones las lee todas y vacía la cola.
+
+## Sesión 7 — Lista doble (`01-lista-doble`)
+
+**Síntesis de la respuesta:** partió de `Semana7/Nodos_enlazados_doblemente.py` y `carrusel.py`; sacó el cursor de la lista (un marcador por sesión).
+
+**Decisiones de la estudiante:** CA-29 (búsqueda por palabra) es de la lista doble y no del AVL; páginas de 5 publicaciones; una posición por sesión; búsqueda sin distinguir mayúsculas y como subcadena.
+
+## Sesión 8 — Árbol general (`04-arbol-general`)
+
+**Síntesis de la respuesta:** partió de `NodoArbol` de `Semana10/arbol_binario.py` (sus dos enlaces pasan a primer hijo y hermano derecho) y del recorrido con pila de `arbol_carpetas.py`/`recorridos.md`; recorrido sin recursión.
+
+**Decisiones de la estudiante:** un árbol por publicación; respuestas del mismo nivel en orden cronológico; solo las de primer nivel pueden ser mejor respuesta; en un empate de puntaje queda la más antigua.
+
+## Sesión 9 — AVL (`05-avl`)
+
+**Síntesis de la respuesta:** señaló que el repositorio no tiene árbol de búsqueda ni AVL; solo se reutilizan `NodoArbol`, `inorden` y la altura con vacío = −1. Detectó que **CA-21 (insignias) no tenía dueño**.
+
+**Decisiones de la estudiante:** CA-21 queda en el AVL con los votos; un solo índice por `@usuario` (se corrige la fila de `estructuras.md`); `@usuario` de 3 a 20 caracteres, letras, números y guión bajo, sin distinguir mayúsculas; 120 perfiles de ejemplo con nombres de una lista fija más un número.
+
+## Sesión 10 — Grafo (`06-grafo`)
+
+**Síntesis de la respuesta:** el grafo pasa de dirigido («seguimientos») a no dirigido; partió de `Nodo` de Semana5 y `ColaEnlazada` de Semana10; recorrido por niveles con la cola para llegar a 2 saltos.
+
+**Decisiones de la estudiante:** contadores de amigos en común en un arreglo temporal por id; la amistad más reciente sale primero.
+
+## Sesión 11 — Montículo (`07-monticulo`)
+
+**Síntesis de la respuesta:** señaló que no hay montículo en el repositorio; de `cola_prioridad.py` solo toma la clave compuesta para desempatar.
+
+**Decisiones de la estudiante:** actividad = respuestas + votos vigentes del hilo, 1 a 1; empate a favor de la publicación más reciente; actualización en sitio con arreglo de posiciones; 5 recomendaciones con desempate por `@usuario` alfabético.
+
+## Sesión 12 — Lista simple (`08-lista-simple`)
+
+**Síntesis de la respuesta:** partió de `ListaEnlazada` de `Semana6/lista_reproduccion/lista_enlazada.py` y de la idea de tiempo por parámetro de `cola_prioridad.py`; quitó `_cola`.
+
+**Decisiones de la estudiante:** cualquier acción cuenta como actividad; la caducidad se aplica al consultar con la hora dada por quien llama; la verdad del estado de conexión vive solo en la lista.
+
+## Sesión 13 — `99-sistema` y `trazabilidad.md`
+
+**Síntesis de la respuesta:** escribió la spec del sistema (tabla de ocho componentes con sus operaciones, flujos de integración, consola Must y web Should) y la trazabilidad de CA-01 a CA-39 con su tabla inversa. Detectó una incoherencia propia en el aviso de respuesta.
+
+**Decisiones de la estudiante:** consola con menús numerados por pantalla; la semilla crea solo los perfiles (la demo crea amistades y publicaciones desde la consola); el aviso de respuesta va solo al autor de la publicación y no se avisa si responde el propio autor.
+
+## Sesión 14 — Verificación
+
+**Síntesis de la respuesta:** corrió un script que comprobó: 39 criterios, cada uno con exactamente una spec dueña y una fila en `trazabilidad.md`; todas las historias con al menos 2 criterios; Must 17.75 h ≤ 18.5 h netas; 3 Won't con razón; 135 enlaces entre `.md` sin ninguno roto; 58 filas de historial, todas con motivo y fecha 2026-11-07; ningún término de implementación en las specs (se corrigió «sin recursión» en la pila).
+
+**Decisión de la estudiante:** _(completar)_
+
+## Supuestos de la IA pendientes de tu revisión
+- Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
+- Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).
+- Una sola publicación, aun con actividad 0, es la destacada.
+- Se agregó a la spec de la cola el caso extremo «sin aviso si responde el propio autor».
+- Nombre sugerido para el sitio web: `web.py` (aparece en la trazabilidad como código esperado de CA-38).
+- `99-sistema` no tiene `plan.md` ni `tasks.md` (el encargo pedía solo `spec.md`).
+
 ## Qué hice
-- 2026-11-07: creé la estructura del repositorio, la constitución, las historias, MoSCoW, la decisión de estructuras y spec/plan/tasks de cada componente.
+- 2026-11-07: creé la estructura del repositorio, la constitución, las historias, MoSCoW, la decisión de estructuras y spec/plan/tasks de cada componente; ese mismo día los reescribí con la numeración v1.2.
 
 ## Qué se dificultó
 (Completa con tu experiencia real.)
-
-
