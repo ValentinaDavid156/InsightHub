@@ -119,6 +119,22 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** completar el esqueleto y subirlo con el commit «cambios pequeños».
 
+## Sesión 16 — Avance funcional: pila y navegación «atrás»
+
+**Prompt (textual):**
+> empecemos con el avance funcional
+>
+> no, lo que queria decir es que TÚ claude, escribas todo y yo Valentina Reviso
+>
+> Para los archivos de python revisa primero esta carpeta, lo que se puede reciclar de aqui, quiero que todos los .py los hagas con base a lo que yo ya he visto/usado que esta aqui
+
+**Síntesis de la respuesta:**
+- Se revisó el código del curso (`Semana5/nodo.py`, `Semana10/pila.py`, `cola.py`, `cola_prioridad.py`, `Semana6/lista_enlazada.py`, `Semana4/lista_arreglo.py`, `Semana7/*`, y sus pruebas) para imitar su estilo: invariantes y complejidad en el docstring, errores propios que heredan de `IndexError`, `tamaño()` además de `tamano()`, pruebas con `pytest` como funciones sueltas.
+- Se escribieron primero las pruebas (rojo: `ModuleNotFoundError`) y después `estructuras/nodo.py`, `estructuras/pila.py` (de `PilaEnlazada`, Semana10) y `dominio/navegacion.py`. Resultado: 24 pruebas de pila y navegación pasan (29 en total con las de arranque de la consola).
+- Se integró «Volver atrás» en `main.py` y se marcaron CA-30 y CA-31 como «pasa» en la trazabilidad.
+
+**Decisión de la estudiante:** la IA escribe pruebas y código y la estudiante los revisa. Pendiente: leer línea por línea lo escrito antes de la sustentación (Principio 8 de la Constitución).
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

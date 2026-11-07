@@ -35,8 +35,8 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-27 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py`, `dominio/usuarios.py` |
 | CA-28 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py` |
 | CA-29 | HU-10 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pendiente | `dominio/busqueda.py`, `estructuras/lista_doble.py` |
-| CA-30 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pendiente | `estructuras/pila.py`, `dominio/navegacion.py` |
-| CA-31 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pendiente | `estructuras/pila.py`, `dominio/navegacion.py` |
+| CA-30 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
+| CA-31 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
 | CA-32 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `estructuras/cola.py`, `dominio/notificaciones.py` |
 | CA-33 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `dominio/notificaciones.py` |
 | CA-34 | HU-13 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py`, `dominio/recomendaciones.py` |

@@ -3,28 +3,28 @@
 Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea. Cada tarea de criterio agrupa al menos 3 pruebas por operación (caso normal, extremo y error).
 
 ## Parte A — Base
-- [ ] **T-02.1** Copiar `Nodo` y `PilaEnlazada` de Semana10 a `estructuras/pila.py` y adaptar nombres (`tamano`) y docstrings con complejidad.
+- [x] **T-02.1** Copiar `Nodo` y `PilaEnlazada` de Semana10 a `estructuras/pila.py` y adaptar nombres (`tamano`) y docstrings con complejidad.
 - **Entregable:** `estructuras/pila.py`
 
 ## Parte B — CA-30: «atrás» en orden inverso
-- [ ] **T-02.2** Prueba (rojo): apilar A, B, C → desapilar devuelve C, B, A; un elemento; `tope` no quita; repetidos no consecutivos.
-- [ ] **T-02.3** Código: `apilar`, `desapilar`, `tope` hasta que pase.
-- [ ] **T-02.4** Prueba (rojo): `navegacion.ir_a(p)` no apila si `p` es la pantalla actual; `atras()` vuelve a la anterior.
-- [ ] **T-02.5** Código: `dominio/navegacion.py` con `ir_a` y `atras`.
+- [x] **T-02.2** Prueba (rojo): apilar A, B, C → desapilar devuelve C, B, A; un elemento; `tope` no quita; repetidos no consecutivos.
+- [x] **T-02.3** Código: `apilar`, `desapilar`, `tope` hasta que pase.
+- [x] **T-02.4** Prueba (rojo): `navegacion.ir_a(p)` no apila si `p` es la pantalla actual; `atras()` vuelve a la anterior.
+- [x] **T-02.5** Código: `dominio/navegacion.py` con `ir_a` y `atras`.
 - **Entregables:** `tests/test_pila.py`, `estructuras/pila.py`, `dominio/navegacion.py`
 
 ## Parte C — CA-31: historial vacío
-- [ ] **T-02.6** Prueba (rojo): `desapilar` y `tope` en pila vacía lanzan `PilaVaciaError` sin cambiar el tamaño; `atras()` sin historial devuelve «no hay pantalla previa».
-- [ ] **T-02.7** Código: lanzar el error en la pila y capturarlo en la navegación.
+- [x] **T-02.6** Prueba (rojo): `desapilar` y `tope` en pila vacía lanzan `PilaVaciaError` sin cambiar el tamaño; `atras()` sin historial devuelve «no hay pantalla previa».
+- [x] **T-02.7** Código: lanzar el error en la pila y capturarlo en la navegación.
 - **Entregables:** `tests/test_pila.py`, `dominio/navegacion.py`
 
 ## Parte D — Integración
-- [ ] **T-02.8** Cada pantalla de la consola llama a `ir_a`; la opción «atrás» llama a `atras` (CA-37).
-- [ ] **T-02.9** Marcar CA-30 y CA-31 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
+- [x] **T-02.8** Cada pantalla de la consola llama a `ir_a`; la opción «atrás» llama a `atras` (CA-37).
+- [x] **T-02.9** Marcar CA-30 y CA-31 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
 - **Entregables:** `main.py`, `specs/trazabilidad.md`
 
 ## Verificación final
-- [ ] `pytest tests/test_pila.py -v` sin errores.
+- [x] `pytest tests/test_pila.py -v` sin errores.
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
