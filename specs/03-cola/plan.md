@@ -1,27 +1,56 @@
-# Plan — Cola enlazada
-Versión 1.0
+# Plan — Cola
+Versión 1.1
 
-## Estructura elegida
-Lista enlazada con referencias a frente y final.
+## 1. De qué implementación mía parto
+De **`Semana10/cola.py`**, clase `ColaEnlazada` (no la `ColaCircular` del mismo archivo), con `ColaVaciaError(IndexError)` y sus invariantes IR-01 e IR-02. Qué cambia para InsightHub:
+- Se mueve a `estructuras/cola.py` y usa el `Nodo` del proyecto.
+- `tamaño()` pasa a `tamano()`.
+- Se agrega `contiene(dato)` (recorrido) y `__iter__` (para listar sin sacar).
+- La lógica de solicitudes y notificaciones no va en la cola: va en `dominio/amistades.py` y `dominio/notificaciones.py`.
 
-Decisión completa y alternativa descartada: ver `specs/00-producto/estructuras.md`.
+## 2. Estructura elegida y por qué
+**Cola enlazada** con referencias a la cabeza (frente) y a la cola (final), más un contador.
 
-## Módulo
-`estructuras/cola.py` · Pruebas: `tests/test_cola.py`
+Solicitudes y avisos se atienden en orden de llegada (FIFO). Con dos referencias, encolar y desencolar no recorren nada. Se descarta la `ColaCircular` porque cada persona tiene dos colas y casi todas están vacías o con pocos elementos: un arreglo de capacidad 8 por cola desperdicia memoria con miles de usuarios, y la enlazada no necesita redimensionar.
 
-## Complejidad de las operaciones
-| Operación | Complejidad |
+## 3. Complejidad por operación
+| Operación | Complejidad | Por qué |
+|---|---|---|
+| `encolar(dato)` | O(1) | Enlaza al final con la referencia `_cola` |
+| `desencolar()` | O(1) | Mueve la cabeza; si queda vacía, `_cola = None` (IR-01) |
+| `frente()` | O(1) | Lee la cabeza |
+| `contiene(dato)` | O(k) | Recorre las k pendientes; k es pequeño por persona |
+| `esta_vacia()`, `tamano()` | O(1) | Cabeza y contador |
+| Leer todas las notificaciones | O(k) | Desencola las k pendientes |
+
+## 4. Alternativas descartadas
+| Alternativa | Por qué no |
 |---|---|
-| `encolar` | O(1) |
-| `desencolar` | O(1) |
-| `frente` | O(1) |
-| `esta_vacia` | O(1) |
-| `tamano` | O(1) con contador |
+| `list` con `pop(0)` | Desencolar desplaza todo, O(n); además sustituye la estructura declarada |
+| `ColaCircular` (Semana10) | O(1) amortizado también, pero reserva memoria fija por persona aunque esté vacía |
+| Índice aparte (AVL) para detectar solicitudes repetidas | O(log n) frente a O(k) con k pequeño; agrega otra estructura y horas sin ganancia real |
+| Aceptar cualquier solicitud de la lista | Exige quitar del medio, O(k), y rompe CA-07 |
 
-## Soporte interno
-Ninguno, salvo lo declarado en `estructuras.md`.
+## 5. Orden de punteros al desencolar
+1. Guardar la cabeza actual.
+2. Mover la cabeza a su siguiente.
+3. Si la cabeza quedó en `None`, poner `_cola = None`.
+
+Si se omite el paso 3, `_cola` sigue apuntando a un nodo que ya salió y el siguiente `encolar` lo enlaza ahí: el elemento nuevo se pierde. Es el error marcado en Semana10 («¡no olvides esta línea!»).
+
+## 6. Uso desde el dominio
+- `amistades.enviar(de, para)`: valida uno mismo (comparación), amigo (consulta al grafo) y repetida (`contiene`), y encola.
+- `amistades.atender(persona, aceptar)`: desencola la primera; si acepta, llama al grafo (CA-06) y notifica.
+- `notificaciones.leer(persona)`: desencola todo; si estaba vacía, devuelve «sin notificaciones».
+
+## 7. Soporte interno
+Ninguno. Solo nodos propios.
+
+## 8. Módulos
+`estructuras/cola.py` · `dominio/amistades.py` · `dominio/notificaciones.py` · pruebas en `tests/test_cola.py`.
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
+| 1.1 | 2026-11-07 | Se declara el punto de partida (`ColaEnlazada` de Semana10), por qué no la circular, `contiene`, orden de punteros al desencolar y el uso desde amistades y notificaciones | El plan no justificaba la elección ni decía de qué implementación partía; decisiones tomadas en la consulta del componente |
