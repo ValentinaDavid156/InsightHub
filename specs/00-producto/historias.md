@@ -1,12 +1,12 @@
 # Historias de usuario — InsightHub
-Versión 1.1
+Versión 1.2
 
-Formato: *Como [rol], quiero [acción], para [valor].* Cada historia indica la funcionalidad F-xx del enunciado a la que responde.
+Formato: *Como [rol], quiero [acción], para [valor].* Cada historia indica la funcionalidad F-xx del enunciado a la que responde. La prioridad de cada historia está en [`moscow.md`](moscow.md); la trazabilidad de cada criterio, en [`../trazabilidad.md`](../trazabilidad.md).
 
-## HU-01 · Generar usuarios sintéticos (F-01)
-Como **administrador de la comunidad**, quiero generar usuarios de prueba de forma reproducible, para demostrar y probar la plataforma con datos estables.
-- **CA-01:** Al generar, el sistema crea al menos 100 usuarios con `@usuario` único.
-- **CA-02:** Con la misma semilla se obtienen los mismos usuarios en el mismo orden.
+## HU-01 · Encontrar una comunidad ya poblada (F-01)
+Como **visitante**, quiero encontrar la comunidad ya poblada con perfiles de ejemplo, para explorarla desde el primer momento.
+- **CA-01:** Al iniciar, la comunidad tiene al menos 100 perfiles, cada uno con `@usuario` único.
+- **CA-02:** Con la misma semilla se obtienen los mismos perfiles en el mismo orden.
 
 ## HU-02 · Acceder y crear perfil
 Como **visitante**, quiero entrar con mi `@usuario`, para integrarme de inmediato a la comunidad.
@@ -46,7 +46,7 @@ Como **miembro**, quiero votar las respuestas a favor o en contra, para señalar
 - **CA-21:** La insignia visible en el perfil depende de los puntos: Nuevo (menos de 10), Colaborador (desde 10), Experto (desde 50).
 
 ## HU-08 · Destacar la mejor respuesta
-Como **miembro que pregunta**, quiero marcar la respuesta que resolvió mi duda, para que todos la encuentren primero.
+Como **miembro que pregunta**, quiero marcar la respuesta que resolvió mi duda, para que todos la encuentren primero y su autor reciba el reconocimiento (y un aviso).
 - **CA-22:** La respuesta que acepta quien hizo la pregunta queda fijada arriba del hilo y suma 15 puntos a su autor; solo quien preguntó puede aceptar, y una sola vez.
 - **CA-23:** Si no hay respuesta aceptada, queda fijada la de mayor puntaje neto, siempre que sea positivo; sin respuestas, no hay ninguna fijada.
 
@@ -60,7 +60,8 @@ Como **miembro**, quiero ver arriba de la plaza la publicación con más activid
 Como **miembro**, quiero buscar personas por nombre y publicaciones por palabra o fecha, para encontrar con quién conectar y qué ya se discutió.
 - **CA-27:** Buscar usuarios por prefijo devuelve las coincidencias en orden alfabético.
 - **CA-28:** Una búsqueda sin coincidencias devuelve resultado vacío, sin error.
-- **CA-29:** Buscar publicaciones por palabra devuelve las que la contienen en el título o el cuerpo; por fecha, las de ese día.
+- **CA-29:** Buscar publicaciones por palabra devuelve las que la contienen en el título o el cuerpo.
+- **CA-39:** Buscar publicaciones por fecha devuelve las publicadas ese día.
 
 ## HU-11 · Volver a la pantalla anterior (F-06)
 Como **miembro**, quiero un botón «atrás», para regresar a lo que visité antes sin perder el hilo de la exploración.
@@ -68,7 +69,7 @@ Como **miembro**, quiero un botón «atrás», para regresar a lo que visité an
 - **CA-31:** «Atrás» con historial vacío informa que no hay pantalla previa y no falla.
 
 ## HU-12 · Recibir y leer notificaciones (F-07)
-Como **miembro**, quiero recibir avisos de solicitudes de amistad, amistades aceptadas, respuestas y respuestas aceptadas, para enterarme de lo que me concierne.
+Como **miembro**, quiero recibir avisos de solicitudes de amistad, amistades aceptadas y respuestas a mis publicaciones, para enterarme de lo que me concierne.
 - **CA-32:** Las notificaciones se leen en el mismo orden en que llegaron.
 - **CA-33:** Leer notificaciones sin pendientes informa «sin notificaciones» y no falla.
 
@@ -78,12 +79,14 @@ Como **miembro**, quiero sugerencias de «personas que quizá conozcas», para a
 - **CA-35:** Las recomendaciones se ordenan por número de amigos en común, de mayor a menor.
 - **CA-36:** Una persona sin amigos recibe una lista vacía.
 
-## HU-14 · Usar la plataforma desde la consola y el navegador
-Como **miembro**, quiero usar todas las funciones tanto desde la consola como desde un sitio web, para participar desde donde me resulte cómodo.
-- **CA-37:** Cada función de las historias HU-02 a HU-13 puede ejercitarse desde la consola y desde el sitio web.
+## HU-14 · Participar desde la consola o el navegador
+Como **miembro**, quiero participar desde la consola y, si lo prefiero, desde el navegador, para usar InsightHub donde me resulte cómodo.
+- **CA-37:** Cada función implementada de las historias HU-02 a HU-13 puede ejercitarse desde la consola.
+- **CA-38:** Cada función implementada de las historias HU-02 a HU-13 puede ejercitarse desde el sitio web.
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe todo: amistad con solicitud y aceptación (antes «seguir»), votos positivos y negativos con cambio o retiro, presencia, mejor respuesta, publicación destacada, acceso y uso web. De 9 a 14 historias y de 21 a 37 criterios | La idea del proyecto se amplió y se decidieron las reglas de amistad y votos |
+| 1.2 | 2026-11-07 | HU-01 y HU-14 se redactan desde el valor para el miembro; CA-37 queda solo para consola y se agrega CA-38 (web); CA-29 queda solo para palabra y se agrega CA-39 (fecha); el aviso de respuesta aceptada pasa de HU-12 a HU-08. Total: 39 criterios, sin renumerar los existentes | HU-01 y HU-14 se leían como tareas técnicas; la web y la búsqueda por fecha son Should y estaban mezcladas con Must; HU-12 (Must) dependía de HU-08 (Should) |
