@@ -108,6 +108,17 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** _(completar)_
 
+## Sesión 15 — Esqueleto del repositorio
+
+**Prompt (textual):**
+> ya esta lo necesario de la entrega 1?  (con el enunciado `Proyecto-Integrador-Tematica-B.pdf`)
+>
+> completalo y subelo con un commit llamado, cambios pequeños
+
+**Síntesis de la respuesta:** cruzó el checklist de la Entrega 1 del PDF con el repositorio: los documentos estaban completos, pero faltaban `estructuras/`, `dominio/`, `tests/`, `docs/` y `pytest` no corría. Creó las carpetas, una prueba de arranque (`tests/test_arranque.py`, sin criterio CA, solo para que pytest corra), actualizó el menú de `main.py` a las specs v1.2, corrigió `ANALISIS.md` (decía «implementada» para la lista doble sin código) y agregó instrucciones al `README.md`. No escribió código de estructuras.
+
+**Decisión de la estudiante:** completar el esqueleto y subirlo con el commit «cambios pequeños».
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

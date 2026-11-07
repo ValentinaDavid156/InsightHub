@@ -1,15 +1,28 @@
 # Análisis de complejidad
-(Se completa a medida que se implementa. Fuente inicial: `specs/00-producto/estructuras.md`.)
+Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy **ninguna estructura está implementada** (estado «pendiente»).
+
+n = elementos de la estructura · k = resultados · g = grado · c = conectados · V, E = vértices y aristas.
 
 | Estructura | Operación | Complejidad | Estado |
 |---|---|---|---|
-| Lista doble | insertar_al_frente / al_final | O(1) | implementada |
-| Lista doble | avanzar / retroceder | O(1) | implementada |
-| Pila | apilar / desapilar | O(1) | pendiente |
-| Cola | encolar / desencolar | O(1) | pendiente |
-| Árbol general | agregar_hijo / buscar | O(n) | pendiente |
-| AVL | insertar / buscar | O(log n) | pendiente |
-| Grafo | agregar_arista / BFS | O(grado) / O(V+E) | pendiente |
+| Lista doble | insertar_al_frente | O(1) | pendiente |
+| Lista doble | avanzar / retroceder (página de 5) | O(1) | pendiente |
+| Lista doble | buscar_palabra | O(n·m) | pendiente |
+| Pila | apilar / desapilar / tope | O(1) | pendiente |
+| Cola | encolar / desencolar / frente | O(1) | pendiente |
+| Cola | contiene | O(k) | pendiente |
+| Árbol general | abrir_hilo / tamano | O(1) | pendiente |
+| Árbol general | responder / buscar / recorrer / profundidad / aceptar | O(n) | pendiente |
+| Árbol general | mejor_respuesta | O(k) | pendiente |
+| AVL | insertar / buscar / reemplazar | O(log n) | pendiente |
+| AVL | buscar_por_prefijo | O(log n + k) | pendiente |
+| Grafo | agregar_vertice | O(1) amortizado | pendiente |
+| Grafo | agregar_amistad / eliminar_amistad / son_amigos / amigos | O(g) | pendiente |
+| Grafo | candidatos_dos_saltos | O(V + g + E′) | pendiente |
+| Montículo | insertar / extraer_maximo / actualizar | O(log n) | pendiente |
+| Montículo | maximo | O(1) | pendiente |
+| Montículo | construir | O(m) | pendiente |
+| Lista simple | conectar / registrar_actividad / salir / caducar / listar | O(c) | pendiente |
 
 ## Comparaciones con la alternativa descartada
-(Pendiente: al menos dos, con medición empírica si es posible.)
+(Pendiente: al menos dos, con medición empírica si es posible. Una medición ya planeada: `specs/07-monticulo/tasks.md`, tarea T-07.17.)
