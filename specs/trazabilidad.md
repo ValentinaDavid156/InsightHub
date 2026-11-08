@@ -17,8 +17,8 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-09 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
 | CA-10 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
 | CA-11 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
-| CA-12 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pendiente | `estructuras/lista_doble.py`, `dominio/feed.py` |
-| CA-13 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pendiente | `estructuras/lista_doble.py`, `dominio/feed.py` |
+| CA-12 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `estructuras/lista_doble.py`, `dominio/feed.py` |
+| CA-13 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `estructuras/lista_doble.py`, `dominio/feed.py` |
 | CA-14 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py`, `dominio/hilos.py` |
 | CA-15 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py`, `dominio/hilos.py` |
 | CA-16 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py` |
@@ -34,7 +34,7 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-26 | HU-09 | Should | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `dominio/destacada.py` |
 | CA-27 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py`, `dominio/usuarios.py` |
 | CA-28 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py` |
-| CA-29 | HU-10 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pendiente | `dominio/busqueda.py`, `estructuras/lista_doble.py` |
+| CA-29 | HU-10 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `dominio/busqueda.py`, `estructuras/lista_doble.py` |
 | CA-30 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
 | CA-31 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
 | CA-32 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `estructuras/cola.py`, `dominio/notificaciones.py` |
@@ -59,8 +59,10 @@ Cada función pública nombrada en un `plan.md` nace de al menos un criterio. La
 | `ListaDoble.retroceder` | CA-13 |
 | `ListaDoble.esta_vacia` | CA-13 |
 | `ListaDoble.tamano` | CA-12 |
-| `ListaDoble.buscar_palabra` / `busqueda.buscar_palabra` | CA-29 |
-| `feed.sesion` (posición por sesión) | CA-13 |
+| `ListaDoble.__iter__` | CA-29 |
+| `busqueda.buscar_palabra` | CA-29 |
+| `Plaza.publicar` | CA-12 |
+| `Plaza.sesion` y `SesionPlaza.ver` / `siguiente` / `anterior` / `inicio` | CA-13 |
 
 ### Historial ([`02-pila`](02-pila/plan.md))
 | Función | Nació del criterio |

@@ -1,5 +1,5 @@
 # Plan — Lista doble
-Versión 1.1
+Versión 1.2
 
 ## 1. De qué implementación mía parto
 De **`Semana7/Nodos_enlazados_doblemente.py`** (`ListadoblementeEnlazada` con `cabeza`, `cola`, `actual`, `deshacer` y `rehacer`) y de **`Semana7/carrusel.py`** para la idea de moverse en ambos sentidos. Qué cambia para InsightHub:
@@ -23,8 +23,10 @@ La plaza recibe publicaciones al frente y se recorre en ambos sentidos desde una
 | `pagina(marcador)` | O(5) = O(1) | Lee 5 nodos desde el marcador |
 | `avanzar(marcador)` | O(5) = O(1) | Sigue `siguiente` hasta 5 veces o hasta el final |
 | `retroceder(marcador)` | O(5) = O(1) | Sigue `anterior` hasta 5 veces o hasta el inicio |
-| `buscar_palabra(texto)` | O(n·m) | Recorre los n nodos y busca la subcadena en título y cuerpo (m = largo del texto) |
+| `__iter__()` | O(n) | Recorre del frente al final sin modificar; la búsqueda por palabra se apoya en él |
 | `esta_vacia()`, `tamano()` | O(1) | Cabeza y contador |
+
+La búsqueda por palabra (`dominio/busqueda.buscar_palabra`) cuesta O(n·m): recorre las n publicaciones con `__iter__` y busca la subcadena (m = largo del texto) en título y cuerpo. Vive en el dominio y no en la lista para que la lista siga siendo genérica (decisión de Valentina).
 
 ## 4. Alternativas descartadas
 | Alternativa | Por qué no |
@@ -49,10 +51,11 @@ Si se mueve `cabeza` antes del paso 2, se pierde la referencia al nodo viejo y e
 Ninguno. Solo nodos propios. La comparación de subcadenas usa los operadores de texto de Python sobre el contenido de una publicación, no como sustituto de la lista.
 
 ## 7. Módulos
-`estructuras/lista_doble.py` · `dominio/feed.py` (sesión y marcador) · `dominio/busqueda.py` (palabra) · pruebas en `tests/test_lista_doble.py`.
+`estructuras/lista_doble.py` · `dominio/feed.py` (`Publicacion`, `Plaza` y `SesionPlaza` con su marcador) · `dominio/busqueda.py` (palabra) · pruebas en `tests/test_lista_doble.py`.
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se declara el punto de partida (Semana7: lista doble y carrusel) y qué cambia, el marcador por sesión, páginas de 5, búsqueda por palabra O(n·m), orden de punteros y alternativas descartadas | El plan no decía de qué implementación partía ni justificaba las decisiones; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-08 | `buscar_palabra` pasa de la lista a `dominio/busqueda.py`; `Publicacion` se define en `dominio/feed.py`; se registra que retroceder llega al principio | La lista debe ser genérica y no conocer título ni cuerpo; el plan no decía dónde vivía la publicación; decisiones de Valentina |

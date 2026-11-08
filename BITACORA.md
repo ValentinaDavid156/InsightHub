@@ -1,7 +1,7 @@
 # Bitácora de interacción con la IA — InsightHub
 
 > Registro exigido por el Principio 8 de la [Constitución](specs/CONSTITUTION.md): prompt textual, síntesis de la respuesta y decisión de la estudiante.
-> Herramienta: Claude Code (Anthropic). Fecha de las sesiones: 2026-11-07.
+> Herramienta: Claude Code (Anthropic). Fechas de las sesiones: 2026-11-07 y 2026-11-08.
 > Alcance de la IA: **solo documentos** (`specs/`, `moscow.md`, esta bitácora). No escribió código de estructuras ni pruebas. Cada decisión de diseño la tomó la estudiante respondiendo preguntas con opciones y una recomendación.
 
 ---
@@ -148,6 +148,18 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 - CA-32 y CA-33 quedan «pasa»; CA-05 y CA-07 quedan «parcial» hasta que existan el grafo y el AVL (`amistades.enviar` y `amistades.atender`, Avance 5). Se agregó el arreglo indexado como soporte interno en el plan de la cola (v1.2).
 
 **Decisión de la estudiante:** aprobar el plan por avances y empezar por la cola; la IA escribe pruebas y código y la estudiante los revisa.
+
+## Sesión 18 — Avance 2: lista doble (plaza)
+
+**Prompt (textual):**
+> Sí, haz los 4  /  pero no aparecen los commits en insighthub  /  no, continua, y recuerda, cada cambio me lo indicas, yo tomo la decision
+
+**Síntesis de la respuesta:**
+- Subió los 4 commits de la cola a GitHub y retomó con la lista doble. Antes de escribir código consultó 3 decisiones de diseño que el spec no cerraba.
+- Escribió primero 36 pruebas (`tests/test_lista_doble.py`, en rojo) y luego `estructuras/lista_doble.py` (de `ListadoblementeEnlazada`, Semana7: inserta al frente, marcador por sesión, avanzar y retroceder de 5 en 5), `dominio/feed.py` (`Publicacion`, `Plaza`, `SesionPlaza`) y `dominio/busqueda.py`. Resultado: 98 pruebas pasan en total.
+- CA-12, CA-13 y CA-29 quedan «pasa». Spec de la lista doble v1.2 (retroceder llega al principio) y plan v1.2 (búsqueda en el dominio, `Publicacion` en `feed.py`).
+
+**Decisión de la estudiante:** retroceder hasta el inicio si faltan menos de 5; la búsqueda por palabra va en `dominio/busqueda.py`; la `Publicacion` va en `dominio/feed.py`; cada cambio se le indica y ella decide.
 
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).

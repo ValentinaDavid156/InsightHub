@@ -1,5 +1,5 @@
 # Spec — Lista doble (plaza pública)
-Versión 1.1 · Estado: aprobada para implementar
+Versión 1.2 · Estado: aprobada para implementar
 
 ## 1. Contexto y objetivo
 La plaza es la lista de todas las publicaciones de InsightHub, la más nueva primero. Cada persona la recorre hacia adelante y hacia atrás sin perder su lugar (HU-05), y desde ella se buscan publicaciones por palabra (HU-10).
@@ -19,6 +19,7 @@ SI ya está en la última página, ENTONCES EL SISTEMA DEBE conservar su posici�
 **RF-03 — Paginar hacia atrás.**
 CUANDO una persona pida la página anterior, EL SISTEMA DEBE mover su posición 5 publicaciones hacia las más nuevas y mostrar esa página.
 SI ya está en la primera página, ENTONCES EL SISTEMA DEBE conservar su posición e informar que llegó al principio.
+SI faltan menos de 5 publicaciones para llegar al principio (por ejemplo, porque otra persona publicó y su posición quedó desalineada), ENTONCES EL SISTEMA DEBE llevar su posición hasta el principio.
 
 **RF-04 — Posición propia.**
 CUANDO varias sesiones recorran la plaza, EL SISTEMA DEBE recordar la posición de cada sesión por separado, de modo que paginar en una no mueva a las otras.
@@ -54,6 +55,7 @@ CUANDO se pregunte si la plaza está vacía o por su tamaño, EL SISTEMA DEBE re
 - Publicar dos veces seguidas: la última queda primera y la anterior segunda (CA-12).
 - Dos sesiones en distintas páginas: avanzar en una no mueve a la otra.
 - Publicar mientras una sesión está en la página 2: sigue viendo la misma publicación.
+- Posición desalineada (a menos de 5 publicaciones del principio): retroceder la lleva al principio y no informa límite.
 - Palabra que aparece solo en el cuerpo, solo en el título, con otras mayúsculas o dentro de otra palabra: se encuentra (CA-29).
 - Palabra vacía o solo espacios: resultado vacío, no devuelve toda la plaza.
 - Publicaciones con el mismo título: ambas aparecen, la más nueva primero.
@@ -68,3 +70,4 @@ CUANDO se pregunte si la plaza está vacía o por su tamaño, EL SISTEMA DEBE re
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con requisitos CUANDO/EL SISTEMA DEBE; criterios CA-12, CA-13 (antes CA-05, CA-06) y se suma CA-29 (búsqueda por palabra, que era del AVL en el mapeo); páginas de 5, posición por sesión, búsqueda sin distinguir mayúsculas y casos extremos concretos | La numeración de las historias cambió; la búsqueda por palabra recorre la plaza, no el AVL; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-08 | RF-03: si faltan menos de 5 publicaciones para el principio, retroceder lleva al principio; se agrega ese caso extremo | Al implementar apareció la posición desalineada cuando alguien publica durante la sesión; decisión de Valentina |
