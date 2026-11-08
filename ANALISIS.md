@@ -34,5 +34,14 @@ n = elementos de la estructura · k = resultados · g = grado · c = conectados 
 | Montículo | construir | O(m) | pendiente |
 | Lista simple | conectar / registrar_actividad / salir / caducar / listar | O(c) | pendiente |
 
+## Análisis por estructura implementada (entrega 2)
+**Lista doble (plaza).** Insertar al frente solo cambia dos punteros y el marcador de cada sesión se mueve de 5 en 5 siguiendo `siguiente`/`anterior`, así que todo el recorrido paginado es O(1) por página. Se descartó el arreglo de Python porque insertar al frente desplaza todos los elementos (O(n)). El costo está en la búsqueda por palabra, que recorre toda la plaza: O(n·m).
+
+**Pila (historial).** Apilar y desapilar tocan solo la cima, O(1). Una lista con índices serviría igual, pero la pila enlazada no reserva espacio de más y deja claro que «atrás» solo mira la pantalla anterior.
+
+**Cola (solicitudes y notificaciones).** Encolar por el final y desencolar por el frente son O(1) con referencia al último nodo; el orden de llegada sale gratis. `contiene` recorre la cola (O(k)), pero k es pequeña (solicitudes pendientes de una persona). Una pila entregaría primero lo más nuevo, contra la regla de «en orden de llegada».
+
+**AVL (usuarios).** Con 120 perfiles sembrados que pueden llegar ya ordenados, un árbol sin equilibrar tendría altura cercana a n; el AVL la mantiene en O(log n) con las cuatro rotaciones, y buscar por prefijo cuesta O(log n + k) porque las claves con un prefijo son un tramo contiguo. El `dict` de Python daría O(1) exacto, pero no orden alfabético ni prefijo.
+
 ## Comparaciones con la alternativa descartada
 (Pendiente: al menos dos, con medición empírica si es posible. Una medición ya planeada: `specs/07-monticulo/tasks.md`, tarea T-07.17.)
