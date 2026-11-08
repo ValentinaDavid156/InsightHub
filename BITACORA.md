@@ -161,6 +161,21 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** retroceder hasta el inicio si faltan menos de 5; la búsqueda por palabra va en `dominio/busqueda.py`; la `Publicacion` va en `dominio/feed.py`; cada cambio se le indica y ella decide.
 
+## Sesión 19 — Avance 3: AVL y usuarios
+
+**Prompt (textual):**
+> necesito entregar todo asi no cuente, asi que continuemos con el avl, ya sabes la tematica, yo tomo las decisiones
+>
+> esperate, no hicimos cada entrega, los commits son con entrega 1 entrega 2 y entrega final :c  /  pero se pueden cambiar los commits sin alterar la fecha? el nombre ps  /  renombralos por fa, si  /  haz el push de la entrega 1  /  continua con AVL
+
+**Síntesis de la respuesta:**
+- Reorganizó las entregas: renombró el commit `cambios pequeños` a `Entrega 1: especificación y diseño` (fechas y contenido intactos), creó y subió la etiqueta `entrega-1`; acordó los commits en 3 por avance (`test`, `feat`, `docs`) y una etiqueta por entrega.
+- Consultó 3 decisiones antes de programar y escribió primero las pruebas (rojo): `tests/test_avl.py` (73 pruebas del AVL y los usuarios: CA-01 a CA-04, CA-27 y CA-28) y las 12 de la consola actualizada.
+- Escribió `estructuras/avl.py` (desde el `NodoArbol` de Semana10: inserción ordenada, cuatro rotaciones, prefijo), `dominio/usuarios.py` (`Catalogo`, `Perfil`, `UsuarioInvalidoError`, `generar_comunidad` con la semilla 706132) y la entrada por consola. Resultado: 178 pruebas pasan. Al probar la consola a mano se corrigió el orden del menú, que salía desordenado.
+- CA-01 a CA-04, CA-27 y CA-28 quedan «pasa». Spec del AVL v1.2, plan v1.2 (decisiones de implementación) y spec de `99-sistema` v1.1.
+
+**Decisión de la estudiante:** `insertar` devuelve False si existe; `buscar` devuelve None si no está; el dominio lanza `UsuarioInvalidoError`; la `@` inicial es opcional; la consola pide el `@usuario` al arrancar; la lista de 40 nombres; commits agrupados por avance.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

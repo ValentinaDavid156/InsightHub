@@ -1,5 +1,5 @@
 # Spec del sistema — InsightHub
-Versión 1.0 · Estado: aprobada para implementar
+Versión 1.1 · Estado: aprobada para implementar
 
 ## 1. Qué hace el sistema
 InsightHub es una red social **100 % pública** de preguntas y respuestas. Los miembros entran con su `@usuario`, hacen amigos con solicitud y aceptación, publican preguntas en una plaza común, responden en hilos anidados, votan, buscan, navegan con «atrás», reciben notificaciones y obtienen recomendaciones de contactos. **No hay chats ni mensajes privados** ([`CONSTITUTION.md`](../CONSTITUTION.md)).
@@ -59,7 +59,7 @@ EL SISTEMA NO DEBE ofrecer ninguna función que cree conversaciones privadas.
 SI una operación se rechaza (usuario inválido, solicitud repetida, respuesta a un comentario inexistente, etc.), ENTONCES EL SISTEMA DEBE mostrar un mensaje claro y seguir funcionando con el mismo estado que tenía.
 
 **RF-04 — Consola con menús (Must).**
-CUANDO una persona use la consola, EL SISTEMA DEBE mostrarle menús numerados por pantalla (inicio, plaza, hilo, perfil, búsqueda, amigos, solicitudes, notificaciones, recomendaciones y, si se implementan, conectados y destacada), con una opción «atrás» en toda pantalla excepto la de inicio.
+CUANDO una persona use la consola, EL SISTEMA DEBE pedirle su `@usuario` al arrancar, repitiendo la pregunta con el motivo mientras sea inválido, y después mostrarle menús numerados por pantalla (inicio, plaza, hilo, perfil, búsqueda, amigos, solicitudes, notificaciones, recomendaciones y, si se implementan, conectados y destacada), con una opción «atrás» en toda pantalla excepto la de inicio.
 CUANDO elija una opción que no existe o escriba algo que no es un número, EL SISTEMA DEBE avisarlo y volver a mostrar el menú sin cambiar nada.
 
 **RF-05 — Todas las funciones por consola (CA-37).**
@@ -113,3 +113,4 @@ EL SISTEMA DEBE funcionar completo en sus partes Must aunque ninguna parte Shoul
 |---|---|---|---|
 | 0.1 | 2026-11-07 | Versión inicial | Entrega 1 |
 | 1.0 | 2026-11-07 | Se reescribe: tabla de ocho componentes con las operaciones que expone cada uno; flujos de integración (solicitud → cola, aceptar → grafo y aviso, responder → árbol y aviso, cada pantalla → pila); consola Must (menús numerados) y web Should; criterios CA-37 y CA-38; mapa de criterios por componente | La spec 0.1 tenía seis componentes con las historias viejas (seguir en vez de amistad) y no describía las interfaces; decisiones tomadas en la consulta del sistema |
+| 1.1 | 2026-11-08 | RF-04: la consola pide el `@usuario` al arrancar y luego muestra los menús | Decisión de Valentina al implementar la entrada (el AVL de usuarios) |

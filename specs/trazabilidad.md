@@ -6,10 +6,10 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 ## Criterio → historia → spec → prueba → código
 | Criterio | Historia | Prioridad | Spec que lo define | Prueba esperada | Estado | Código esperado |
 |---|---|---|---|---|---|---|
-| CA-01 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py`, `estructuras/avl.py` |
-| CA-02 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py` |
-| CA-03 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py`, `estructuras/avl.py` |
-| CA-04 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py` |
+| CA-01 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py`, `estructuras/avl.py` |
+| CA-02 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py` |
+| CA-03 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py`, `estructuras/avl.py` |
+| CA-04 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py` |
 | CA-05 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: `contiene` listo, falta `amistades.enviar` | `dominio/amistades.py`, `estructuras/cola.py` |
 | CA-06 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py`, `dominio/amistades.py` |
 | CA-07 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: cola lista, falta `amistades.atender` | `estructuras/cola.py`, `dominio/amistades.py` |
@@ -32,8 +32,8 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-24 | HU-09 | Should | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `dominio/destacada.py`, `estructuras/monticulo.py` |
 | CA-25 | HU-09 | Should | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `estructuras/monticulo.py`, `dominio/destacada.py` |
 | CA-26 | HU-09 | Should | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `dominio/destacada.py` |
-| CA-27 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py`, `dominio/usuarios.py` |
-| CA-28 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `estructuras/avl.py` |
+| CA-27 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `estructuras/avl.py`, `dominio/usuarios.py` |
+| CA-28 | HU-10 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `estructuras/avl.py` |
 | CA-29 | HU-10 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `dominio/busqueda.py`, `estructuras/lista_doble.py` |
 | CA-30 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
 | CA-31 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
@@ -113,9 +113,15 @@ Cada función pública nombrada en un `plan.md` nace de al menos un criterio. La
 | `AVL.recorrer_en_orden` | CA-27 |
 | `AVL.altura` | CA-01 (prueba de equilibrio con perfiles ordenados) |
 | `AVL.tamano` | CA-01 |
-| `usuarios.generar` | CA-01, CA-02 |
-| `usuarios.entrar` | CA-03 |
-| `usuarios.crear_perfil` | CA-03, CA-04 |
+| `usuarios.generar_comunidad` | CA-01, CA-02 |
+| `Catalogo.entrar` | CA-03 |
+| `Catalogo.crear_perfil` | CA-03, CA-04 |
+| `usuarios.normalizar_usuario` | CA-04 |
+| `Catalogo.buscar` | CA-03 |
+| `Catalogo.buscar_por_prefijo` | CA-27, CA-28 |
+| `Catalogo.por_id` | CA-01 |
+| `Catalogo.perfiles` | CA-01 |
+| `Catalogo.tamano` | CA-01 |
 | `usuarios.insignia` | CA-21 |
 | `votos.votar` | CA-17, CA-18, CA-19 |
 | `votos.cambiar` | CA-20 |

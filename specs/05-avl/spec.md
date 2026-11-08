@@ -1,5 +1,5 @@
 # Spec — AVL (usuarios, votos y fechas)
-Versión 1.1 · Estado: aprobada para implementar
+Versión 1.2 · Estado: aprobada para implementar
 
 ## 1. Contexto y objetivo
 Tres cosas de InsightHub necesitan encontrarse rápido y en orden:
@@ -18,7 +18,7 @@ CUANDO el sistema inicie, EL SISTEMA DEBE crear 120 perfiles de ejemplo, cada un
 CUANDO se use la misma semilla, EL SISTEMA DEBE producir los mismos perfiles en el mismo orden.
 
 **RF-02 — Reglas del `@usuario`.**
-CUANDO se cree un perfil, EL SISTEMA DEBE aceptar un `@usuario` de 3 a 20 caracteres formado por letras, números y guión bajo, sin distinguir mayúsculas de minúsculas (`@Ana` y `@ana` son la misma persona).
+CUANDO se cree un perfil, EL SISTEMA DEBE aceptar un `@usuario` de 3 a 20 caracteres formado por letras, números y guión bajo, sin distinguir mayúsculas de minúsculas (`@Ana` y `@ana` son la misma persona) y con o sin la arroba inicial (`@ana` y `ana` son la misma persona; se guarda sin ella).
 SI el `@usuario` tiene menos de 3 o más de 20 caracteres, o un carácter no permitido, o ya existe, ENTONCES EL SISTEMA DEBE rechazarlo con un mensaje claro que diga el motivo, sin crear nada.
 
 **RF-03 — Entrar.**
@@ -74,6 +74,7 @@ SI ese día no hubo publicaciones, ENTONCES EL SISTEMA DEBE devolver un resultad
 - `@usuario` de 2, 3, 20 y 21 caracteres: rechaza 2 y 21; acepta 3 y 20 (CA-04).
 - Caracteres no permitidos (espacio, `@` dentro del nombre, acentos, `-`): rechazado (CA-04).
 - `@Ana` frente a `@ana` frente a `@ANA`: es un único usuario (CA-03, CA-04).
+- Con y sin la arroba inicial (`@ana` y `ana`): es el mismo usuario; una arroba en medio del nombre se rechaza (CA-03, CA-04).
 - Entrar dos veces con el mismo nombre: el segundo solo abre sesión y no duplica (CA-03).
 - Generar con la misma semilla dos veces: mismos 120 perfiles en el mismo orden; con otra semilla, distintos (CA-01, CA-02).
 - 100 o más usuarios insertados ya en orden alfabético: las búsquedas siguen siendo rápidas; el índice se mantiene equilibrado.
@@ -110,3 +111,4 @@ SI ese día no hubo publicaciones, ENTONCES EL SISTEMA DEBE devolver un resultad
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con requisitos CUANDO/EL SISTEMA DEBE; criterios CA-01 a CA-04, CA-27, CA-28 (Must) y CA-17 a CA-21, CA-39 (Should) en vez de los CA-10 a CA-12 viejos; CA-21 (insignias) queda aquí; CA-29 pasa a la lista doble; un solo índice por `@usuario`; reglas del `@usuario` (3 a 20, sin distinguir mayúsculas); 120 perfiles de ejemplo | La numeración de las historias cambió; CA-21 no tenía dueño; la búsqueda por palabra recorre la plaza; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-08 | La arroba inicial del `@usuario` es opcional (RF-02) y se agrega el caso extremo | Al implementar la entrada hubo que decidir si se escribe con arroba; decisión de Valentina |

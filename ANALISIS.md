@@ -1,5 +1,5 @@
 # Análisis de complejidad
-Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones) y la **lista doble** (con la plaza y la búsqueda por palabra); las demás figuran «pendiente».
+Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones), la **lista doble** (con la plaza y la búsqueda por palabra) y el **AVL** (con los usuarios); las demás figuran «pendiente».
 
 n = elementos de la estructura · k = resultados · g = grado · c = conectados · V, E = vértices y aristas.
 
@@ -17,8 +17,15 @@ n = elementos de la estructura · k = resultados · g = grado · c = conectados 
 | Árbol general | abrir_hilo / tamano | O(1) | pendiente |
 | Árbol general | responder / buscar / recorrer / profundidad / aceptar | O(n) | pendiente |
 | Árbol general | mejor_respuesta | O(k) | pendiente |
-| AVL | insertar / buscar / reemplazar | O(log n) | pendiente |
-| AVL | buscar_por_prefijo | O(log n + k) | pendiente |
+| AVL | insertar / buscar | O(log n) | implementada (`estructuras/avl.py`) |
+| AVL | reemplazar | O(log n) | pendiente (Should: votos) |
+| AVL | recorrer_en_orden | O(n) | implementada |
+| AVL | altura / tamano | O(1) | implementada |
+| AVL | buscar_por_prefijo | O(log n + k) | implementada |
+| Usuarios | crear_perfil / entrar / buscar | O(log n) | implementada (`dominio/usuarios.py`) |
+| Usuarios | buscar_por_prefijo | O(log n + k) | implementada |
+| Usuarios | por_id | O(1) | implementada |
+| Usuarios | generar_comunidad | O(n log n) | implementada |
 | Grafo | agregar_vertice | O(1) amortizado | pendiente |
 | Grafo | agregar_amistad / eliminar_amistad / son_amigos / amigos | O(g) | pendiente |
 | Grafo | candidatos_dos_saltos | O(V + g + E′) | pendiente |

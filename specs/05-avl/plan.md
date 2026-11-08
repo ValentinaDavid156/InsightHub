@@ -1,5 +1,5 @@
 # Plan — AVL
-Versión 1.1
+Versión 1.2
 
 ## 1. De qué implementación mía parto
 **No tengo en el repositorio una implementación propia de árbol de búsqueda ni de AVL**: lo más cercano es **`Semana10/arbol_binario.py`** (`NodoArbol` con `izquierdo` y `derecho`, `inorden` y la convención de altura **vacío = −1, hoja = 0**). Qué cambia para InsightHub (casi todo es nuevo y lo escribo desde cero):
@@ -77,8 +77,20 @@ En cada nodo: si la clave empieza por el prefijo, se visitan los dos lados (prim
 ## 9. Módulos
 `estructuras/avl.py` · `dominio/usuarios.py` · `dominio/votos.py` · `dominio/busqueda.py` · pruebas en `tests/test_avl.py`.
 
+## 10. Decisiones tomadas al implementar (todas de Valentina)
+- **`AVL.insertar`:** devuelve `True` si la clave era nueva y `False` si ya existía, sin cambiar nada (ni el valor ni el tamaño).
+- **`AVL.buscar`:** devuelve `None` si la clave no está; por eso un valor `None` no se distingue de «ausente».
+- **`AVL.buscar_por_prefijo`:** devuelve los **valores** en orden alfabético de clave, y `[]` con prefijo vacío. **`recorrer_en_orden`** devuelve las claves.
+- **`reemplazar`** no se implementó todavía: llega con los votos (Should, T-05.17).
+- **Errores del @usuario:** el dominio lanza `UsuarioInvalidoError` (hereda de `ValueError`) con el motivo («muy corto», «muy largo», «solo puede tener letras…», «está vacío», «ya existe»).
+- **Arroba inicial:** opcional; se guarda sin ella y en minúsculas.
+- **Catálogo:** `Catalogo` junta el AVL (`@usuario` → `Perfil`) y un arreglo indexado por id; los ids van de 0 en el orden de creación y no se reutilizan.
+- **`entrar`:** devuelve `(perfil, creado)`. La consulta de perfiles (`buscar`, `buscar_por_prefijo`) nunca lanza error: texto vacío o inválido da `None` o `[]`.
+- **Comunidad inicial:** 40 nombres fijos (sin tildes ni ñ) con número del 01 al 99, sorteados con `random.Random(706132)`; los repetidos se vuelven a sortear. La lista la aprobó Valentina.
+
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se aclara que no hay implementación previa y qué se toma de Semana10; tres instancias del mismo árbol; rotaciones con su orden de punteros; búsqueda por prefijo; reglas de votos e insignia; generación con semilla; alternativas descartadas | El plan no justificaba la elección ni explicaba las rotaciones; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-08 | Se agrega la sección 10 con las decisiones de implementación: duplicado, ausente, errores, arroba opcional, ids y nombres de ejemplo | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |

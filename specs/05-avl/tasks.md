@@ -3,33 +3,33 @@
 Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea. Cada tarea de criterio agrupa al menos 3 pruebas por operación. Las partes A a E son **Must**; las partes F a H son **Should** (HU-07 y búsqueda por fecha) y se hacen solo si sobra tiempo.
 
 ## Parte A — El árbol equilibrado
-- [ ] **T-05.1** Adaptar `NodoArbol` de Semana10 a `estructuras/avl.py` con `clave`, `valor` y `altura`; `insertar` ordenado, `buscar`, `inorden`, `tamano`, `altura` (vacío = −1).
-- [ ] **T-05.2** Prueba (rojo): las cuatro rotaciones (izquierda-izquierda, derecha-derecha, izquierda-derecha, derecha-izquierda) con tres claves; que ninguna rotación pierda un subárbol; que `inorden` siga ordenado después de cada una.
-- [ ] **T-05.3** Código: rotaciones y reequilibrio al volver de la inserción, con el orden de punteros del plan.
-- [ ] **T-05.4** Prueba (rojo): 100 claves en orden creciente y 100 en orden decreciente dejan altura ≤ 1.44·log₂(n+2); clave duplicada no cambia el árbol; árbol vacío y de un solo nodo.
+- [x] **T-05.1** Adaptar `NodoArbol` de Semana10 a `estructuras/avl.py` con `clave`, `valor` y `altura`; `insertar` ordenado, `buscar`, `inorden`, `tamano`, `altura` (vacío = −1).
+- [x] **T-05.2** Prueba (rojo): las cuatro rotaciones (izquierda-izquierda, derecha-derecha, izquierda-derecha, derecha-izquierda) con tres claves; que ninguna rotación pierda un subárbol; que `inorden` siga ordenado después de cada una.
+- [x] **T-05.3** Código: rotaciones y reequilibrio al volver de la inserción, con el orden de punteros del plan.
+- [x] **T-05.4** Prueba (rojo): 100 claves en orden creciente y 100 en orden decreciente dejan altura ≤ 1.44·log₂(n+2); clave duplicada no cambia el árbol; árbol vacío y de un solo nodo.
 - **Entregables:** `tests/test_avl.py`, `estructuras/avl.py`
 
 ## Parte B — CA-01 y CA-02: comunidad inicial
-- [ ] **T-05.5** Prueba (rojo, CA-01): al generar hay 120 perfiles, todos con `@usuario` distinto y todos encontrables.
-- [ ] **T-05.6** Prueba (rojo, CA-02): dos generaciones con la semilla 706132 dan los mismos perfiles en el mismo orden; con otra semilla, distintos.
-- [ ] **T-05.7** Código: `dominio/usuarios.generar` con `random.Random(706132)`, lista fija de nombres y resorteo de repetidos.
+- [x] **T-05.5** Prueba (rojo, CA-01): al generar hay 120 perfiles, todos con `@usuario` distinto y todos encontrables.
+- [x] **T-05.6** Prueba (rojo, CA-02): dos generaciones con la semilla 706132 dan los mismos perfiles en el mismo orden; con otra semilla, distintos.
+- [x] **T-05.7** Código: `dominio/usuarios.generar` con `random.Random(706132)`, lista fija de nombres y resorteo de repetidos.
 - **Entregables:** `tests/test_avl.py`, `dominio/usuarios.py`
 
 ## Parte C — CA-03 y CA-04: entrar y validar
-- [ ] **T-05.8** Prueba (rojo, CA-04): `@usuario` de 2, 3, 20 y 21 caracteres; con espacio, `@`, acento o `-`; ya existente; con mayúsculas distintas.
-- [ ] **T-05.9** Código: validación y pase a minúsculas; `crear_perfil` rechaza con mensaje claro.
-- [ ] **T-05.10** Prueba (rojo, CA-03): entrar con uno nuevo crea el perfil con 0 puntos y abre sesión; con uno existente solo abre sesión; entrar dos veces no duplica.
-- [ ] **T-05.11** Código: `entrar` (buscar y, si no existe, crear).
+- [x] **T-05.8** Prueba (rojo, CA-04): `@usuario` de 2, 3, 20 y 21 caracteres; con espacio, `@`, acento o `-`; ya existente; con mayúsculas distintas.
+- [x] **T-05.9** Código: validación y pase a minúsculas; `crear_perfil` rechaza con mensaje claro.
+- [x] **T-05.10** Prueba (rojo, CA-03): entrar con uno nuevo crea el perfil con 0 puntos y abre sesión; con uno existente solo abre sesión; entrar dos veces no duplica.
+- [x] **T-05.11** Código: `entrar` (buscar y, si no existe, crear).
 - **Entregables:** `tests/test_avl.py`, `dominio/usuarios.py`
 
 ## Parte D — CA-27 y CA-28: buscar por prefijo
-- [ ] **T-05.12** Prueba (rojo): prefijo con varias coincidencias en orden alfabético; `ana` y `ana_07` (el corto primero); otras mayúsculas; un solo usuario; árbol vacío; sin coincidencias; prefijo vacío.
-- [ ] **T-05.13** Código: `buscar_por_prefijo` con las tres reglas de descarte del plan.
+- [x] **T-05.12** Prueba (rojo): prefijo con varias coincidencias en orden alfabético; `ana` y `ana_07` (el corto primero); otras mayúsculas; un solo usuario; árbol vacío; sin coincidencias; prefijo vacío.
+- [x] **T-05.13** Código: `buscar_por_prefijo` con las tres reglas de descarte del plan.
 - **Entregables:** `tests/test_avl.py`, `estructuras/avl.py`
 
 ## Parte E — Integración Must
-- [ ] **T-05.14** Opciones de consola: entrar, buscar usuarios por prefijo (CA-37).
-- [ ] **T-05.15** Marcar CA-01 a CA-04, CA-27 y CA-28 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
+- [x] **T-05.14** Opciones de consola: entrar, buscar usuarios por prefijo (CA-37).
+- [x] **T-05.15** Marcar CA-01 a CA-04, CA-27 y CA-28 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
 - **Entregables:** `main.py`, `specs/trazabilidad.md`
 
 ## Parte F — CA-17 a CA-20: votos (Should)
@@ -51,6 +51,9 @@ Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea.
 - [ ] **T-05.22** Opciones de consola: votar, retirar voto, ver perfil con insignia, buscar por fecha.
 - [ ] **T-05.23** Marcar CA-17 a CA-21 y CA-39 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
 - **Entregables:** `main.py`, `specs/trazabilidad.md`
+
+## Estado (2026-11-08)
+Hechas T-05.1 a T-05.15 (AVL, usuarios, entrar, prefijo y consola: CA-01 a CA-04, CA-27 y CA-28). En la práctica las pruebas de las partes A a D se escribieron juntas antes del código (T-05.4 antes de T-05.3, para que estuviera de verdad en rojo). Las partes F a I (votos, insignias y fecha) son Should y siguen pendientes.
 
 ## Verificación final
 - [ ] `pytest tests/test_avl.py -v` sin errores.
