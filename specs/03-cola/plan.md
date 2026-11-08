@@ -44,7 +44,8 @@ Si se omite el paso 3, `_cola` sigue apuntando a un nodo que ya salió y el sigu
 - `notificaciones.leer(persona)`: desencola todo; si estaba vacía, devuelve «sin notificaciones».
 
 ## 7. Soporte interno
-Ninguno. Solo nodos propios.
+- La cola es de nodos propios, sin soporte.
+- `dominio/notificaciones.py` guarda la cola de cada persona en un **arreglo de Python indexado por el id de la persona** (las colas se crean al recibir el primer aviso). Se justifica porque da acceso O(1) por id y el id viene del catálogo de usuarios (el mismo soporte declarado en [`estructuras.md`](../00-producto/estructuras.md)); no sustituye a la cola.
 
 ## 8. Módulos
 `estructuras/cola.py` · `dominio/amistades.py` · `dominio/notificaciones.py` · pruebas en `tests/test_cola.py`.
@@ -54,3 +55,4 @@ Ninguno. Solo nodos propios.
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se declara el punto de partida (`ColaEnlazada` de Semana10), por qué no la circular, `contiene`, orden de punteros al desencolar y el uso desde amistades y notificaciones | El plan no justificaba la elección ni decía de qué implementación partía; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-07 | Se declara el arreglo indexado por id como soporte interno de `notificaciones.py` | Al implementar apareció dónde guardar la cola de cada persona; antes el plan decía «ninguno» |

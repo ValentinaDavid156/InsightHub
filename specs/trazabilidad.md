@@ -10,9 +10,9 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-02 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py` |
 | CA-03 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py`, `estructuras/avl.py` |
 | CA-04 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/usuarios.py` |
-| CA-05 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `dominio/amistades.py`, `estructuras/cola.py` |
+| CA-05 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: `contiene` listo, falta `amistades.enviar` | `dominio/amistades.py`, `estructuras/cola.py` |
 | CA-06 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py`, `dominio/amistades.py` |
-| CA-07 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `estructuras/cola.py`, `dominio/amistades.py` |
+| CA-07 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: cola lista, falta `amistades.atender` | `estructuras/cola.py`, `dominio/amistades.py` |
 | CA-08 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py` |
 | CA-09 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
 | CA-10 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
@@ -37,8 +37,8 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-29 | HU-10 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pendiente | `dominio/busqueda.py`, `estructuras/lista_doble.py` |
 | CA-30 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
 | CA-31 | HU-11 | Must | [`02-pila`](02-pila/spec.md) | `tests/test_pila.py` | pasa | `estructuras/pila.py`, `dominio/navegacion.py` |
-| CA-32 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `estructuras/cola.py`, `dominio/notificaciones.py` |
-| CA-33 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pendiente | `dominio/notificaciones.py` |
+| CA-32 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `estructuras/cola.py`, `dominio/notificaciones.py` |
+| CA-33 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `dominio/notificaciones.py` |
 | CA-34 | HU-13 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py`, `dominio/recomendaciones.py` |
 | CA-35 | HU-13 | Must | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `estructuras/monticulo.py`, `dominio/recomendaciones.py` |
 | CA-36 | HU-13 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pendiente | `estructuras/grafo.py` |

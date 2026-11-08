@@ -135,6 +135,20 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** la IA escribe pruebas y código y la estudiante los revisa. Pendiente: leer línea por línea lo escrito antes de la sustentación (Principio 8 de la Constitución).
 
+## Sesión 17 — Avance 1: cola y notificaciones
+
+**Prompt (textual):**
+> analiza nuevamente el documento del proyecto integrador B, y realiza un plan con commits, nombres propuestos donde este dividido cada avance para la entrega final, y analiza que mas hace falta de la entrega 2
+>
+> si   (aprobó empezar por el avance 1, la cola)
+
+**Síntesis de la respuesta:**
+- Releyó el PDF y propuso un plan de 10 avances con commits para llegar a `entrega-final` (11 de nov); señaló lo que falta de la entrega 2: 3 estructuras más (de las 4 mínimas), el párrafo por estructura en `ANALISIS.md`, «Qué se dificultó» en la bitácora y una nota de prioridades en `moscow.md`.
+- Avance 1: escribió primero 33 pruebas (`tests/test_cola.py`, en rojo) y luego `estructuras/cola.py` (de `ColaEnlazada`, Semana10, más `contiene` e iterador) y `dominio/notificaciones.py` (una cola por persona en un arreglo indexado por id). Resultado: 62 pruebas pasan en total.
+- CA-32 y CA-33 quedan «pasa»; CA-05 y CA-07 quedan «parcial» hasta que existan el grafo y el AVL (`amistades.enviar` y `amistades.atender`, Avance 5). Se agregó el arreglo indexado como soporte interno en el plan de la cola (v1.2).
+
+**Decisión de la estudiante:** aprobar el plan por avances y empezar por la cola; la IA escribe pruebas y código y la estudiante los revisa.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

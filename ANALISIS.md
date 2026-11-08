@@ -1,5 +1,5 @@
 # Análisis de complejidad
-Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy está implementada la **pila** y las demás figuran «pendiente».
+Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila** y la **cola** (con las notificaciones); las demás figuran «pendiente».
 
 n = elementos de la estructura · k = resultados · g = grado · c = conectados · V, E = vértices y aristas.
 
@@ -10,8 +10,10 @@ n = elementos de la estructura · k = resultados · g = grado · c = conectados 
 | Lista doble | buscar_palabra | O(n·m) | pendiente |
 | Pila | apilar / desapilar / tope / esta_vacia / tamano | O(1) | implementada (`estructuras/pila.py`) |
 | Navegación | ir_a / atras | O(1) | implementada (`dominio/navegacion.py`) |
-| Cola | encolar / desencolar / frente | O(1) | pendiente |
-| Cola | contiene | O(k) | pendiente |
+| Cola | encolar / desencolar / frente / esta_vacia / tamano | O(1) | implementada (`estructuras/cola.py`) |
+| Cola | contiene | O(k) | implementada |
+| Notificaciones | notificar | O(1) amortizado | implementada (`dominio/notificaciones.py`) |
+| Notificaciones | leer | O(k) | implementada |
 | Árbol general | abrir_hilo / tamano | O(1) | pendiente |
 | Árbol general | responder / buscar / recorrer / profundidad / aceptar | O(n) | pendiente |
 | Árbol general | mejor_respuesta | O(k) | pendiente |
