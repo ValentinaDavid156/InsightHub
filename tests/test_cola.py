@@ -1,13 +1,14 @@
 """Pruebas de la cola y de las notificaciones (specs/03-cola).
 
 Estilo de Semana10: funciones sueltas de pytest; cada docstring nombra el criterio CA
-que verifica. CA-05 y CA-07 se completan con `dominio/amistades.py` (Avance 5, cuando
-exista el grafo): aquí se prueba la parte de la cola que los sostiene.
+que verifica. CA-05 y CA-07 se prueban al final con `dominio/amistades.py`.
 """
 
 import pytest
 
+from dominio.amistades import Amistades, MENSAJE_SIN_SOLICITUDES, SolicitudInvalidaError
 from dominio.notificaciones import MENSAJE_SIN_NOTIFICACIONES, Notificaciones
+from dominio.usuarios import Catalogo
 from estructuras.cola import ColaEnlazada, ColaVaciaError
 
 
@@ -254,3 +255,202 @@ def test_persona_invalida_se_rechaza(persona):
         avisos.notificar(persona, "x")
     with pytest.raises(ValueError):
         avisos.leer(persona)
+
+
+# ---------- CA-05: enviar solicitud (dominio/amistades.py) ----------
+
+def _comunidad():
+    """Catálogo con ana (0), luis (1), sara (2) y tomas (3), más sus amistades."""
+    catalogo = Catalogo()
+    for usuario in ("ana", "luis", "sara", "tomas"):
+        catalogo.crear_perfil(usuario)
+    return catalogo, Amistades(catalogo)
+
+
+ANA, LUIS, SARA, TOMAS = 0, 1, 2, 3
+
+
+def test_enviar_deja_la_solicitud_pendiente_en_la_cola_del_destinatario():
+    """CA-05: la solicitud queda en la cola de quien la recibe, no en la de quien la envía."""
+    _, amistades = _comunidad()
+    destino = amistades.enviar(ANA, "luis")
+    assert destino.usuario == "luis"
+    assert amistades.pendientes(LUIS) == 1
+    assert amistades.pendientes(ANA) == 0
+    assert amistades.primera(LUIS).usuario == "ana"
+
+
+def test_enviar_acepta_arroba_y_mayusculas():
+    """CA-05: el destinatario se busca sin distinguir mayúsculas y con o sin arroba."""
+    _, amistades = _comunidad()
+    assert amistades.enviar(ANA, "@LUIS").usuario == "luis"
+
+
+def test_enviar_no_crea_la_amistad():
+    """CA-05: mientras esté pendiente no son amigos."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    assert amistades.amigos(ANA) == []
+    assert amistades.amigos(LUIS) == []
+
+
+def test_enviar_avisa_al_destinatario():
+    """CA-32 integrado: enviar genera un aviso para quien la recibe."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    assert amistades.notificaciones.leer(LUIS) == ["@ana te envió una solicitud de amistad."]
+    assert amistades.notificaciones.leer(ANA) == []
+
+
+def test_enviar_a_uno_mismo_se_rechaza_sin_cambiar_la_cola():
+    """CA-05: no se permite enviarla a uno mismo."""
+    _, amistades = _comunidad()
+    with pytest.raises(SolicitudInvalidaError, match="ti mismo"):
+        amistades.enviar(ANA, "@Ana")
+    assert amistades.pendientes(ANA) == 0
+    assert amistades.notificaciones.pendientes(ANA) == 0
+
+
+def test_enviar_a_un_amigo_se_rechaza():
+    """CA-05: no se permite enviarla a quien ya es amigo."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    amistades.atender(LUIS, aceptar=True)
+    with pytest.raises(SolicitudInvalidaError, match="amigo"):
+        amistades.enviar(ANA, "luis")
+    with pytest.raises(SolicitudInvalidaError, match="amigo"):
+        amistades.enviar(LUIS, "ana")
+    assert amistades.pendientes(LUIS) == 0
+    assert amistades.pendientes(ANA) == 0
+
+
+def test_enviar_repetida_se_rechaza_y_la_cola_no_cambia():
+    """CA-05: no se permite repetirla mientras esté pendiente."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    with pytest.raises(SolicitudInvalidaError, match="Ya le enviaste"):
+        amistades.enviar(ANA, "luis")
+    assert amistades.pendientes(LUIS) == 1
+    assert amistades.notificaciones.pendientes(LUIS) == 1
+
+
+def test_solicitud_cruzada_se_rechaza_con_aviso():
+    """CA-05: decisión de Valentina, si el otro ya te la envió, se te remite a tus solicitudes."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    with pytest.raises(SolicitudInvalidaError, match="ya te envió"):
+        amistades.enviar(LUIS, "ana")
+    assert amistades.pendientes(ANA) == 0
+    assert amistades.pendientes(LUIS) == 1
+
+
+@pytest.mark.parametrize("texto", ["nadie", "", "   ", None])
+def test_enviar_a_alguien_que_no_existe_se_rechaza(texto):
+    """CA-05: el destinatario debe existir; nunca se encola nada."""
+    _, amistades = _comunidad()
+    with pytest.raises(SolicitudInvalidaError, match="no existe"):
+        amistades.enviar(ANA, texto)
+    assert amistades.pendientes(ANA) == 0
+
+
+def test_remitente_inexistente_se_rechaza():
+    """CA-05: extremo, quien envía también debe existir."""
+    _, amistades = _comunidad()
+    with pytest.raises(SolicitudInvalidaError, match="no existe"):
+        amistades.enviar(99, "luis")
+    assert amistades.pendientes(LUIS) == 0
+
+
+def test_se_puede_volver_a_enviar_despues_de_un_rechazo():
+    """CA-05: al rechazarla sale de la cola, así que ya no está repetida."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    amistades.atender(LUIS, aceptar=False)
+    amistades.enviar(ANA, "luis")
+    assert amistades.pendientes(LUIS) == 1
+
+
+def test_se_puede_volver_a_enviar_despues_de_deshacer_la_amistad():
+    """CA-05: al deshacer ya no son amigos."""
+    _, amistades = _comunidad()
+    amistades.enviar(ANA, "luis")
+    amistades.atender(LUIS, aceptar=True)
+    amistades.deshacer(ANA, "luis")
+    amistades.enviar(LUIS, "ana")
+    assert amistades.pendientes(ANA) == 1
+
+
+def test_persona_creada_despues_tambien_puede_recibir_solicitudes():
+    """CA-05: un perfil creado después de arrancar funciona igual (RF-01 del grafo)."""
+    catalogo, amistades = _comunidad()
+    nueva = catalogo.crear_perfil("nueva")
+    amistades.registrar(nueva.id)
+    amistades.enviar(ANA, "nueva")
+    amistades.atender(nueva.id, aceptar=True)
+    assert [p.usuario for p in amistades.amigos(ANA)] == ["nueva"]
+
+
+# ---------- CA-07: atender en orden de llegada ----------
+
+def test_solicitudes_se_atienden_en_orden_de_llegada():
+    """CA-07: X, Y, Z salen en ese orden."""
+    _, amistades = _comunidad()
+    for origen in (LUIS, SARA, TOMAS):
+        amistades.enviar(origen, "ana")
+    atendidas = [amistades.atender(ANA, aceptar=False).usuario for _ in range(3)]
+    assert atendidas == ["luis", "sara", "tomas"]
+
+
+def test_primera_muestra_solo_la_primera_sin_sacarla():
+    """CA-07: revisar no cambia la cola."""
+    _, amistades = _comunidad()
+    amistades.enviar(LUIS, "ana")
+    amistades.enviar(SARA, "ana")
+    assert amistades.primera(ANA).usuario == "luis"
+    assert amistades.primera(ANA).usuario == "luis"
+    assert amistades.pendientes(ANA) == 2
+
+
+def test_sin_solicitudes_informa_sin_error():
+    """CA-07: sin pendientes no falla."""
+    _, amistades = _comunidad()
+    assert amistades.primera(ANA) is None
+    assert amistades.atender(ANA, aceptar=True) is None
+    assert amistades.pendientes(ANA) == 0
+    assert MENSAJE_SIN_SOLICITUDES == "No tienes solicitudes pendientes."
+
+
+def test_vaciar_y_volver_a_recibir_respeta_el_orden():
+    """CA-07: la cola se puede vaciar y volver a usar."""
+    _, amistades = _comunidad()
+    amistades.enviar(LUIS, "ana")
+    amistades.atender(ANA, aceptar=False)
+    amistades.enviar(SARA, "ana")
+    amistades.enviar(LUIS, "ana")
+    assert amistades.primera(ANA).usuario == "sara"
+
+
+def test_atender_la_ultima_deja_la_cola_lista():
+    """CA-07: el último en salir deja la cola vacía (IR-01)."""
+    _, amistades = _comunidad()
+    amistades.enviar(LUIS, "ana")
+    amistades.atender(ANA, aceptar=False)
+    assert amistades.pendientes(ANA) == 0
+    assert amistades.primera(ANA) is None
+
+
+def test_dos_personas_tienen_colas_separadas():
+    """CA-07: las solicitudes de una persona no se mezclan con las de otra."""
+    _, amistades = _comunidad()
+    amistades.enviar(LUIS, "ana")
+    amistades.enviar(SARA, "tomas")
+    assert amistades.primera(ANA).usuario == "luis"
+    assert amistades.primera(TOMAS).usuario == "sara"
+
+
+def test_persona_sin_id_valido_no_falla_al_consultar():
+    """CA-07: extremo, consultar con un id que no existe informa vacío."""
+    _, amistades = _comunidad()
+    assert amistades.pendientes(99) == 0
+    assert amistades.primera(99) is None
+    assert amistades.atender(99, aceptar=True) is None

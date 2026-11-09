@@ -6,6 +6,8 @@
 
 import pytest
 
+from dominio.amistades import Amistades
+from dominio.usuarios import Catalogo
 from estructuras.grafo import Grafo
 
 
@@ -329,3 +331,78 @@ def test_candidatos_tras_deshacer_todas_las_amistades():
     g = _red(3, (0, 1), (1, 2))
     g.eliminar_amistad(0, 1)
     assert g.candidatos_dos_saltos(0) == []
+
+
+# ---------- CA-06 integrado: de la cola al grafo (dominio/amistades.py) ----------
+
+def _comunidad():
+    catalogo = Catalogo()
+    for usuario in ("ana", "luis", "sara"):
+        catalogo.crear_perfil(usuario)
+    return Amistades(catalogo)
+
+
+def _usuarios(perfiles):
+    return [p.usuario for p in perfiles]
+
+
+def test_aceptar_crea_la_amistad_en_ambos_sentidos():
+    """CA-06: aceptar la solicitud deja a cada uno entre los amigos del otro."""
+    amistades = _comunidad()
+    amistades.enviar(0, "luis")
+    remitente = amistades.atender(1, aceptar=True)
+    assert remitente.usuario == "ana"
+    assert _usuarios(amistades.amigos(0)) == ["luis"]
+    assert _usuarios(amistades.amigos(1)) == ["ana"]
+    assert amistades.pendientes(1) == 0
+
+
+def test_rechazar_descarta_la_solicitud_sin_crear_amistad():
+    """CA-06: rechazar la saca de la cola y la red queda igual."""
+    amistades = _comunidad()
+    amistades.enviar(0, "luis")
+    assert amistades.atender(1, aceptar=False).usuario == "ana"
+    assert amistades.amigos(0) == [] and amistades.amigos(1) == []
+    assert amistades.pendientes(1) == 0
+
+
+def test_aceptar_avisa_a_quien_envio_la_solicitud():
+    """CA-06 y CA-32: aceptar genera el aviso para quien la envió."""
+    amistades = _comunidad()
+    amistades.enviar(0, "luis")
+    amistades.atender(1, aceptar=True)
+    assert amistades.notificaciones.leer(0) == ["@luis aceptó tu solicitud de amistad."]
+
+
+def test_rechazar_no_genera_aviso():
+    """CA-06: quien la envió no recibe aviso si se la rechazan."""
+    amistades = _comunidad()
+    amistades.enviar(0, "luis")
+    amistades.atender(1, aceptar=False)
+    assert amistades.notificaciones.leer(0) == []
+
+
+def test_amigos_salen_del_mas_reciente_al_mas_antiguo():
+    """CA-06: `amigos` entrega perfiles en el orden del grafo."""
+    amistades = _comunidad()
+    amistades.enviar(1, "ana")
+    amistades.atender(0, aceptar=True)
+    amistades.enviar(2, "ana")
+    amistades.atender(0, aceptar=True)
+    assert _usuarios(amistades.amigos(0)) == ["sara", "luis"]
+
+
+def test_deshacer_desde_el_dominio_en_ambos_sentidos():
+    """CA-08: deshacer por @usuario quita la amistad a los dos."""
+    amistades = _comunidad()
+    amistades.enviar(0, "luis")
+    amistades.atender(1, aceptar=True)
+    assert amistades.deshacer(1, "@ANA") is True
+    assert amistades.amigos(0) == [] and amistades.amigos(1) == []
+
+
+@pytest.mark.parametrize("otro", ["sara", "nadie", "", None])
+def test_deshacer_inexistente_no_produce_error(otro):
+    """CA-08: una amistad que no existe, o un @usuario que no existe, da False."""
+    amistades = _comunidad()
+    assert amistades.deshacer(0, otro) is False
