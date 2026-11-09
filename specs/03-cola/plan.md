@@ -1,5 +1,5 @@
 # Plan — Cola
-Versión 1.1
+Versión 1.3
 
 ## 1. De qué implementación mía parto
 De **`Semana10/cola.py`**, clase `ColaEnlazada` (no la `ColaCircular` del mismo archivo), con `ColaVaciaError(IndexError)` y sus invariantes IR-01 e IR-02. Qué cambia para InsightHub:
@@ -50,9 +50,16 @@ Si se omite el paso 3, `_cola` sigue apuntando a un nodo que ya salió y el sigu
 ## 8. Módulos
 `estructuras/cola.py` · `dominio/amistades.py` · `dominio/notificaciones.py` · pruebas en `tests/test_cola.py`.
 
+## 9. Decisiones tomadas al implementar (todas de Valentina)
+- **Rechazos:** `amistades.enviar` lanza `SolicitudInvalidaError` (hereda de `ValueError`) con el motivo; la consola lo imprime. Igual que `UsuarioInvalidoError`.
+- **Solicitud cruzada:** se rechaza con aviso, consultando `contiene` en la cola de quien envía. Así nunca quedan dos solicitudes cruzadas ni una sobrante.
+- **Interfaz:** `enviar(de, usuario_para)` recibe el id de quien envía y el `@usuario` de destino, y devuelve el perfil destino. `primera` consulta sin sacar; `atender(persona, aceptar)` devuelve el perfil de quien la envió o `None`.
+- **Soporte:** las colas de solicitudes se guardan en un arreglo indexado por id, como las de notificaciones.
+
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se declara el punto de partida (`ColaEnlazada` de Semana10), por qué no la circular, `contiene`, orden de punteros al desencolar y el uso desde amistades y notificaciones | El plan no justificaba la elección ni decía de qué implementación partía; decisiones tomadas en la consulta del componente |
 | 1.2 | 2026-11-07 | Se declara el arreglo indexado por id como soporte interno de `notificaciones.py` | Al implementar apareció dónde guardar la cola de cada persona; antes el plan decía «ninguno» |
+| 1.3 | 2026-11-08 | Sección 9 con las decisiones de implementación de `amistades.py`; la cabecera pasa a 1.3 (seguía en 1.1 aunque el historial ya tenía la 1.2) | Al integrar las amistades hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |

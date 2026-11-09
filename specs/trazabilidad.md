@@ -1,5 +1,5 @@
 # Trazabilidad criterio ↔ prueba ↔ código
-Versión 1.2
+Versión 1.3
 
 Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueba y su código (primera tabla), y de una función a los criterios de los que nació (segunda tabla). Se actualiza con cada commit `test(...)`: el estado de la prueba pasa de «pendiente» a «pasa». Las historias están en [`00-producto/historias.md`](00-producto/historias.md) y las prioridades en [`00-producto/moscow.md`](00-producto/moscow.md).
 
@@ -10,9 +10,9 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-02 | HU-01 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py` |
 | CA-03 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py`, `estructuras/avl.py` |
 | CA-04 | HU-02 | Must | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pasa | `dominio/usuarios.py` |
-| CA-05 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: `contiene` listo, falta `amistades.enviar` | `dominio/amistades.py`, `estructuras/cola.py` |
-| CA-06 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | parcial (grafo hecho; falta aceptar/rechazar desde la cola) | `estructuras/grafo.py`, `dominio/amistades.py` |
-| CA-07 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | parcial: cola lista, falta `amistades.atender` | `estructuras/cola.py`, `dominio/amistades.py` |
+| CA-05 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `dominio/amistades.py`, `estructuras/cola.py` |
+| CA-06 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pasa | `estructuras/grafo.py`, `dominio/amistades.py` |
+| CA-07 | HU-03 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `estructuras/cola.py`, `dominio/amistades.py` |
 | CA-08 | HU-03 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pasa | `estructuras/grafo.py` |
 | CA-09 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
 | CA-10 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
@@ -86,6 +86,9 @@ Cada función pública nombrada en un `plan.md` nace de al menos un criterio. La
 | `ColaEnlazada.tamano` | CA-05 |
 | `amistades.enviar` | CA-05 |
 | `amistades.atender` | CA-07 (y CA-06 en el grafo) |
+| `amistades.primera` / `amistades.pendientes` | CA-07 |
+| `amistades.deshacer` | CA-08 |
+| `amistades.amigos` / `amistades.registrar` | CA-06 |
 | `notificaciones.notificar` | CA-32 |
 | `notificaciones.leer` | CA-32, CA-33 |
 
@@ -181,3 +184,4 @@ Se prueban dentro de la tarea del criterio que las usa: `subir` y `bajar` del mo
 | 1.0 | 2026-11-07 | Tabla inicial con 21 criterios | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con los 39 criterios de las historias v1.2 (historia, prioridad, spec, prueba, estado y código) y una tabla inversa función → criterio por componente | La tabla anterior usaba la numeración v1.0 de los criterios y solo llegaba a CA-21; la traza debe poder recorrerse en ambos sentidos |
 | 1.2 | 2026-11-08 | CA-08, CA-34 y CA-36 pasan a «pasa»; CA-06 queda «parcial»; se anota `Grafo.cantidad` | Se implementó el grafo (avance 4); aceptar y rechazar desde la cola llegan con las amistades integradas |
+| 1.3 | 2026-11-08 | CA-05, CA-06 y CA-07 pasan a «pasa»; se agregan a la tabla inversa `amistades.primera`, `pendientes`, `deshacer`, `amigos` y `registrar` | Se integraron las amistades (avance 5) |

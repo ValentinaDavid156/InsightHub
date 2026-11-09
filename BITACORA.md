@@ -176,6 +176,31 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** `insertar` devuelve False si existe; `buscar` devuelve None si no está; el dominio lanza `UsuarioInvalidoError`; la `@` inicial es opcional; la consola pide el `@usuario` al arrancar; la lista de 40 nombres; commits agrupados por avance.
 
+## Sesión 20 — Cierre de la entrega 2 y avance 4: grafo
+
+**Prompt (textual):**
+> Sí, prepárala  /  Sí, al grafo
+
+**Síntesis de la respuesta:**
+- Cerró la entrega 2 en local: párrafo por estructura en `ANALISIS.md`, `moscow.md` v1.3 sin cambios de prioridad, commit y etiqueta `entrega-2`, sin push.
+- Escribió primero `tests/test_grafo.py` (52 pruebas) y luego `estructuras/grafo.py`, desde el `Nodo` de Semana5 y la `ColaEnlazada` de Semana10. Resultado: 230 pruebas pasan.
+- CA-08, CA-34 y CA-36 quedan «pasa» y CA-06 «parcial». Plan del grafo v1.2.
+
+**Decisión de la estudiante:** `agregar_amistad` y `eliminar_amistad` devuelven True o False; `candidatos_dos_saltos` devuelve una lista de `(id, comunes)`.
+
+## Sesión 21 — Avance 5: amistades integradas
+
+**Prompt (textual):**
+> Sí, al avance 5
+
+**Síntesis de la respuesta:**
+- Consultó 4 decisiones antes de programar. Señaló que con una sola sesión nadie podía aceptar una solicitud desde la consola.
+- Escribió primero las pruebas (rojo): 47 nuevas en `tests/test_cola.py`, `tests/test_grafo.py` y `tests/test_arranque.py`; cambió 2 pruebas de consola porque la opción 2 ya no está pendiente y el menú llega a 9.
+- Escribió `dominio/amistades.py` (`enviar`, `primera`, `pendientes`, `atender`, `deshacer`, `amigos`) y en `main.py` el submenú de amigos, las notificaciones y «Cambiar de @usuario». Resultado: 277 pruebas pasan; también se probó la consola real entre dos personas.
+- CA-05, CA-06 y CA-07 quedan «pasa». Spec de la cola v1.2, plan v1.3 y spec de `99-sistema` v1.2.
+
+**Decisión de la estudiante:** la solicitud cruzada se rechaza con aviso; el dominio lanza `SolicitudInvalidaError`; submenú de amigos y notificaciones activas; opción 9 para cambiar de `@usuario`.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

@@ -9,8 +9,8 @@ Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea.
 ## Parte B — CA-06: crear la amistad en ambos sentidos
 - [x] **T-06.2** Prueba (rojo): `agregar_amistad(a, b)` deja a `b` entre los amigos de `a` y a `a` entre los de `b`; los grados suben; la amistad más reciente sale primero; rechaza a uno mismo, repetida (también nombrando al revés) y persona inexistente sin cambiar ninguna lista; red vacía.
 - [x] **T-06.3** Código: `agregar_amistad` validando primero y luego las dos inserciones al inicio; `son_amigos`.
-- [ ] **T-06.4** Prueba (rojo): aceptar una solicitud (cola → grafo) crea la amistad y rechazarla deja la red igual.
-- [ ] **T-06.5** Código: `dominio/amistades.atender` llama a `agregar_amistad` solo al aceptar.
+- [x] **T-06.4** Prueba (rojo): aceptar una solicitud (cola → grafo) crea la amistad y rechazarla deja la red igual.
+- [x] **T-06.5** Código: `dominio/amistades.atender` llama a `agregar_amistad` solo al aceptar.
 - **Entregables:** `tests/test_grafo.py`, `estructuras/grafo.py`, `dominio/amistades.py`
 
 ## Parte C — CA-08: deshacer la amistad
@@ -29,12 +29,12 @@ Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea.
 - **Entregables:** `tests/test_grafo.py`, `estructuras/grafo.py`
 
 ## Parte F — Integración
-- [ ] **T-06.12** Opciones de consola: aceptar o rechazar solicitud, deshacer amistad, ver amigos (CA-37). Las recomendaciones se integran junto al montículo ([`07-monticulo`](../07-monticulo/tasks.md)).
-- [ ] **T-06.13** Marcar CA-06, CA-08, CA-34 y CA-36 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
+- [x] **T-06.12** Opciones de consola: aceptar o rechazar solicitud, deshacer amistad, ver amigos (CA-37). Las recomendaciones se integran junto al montículo ([`07-monticulo`](../07-monticulo/tasks.md)).
+- [x] **T-06.13** Marcar CA-06, CA-08, CA-34 y CA-36 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
 - **Entregables:** `main.py`, `specs/trazabilidad.md`
 
 ## Estado (2026-11-08)
-Hechas T-06.1 a T-06.3 y T-06.6 a T-06.11 (grafo: CA-08, CA-34 y CA-36; y la parte del grafo de CA-06). T-06.4, T-06.5, T-06.12 y T-06.13 esperan a las amistades integradas con la cola (avance 5).
+Hechas todas (T-06.1 a T-06.13): CA-06, CA-08, CA-34 y CA-36. Las recomendaciones llegan a la consola con el montículo.
 
 ## Verificación final
 - [x] `pytest tests/test_grafo.py -v` sin errores.
@@ -45,3 +45,4 @@ Hechas T-06.1 a T-06.3 y T-06.6 a T-06.11 (grafo: CA-08, CA-34 y CA-36; y la par
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Tareas reales por criterio (CA-06, CA-08, CA-34, CA-36) en orden prueba → código, con entregables | Las tareas citaban la numeración vieja (CA-03, CA-04, CA-17 a CA-19) y eran del grafo dirigido |
 | 1.2 | 2026-11-08 | Se marcan hechas las tareas del grafo y se anota qué espera al avance 5 | Avance 4 implementado |
+| 1.3 | 2026-11-08 | Se marcan hechas las tareas de integración con la cola y de consola | Avance 5 implementado |

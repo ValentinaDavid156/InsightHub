@@ -1,5 +1,5 @@
 # Spec del sistema — InsightHub
-Versión 1.1 · Estado: aprobada para implementar
+Versión 1.2 · Estado: aprobada para implementar
 
 ## 1. Qué hace el sistema
 InsightHub es una red social **100 % pública** de preguntas y respuestas. Los miembros entran con su `@usuario`, hacen amigos con solicitud y aceptación, publican preguntas en una plaza común, responden en hilos anidados, votan, buscan, navegan con «atrás», reciben notificaciones y obtienen recomendaciones de contactos. **No hay chats ni mensajes privados** ([`CONSTITUTION.md`](../CONSTITUTION.md)).
@@ -60,6 +60,7 @@ SI una operación se rechaza (usuario inválido, solicitud repetida, respuesta a
 
 **RF-04 — Consola con menús (Must).**
 CUANDO una persona use la consola, EL SISTEMA DEBE pedirle su `@usuario` al arrancar, repitiendo la pregunta con el motivo mientras sea inválido, y después mostrarle menús numerados por pantalla (inicio, plaza, hilo, perfil, búsqueda, amigos, solicitudes, notificaciones, recomendaciones y, si se implementan, conectados y destacada), con una opción «atrás» en toda pantalla excepto la de inicio.
+CUANDO elija cambiar de `@usuario`, EL SISTEMA DEBE volver a pedirlo sin borrar ningún dato de la comunidad y empezar un historial de «atrás» nuevo.
 CUANDO elija una opción que no existe o escriba algo que no es un número, EL SISTEMA DEBE avisarlo y volver a mostrar el menú sin cambiar nada.
 
 **RF-05 — Todas las funciones por consola (CA-37).**
@@ -99,6 +100,7 @@ EL SISTEMA DEBE funcionar completo en sus partes Must aunque ninguna parte Shoul
 - Una acción Should no implementada: su opción no aparece en el menú.
 - Dos sesiones web a la vez: cada una conserva su propia posición en la plaza y su propio historial; los datos de la comunidad son los mismos para ambas.
 - Una persona entra por la consola y otra por la web (si ambas están activas): ven la misma comunidad.
+- Cambiar de `@usuario`: los datos siguen; solicitudes y notificaciones de cada persona la esperan cuando entre.
 - Salir de la aplicación: se pierde todo el contenido, y al volver a entrar empieza de nuevo con los 120 perfiles de la semilla.
 
 ## 8. Fuera de alcance
@@ -114,3 +116,4 @@ EL SISTEMA DEBE funcionar completo en sus partes Must aunque ninguna parte Shoul
 | 0.1 | 2026-11-07 | Versión inicial | Entrega 1 |
 | 1.0 | 2026-11-07 | Se reescribe: tabla de ocho componentes con las operaciones que expone cada uno; flujos de integración (solicitud → cola, aceptar → grafo y aviso, responder → árbol y aviso, cada pantalla → pila); consola Must (menús numerados) y web Should; criterios CA-37 y CA-38; mapa de criterios por componente | La spec 0.1 tenía seis componentes con las historias viejas (seguir en vez de amistad) y no describía las interfaces; decisiones tomadas en la consulta del sistema |
 | 1.1 | 2026-11-08 | RF-04: la consola pide el `@usuario` al arrancar y luego muestra los menús | Decisión de Valentina al implementar la entrada (el AVL de usuarios) |
+| 1.2 | 2026-11-08 | RF-04: la consola permite cambiar de `@usuario` sin borrar los datos; caso extremo | Con una sola sesión y datos en memoria nadie podía aceptar una solicitud desde la consola; decisión de Valentina |
