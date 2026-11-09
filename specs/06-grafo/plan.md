@@ -1,5 +1,5 @@
 # Plan — Grafo
-Versión 1.1
+Versión 1.2
 
 ## 1. De qué implementación mía parto
 No tengo un grafo propio en el repositorio. Parto de dos piezas mías:
@@ -58,8 +58,15 @@ El número de amigos en común sale gratis: `w` se encuentra una vez por cada am
 ## 8. Módulos
 `estructuras/grafo.py` · `dominio/amistades.py` · `dominio/recomendaciones.py` (usa también [`07-monticulo`](../07-monticulo/plan.md)) · pruebas en `tests/test_grafo.py`.
 
+## 9. Decisiones tomadas al implementar (todas de Valentina)
+- **Rechazos:** `agregar_amistad` y `eliminar_amistad` devuelven `True` si cambiaron algo y `False` si se rechazan (la misma persona, repetida, persona inexistente, amistad que no existe), sin tocar nada; el mensaje claro lo pone el dominio. Igual que `AVL.insertar`.
+- **Candidatos:** `candidatos_dos_saltos` devuelve una lista de `(id, comunes)` en el orden en que se descubren; ordenarlos es del montículo.
+- **Ids:** `agregar_vertice(id)` acepta un entero >= 0 (si no, `ValueError`), es idempotente y registra también los ids intermedios que falten. Una consulta con un id inválido o inexistente da `[]`, `0` o `False`, sin error.
+- **Extra:** `cantidad()` devuelve las personas registradas.
+
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Pasa de dirigido a no dirigido; se declara el punto de partida (`Nodo` de Semana5 y `ColaEnlazada` de Semana10); orden de punteros al crear y deshacer; candidatos a 2 saltos con arreglos temporales; alternativas descartadas | El plan seguía siendo del grafo dirigido de «seguimientos»; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-08 | Sección 9 con las decisiones de implementación: rechazos con True/False, candidatos como (id, comunes) e ids | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |
