@@ -77,11 +77,41 @@ def test_mi_perfil_muestra_usuario_y_puntos(monkeypatch, capsys):
     assert "0 puntos" in salida
 
 
-def test_opcion_pendiente_avisa_y_vuelve_al_menu(monkeypatch, capsys):
-    """CA-37: una opción aún sin implementar avisa y deja la pantalla en el historial."""
+def test_ya_no_quedan_opciones_pendientes(monkeypatch, capsys):
+    """CA-37: todas las opciones Must del menú funcionan."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "0"])
+    assert "(pendiente)" not in salida
+
+
+def test_recomendaciones_sin_amigos_informa(monkeypatch, capsys):
+    """CA-36 integrado: sin amigos no hay recomendaciones y no falla."""
     salida = _ejecutar(monkeypatch, capsys, ["tester", "8", "0"])
-    assert "aún no implementada" in salida
+    assert "No hay recomendaciones por ahora." in salida
     assert "Estás en: Personas que quizá conozcas" in salida
+
+
+def test_recomendaciones_en_consola_con_amigos_en_comun(monkeypatch, capsys):
+    """CA-34 y CA-35 integrados: ana-luis y luis-beatriz son amigos; ana ve a beatriz."""
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        ["ana", "2", "2", "luis", "0", "9", "luis", "2", "3", "1", "2", "beatriz", "0",
+         "9", "beatriz", "2", "3", "1", "0", "9", "ana", "8", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "@beatriz (1 amigo en común)" in salida
+
+
+def test_recomendaciones_dicen_amigos_en_plural(capsys):
+    """La consola concuerda «amigos» con el número."""
+    from dominio.amistades import Amistades
+    catalogo = Catalogo()
+    for usuario in ("yoli", "aaa", "bbb", "meta"):
+        catalogo.crear_perfil(usuario)
+    amistades = Amistades(catalogo)
+    for x, y in ((0, 1), (0, 2), (1, 3), (2, 3)):
+        amistades.grafo.agregar_amistad(x, y)
+    main.ver_recomendaciones(amistades, catalogo.buscar("yoli"))
+    assert "@meta (2 amigos en común)" in capsys.readouterr().out
 
 
 def test_opcion_inexistente_no_falla(monkeypatch, capsys):
