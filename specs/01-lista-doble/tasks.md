@@ -23,18 +23,19 @@ Desglose de [`plan.md`](plan.md). Orden prueba → código. Un commit por tarea.
 - **Entregables:** `tests/test_lista_doble.py`, `dominio/busqueda.py`
 
 ## Parte E — Integración
-- [ ] **T-01.9** Opciones de consola: publicar, siguiente página, página anterior, buscar por palabra (CA-37).
+- [x] **T-01.9** Opciones de consola: publicar, siguiente página, página anterior, buscar por palabra (CA-37).
 - [x] **T-01.10** Marcar CA-12, CA-13 y CA-29 como «pasa» en [`trazabilidad.md`](../trazabilidad.md).
 - **Entregables:** `main.py`, `specs/trazabilidad.md`
 
-## Estado (2026-11-08)
-Hechas T-01.1 a T-01.8 y T-01.10 (estructura, plaza, sesión y búsqueda; CA-12, CA-13 y CA-29). T-01.9 (opciones de consola) espera al AVL, porque la consola necesita una sesión de usuario (Avance 3).
+## Estado (2026-11-09)
+Hechas todas (T-01.1 a T-01.10): estructura, plaza, sesión, búsqueda y consola (CA-12, CA-13 y CA-29).
 
 ## Verificación final
-- [ ] `pytest tests/test_lista_doble.py -v` sin errores.
+- [x] `pytest tests/test_lista_doble.py -v` sin errores.
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Tareas reales por criterio (CA-12, CA-13, CA-29) en orden prueba → código, con entregables | Las tareas citaban la numeración vieja (CA-05, CA-06) y no tenían entregables |
+| 1.2 | 2026-11-09 | Se marca hecha T-01.9 (consola) | La plaza se conectó a la consola en el avance 6 |

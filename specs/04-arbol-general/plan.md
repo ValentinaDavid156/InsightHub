@@ -1,5 +1,5 @@
 # Plan — Árbol general (hilos)
-Versión 1.1
+Versión 1.2
 
 ## 1. De qué implementación mía parto
 De **`Semana10/arbol_binario.py`** (`NodoArbol` con dos enlaces) y de **`Semana10/arbol_carpetas.py`** (recorrido con contenedor propio, versión con pila de `recorridos.md`). Qué cambia para InsightHub:
@@ -52,13 +52,22 @@ Se apila en ese orden porque la pila saca lo último que entró: el primer hijo 
 - Si no hay aceptada, `mejor_respuesta` recorre las respuestas de primer nivel y se queda con la de mayor puntaje neto; compara con `>` estricto, así en un empate gana la primera encontrada, que es la más antigua. Si el mayor puntaje no es positivo, no hay fijada.
 
 ## 7. Soporte interno
-Ninguno. Solo nodos propios y la pila del proyecto.
+El árbol usa solo nodos propios y la pila del proyecto. `dominio/hilos.py` guarda la publicación y su árbol en un arreglo de Python indexado por el id de la publicación, y la sesión de plaza de cada persona en otro indexado por su id: dan acceso O(1) y no sustituyen a ninguna estructura declarada ([`estructuras.md`](../00-producto/estructuras.md)).
 
 ## 8. Módulos
 `estructuras/arbol_general.py` · `dominio/hilos.py` · pruebas en `tests/test_arbol_general.py`.
+
+## 9. Decisiones tomadas al implementar (todas de Valentina)
+- **Rechazos:** `responder` lanza `RespuestaInvalidaError` (hereda de `ValueError`) con el motivo; la consola lo imprime.
+- **Numeración:** por hilo; la publicación es el 0 y las respuestas 1, 2, 3... por orden de llegada. Como no se borran respuestas, el tamaño actual del hilo siempre es un número libre.
+- **Texto vacío:** se rechazan la respuesta (`dominio/hilos.py`) y el título de la publicación (`Plaza.publicar`); el cuerpo puede ir vacío.
+- **Interfaz:** `abrir_hilo(id, autor, texto)`, `responder(id_padre, id_nuevo, autor, texto)`, `recorrer()` da una lista de `(nivel, nodo)`; `buscar` y `profundidad` dan `None` si no existe.
+- **Consola:** opción 3 para la plaza y opción 4 para los hilos; cada persona conserva su posición en la plaza al cambiar de `@usuario`.
+- **`aceptar` y `mejor_respuesta`** no se implementaron todavía: son Should (T-04.9 a T-04.12).
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se declara el punto de partida (`NodoArbol` y `arbol_carpetas` de Semana10) y qué cambia; un árbol por publicación; recorrido con pila y su orden de punteros; mejor respuesta; alternativas descartadas | El plan no decía de qué implementación partía ni justificaba las decisiones; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-09 | Se corrige el soporte interno (arreglos por id de `hilos.py`) y se agrega la sección 9 con las decisiones de implementación | Al implementar apareció dónde guardar cada hilo y hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |

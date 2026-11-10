@@ -1,5 +1,5 @@
 # Spec — Árbol general (hilos de respuestas)
-Versión 1.1 · Estado: aprobada para implementar
+Versión 1.2 · Estado: aprobada para implementar
 
 ## 1. Contexto y objetivo
 Cada publicación abre un hilo: las personas responden a la publicación o a otra respuesta, y cada respuesta puede tener a su vez más respuestas (HU-06). Hay un hilo por publicación. En el hilo también se fija la mejor respuesta (HU-08, Should).
@@ -19,6 +19,7 @@ CUANDO alguien responda a una respuesta existente, EL SISTEMA DEBE agregarla un 
 
 **RF-04 — Padre inexistente.**
 SI se responde a una publicación o respuesta que no existe en el hilo, ENTONCES EL SISTEMA DEBE rechazar la respuesta con un mensaje claro, sin alterar el hilo.
+SI el texto de la respuesta está vacío o solo tiene espacios, ENTONCES EL SISTEMA DEBE rechazarla con un mensaje claro, sin alterar el hilo.
 
 **RF-05 — Identificador repetido.**
 SI se intenta agregar una respuesta con un identificador que ya existe en el hilo, ENTONCES EL SISTEMA DEBE rechazarla sin alterar el hilo.
@@ -57,6 +58,8 @@ CUANDO el hilo tenga una respuesta fijada, EL SISTEMA DEBE mostrarla primero ent
 - Varias respuestas en el mismo nivel: se muestran en orden de llegada.
 - Responder a una respuesta que no existe, o a una publicación de otro hilo: rechazado, el hilo no cambia (CA-16).
 - Identificador repetido: rechazado (RF-05).
+- Respuesta vacía o solo con espacios: rechazada, el hilo no cambia y no se genera aviso (RF-04).
+- Responder en una publicación que no existe: rechazado (CA-16).
 - Aceptar una respuesta de segundo nivel, una inexistente, o aceptar dos veces: rechazado (CA-22).
 - Aceptar siendo otra persona distinta de quien preguntó: rechazado (CA-22).
 - Empate en puntaje positivo entre dos respuestas: queda la más antigua (CA-23).
@@ -76,3 +79,4 @@ CUANDO el hilo tenga una respuesta fijada, EL SISTEMA DEBE mostrarla primero ent
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con requisitos CUANDO/EL SISTEMA DEBE; criterios CA-14, CA-15, CA-16 (antes CA-07 a CA-09) y se suman CA-22 y CA-23 (mejor respuesta); un hilo por publicación, orden cronológico, solo las de primer nivel pueden ser mejor respuesta, empate a favor de la más antigua, casos extremos concretos | La numeración de las historias cambió y la mejor respuesta no estaba cubierta; decisiones tomadas en la consulta del componente |
+| 1.2 | 2026-11-09 | RF-04: se rechaza la respuesta vacía; casos extremos de respuesta vacía y publicación inexistente | La spec no decía qué pasa con un texto vacío; decisión de Valentina al implementar |

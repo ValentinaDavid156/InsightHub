@@ -1,5 +1,5 @@
 # Análisis de complejidad
-Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones), la **lista doble** (con la plaza y la búsqueda por palabra), el **AVL** (con los usuarios), el **grafo** y las **amistades** que unen cola y grafo; las demás figuran «pendiente».
+Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones), la **lista doble** (con la plaza y la búsqueda por palabra), el **AVL** (con los usuarios), el **grafo**, las **amistades** que unen cola y grafo, y el **árbol general** con los hilos; las demás figuran «pendiente».
 
 n = elementos de la estructura · k = resultados · g = grado · c = conectados · V, E = vértices y aristas.
 
@@ -18,9 +18,12 @@ n = elementos de la estructura · k = resultados · g = grado · c = conectados 
 | Amistades | primera / pendientes | O(1) | implementada |
 | Amistades | atender / amigos | O(g) | implementada |
 | Amistades | deshacer | O(log n + g) | implementada |
-| Árbol general | abrir_hilo / tamano | O(1) | pendiente |
-| Árbol general | responder / buscar / recorrer / profundidad / aceptar | O(n) | pendiente |
-| Árbol general | mejor_respuesta | O(k) | pendiente |
+| Árbol general | abrir_hilo / tamano | O(1) | implementada (`estructuras/arbol_general.py`) |
+| Árbol general | responder / buscar / recorrer / profundidad | O(n) | implementada |
+| Hilos | publicar | O(1) amortizado | implementada (`dominio/hilos.py`) |
+| Hilos | responder / mostrar | O(n) | implementada |
+| Árbol general | aceptar | O(n) | pendiente (Should) |
+| Árbol general | mejor_respuesta | O(k) | pendiente (Should) |
 | AVL | insertar / buscar | O(log n) | implementada (`estructuras/avl.py`) |
 | AVL | reemplazar | O(log n) | pendiente (Should: votos) |
 | AVL | recorrer_en_orden | O(n) | implementada |

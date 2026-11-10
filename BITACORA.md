@@ -201,6 +201,20 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** la solicitud cruzada se rechaza con aviso; el dominio lanza `SolicitudInvalidaError`; submenú de amigos y notificaciones activas; opción 9 para cambiar de `@usuario`.
 
+## Sesión 22 — Avance 6: árbol general e hilos
+
+**Prompt (textual):**
+> bueno, eso es mejor comprobarlo despues, sigamos con lo que hace falta en orden
+>
+> 1. error, 2. hilo, 3 rechazar la respuesta, 4. recomendado
+
+**Síntesis de la respuesta:**
+- Consultó 4 decisiones antes de programar y escribió primero las pruebas (rojo): `tests/test_arbol_general.py` y las de consola, 48 nuevas; cambió 2 pruebas de consola que usaban la opción 3, que ya no está pendiente.
+- Escribió `estructuras/arbol_general.py` (primer hijo y hermano derecho sobre la idea del `NodoArbol` de Semana10, recorrido con la pila propia), `dominio/hilos.py` y en `main.py` las pantallas de plaza e hilos. Resultado: 325 pruebas pasan, incluido un hilo de 2000 niveles; también se probó la consola real.
+- CA-14, CA-15 y CA-16 quedan «pasa». Spec del árbol v1.2, plan v1.2, spec de la lista doble v1.3 y `estructuras.md` v1.3.
+
+**Decisión de la estudiante:** los rechazos lanzan `RespuestaInvalidaError`; las respuestas se numeran por hilo (la publicación es el 0); se rechazan la respuesta y el título vacíos, y el cuerpo puede ir vacío; opción 3 para la plaza y 4 para los hilos.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

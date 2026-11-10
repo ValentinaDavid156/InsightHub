@@ -48,6 +48,7 @@ A* (opcional en la temática), persistencia en archivo o base de datos y matriz 
 - **Grafo:** un arreglo de Python indexado por id guarda la cabeza de cada lista de adyacencia. Las aristas son nodos enlazados propios.
 - **Montículo:** un arreglo de Python guarda el árbol completo; no se usa `heapq`.
 - **Acceso a usuarios por id:** un arreglo de Python indexado por id (arreglo dinámico del catálogo).
+- **Colas e hilos por dueño:** arreglos de Python indexados por id guardan la cola de solicitudes y la de notificaciones de cada persona, su posición en la plaza, y el hilo de cada publicación. Las colas y los hilos siguen siendo estructuras propias.
 Ninguno sustituye una estructura declarada; cada uno se detalla en el `plan.md` del componente.
 
 ## Historial de cambios
@@ -56,3 +57,4 @@ Ninguno sustituye una estructura declarada; cada uno se detalla en el `plan.md` 
 | 1.0 | 2026-11-07 | Tabla inicial (6 estructuras) | Creación |
 | 1.1 | 2026-11-07 | Se asigna una estructura a cada historia aprobada (HU-01 a HU-13). Se suman lista simple y montículo; la red pasa de dirigida a no dirigida; se agregan solicitudes, votos, destacada y búsquedas por fecha y palabra | Las historias v1.1 agregaron amistad con solicitud, presencia, votos y destacada |
 | 1.2 | 2026-11-07 | Agrega la fila «representación de las relaciones» (lista de adyacencia frente a matriz), la tabla de carpetas de cada componente con enlaces a `01-…` a `08-…` y `99-sistema`, la ruta corregida de HU-14 y la separación palabra (CA-29) / fecha (CA-39); la búsqueda de usuarios usa un solo índice por `@usuario` | Faltaba justificar la representación del grafo; las carpetas se renombraron; las historias v1.2 separaron CA-29 y CA-39; el perfil no tiene otro nombre además del `@usuario` |
+| 1.3 | 2026-11-09 | Se declaran los arreglos por id de solicitudes, notificaciones, sesiones de plaza e hilos | Estaban declarados solo en los planes de cada componente |

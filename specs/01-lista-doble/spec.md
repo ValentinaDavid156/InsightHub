@@ -1,5 +1,5 @@
 # Spec — Lista doble (plaza pública)
-Versión 1.2 · Estado: aprobada para implementar
+Versión 1.3 · Estado: aprobada para implementar
 
 ## 1. Contexto y objetivo
 La plaza es la lista de todas las publicaciones de InsightHub, la más nueva primero. Cada persona la recorre hacia adelante y hacia atrás sin perder su lugar (HU-05), y desde ella se buscan publicaciones por palabra (HU-10).
@@ -59,6 +59,7 @@ CUANDO se pregunte si la plaza está vacía o por su tamaño, EL SISTEMA DEBE re
 - Palabra que aparece solo en el cuerpo, solo en el título, con otras mayúsculas o dentro de otra palabra: se encuentra (CA-29).
 - Palabra vacía o solo espacios: resultado vacío, no devuelve toda la plaza.
 - Publicaciones con el mismo título: ambas aparecen, la más nueva primero.
+- Publicar con el título vacío o solo con espacios: se rechaza con un mensaje claro y la plaza no cambia; el cuerpo puede ir vacío (CA-12).
 
 ## 5. Fuera de alcance
 - Borrar o editar publicaciones.
@@ -71,3 +72,4 @@ CUANDO se pregunte si la plaza está vacía o por su tamaño, EL SISTEMA DEBE re
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con requisitos CUANDO/EL SISTEMA DEBE; criterios CA-12, CA-13 (antes CA-05, CA-06) y se suma CA-29 (búsqueda por palabra, que era del AVL en el mapeo); páginas de 5, posición por sesión, búsqueda sin distinguir mayúsculas y casos extremos concretos | La numeración de las historias cambió; la búsqueda por palabra recorre la plaza, no el AVL; decisiones tomadas en la consulta del componente |
 | 1.2 | 2026-11-08 | RF-03: si faltan menos de 5 publicaciones para el principio, retroceder lleva al principio; se agrega ese caso extremo | Al implementar apareció la posición desalineada cuando alguien publica durante la sesión; decisión de Valentina |
+| 1.3 | 2026-11-09 | Caso extremo: el título vacío se rechaza y el cuerpo puede ir vacío | La spec no lo decía; decisión de Valentina al conectar la plaza con la consola |

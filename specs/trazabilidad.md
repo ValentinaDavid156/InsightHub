@@ -1,5 +1,5 @@
 # Trazabilidad criterio ↔ prueba ↔ código
-Versión 1.3
+Versión 1.4
 
 Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueba y su código (primera tabla), y de una función a los criterios de los que nació (segunda tabla). Se actualiza con cada commit `test(...)`: el estado de la prueba pasa de «pendiente» a «pasa». Las historias están en [`00-producto/historias.md`](00-producto/historias.md) y las prioridades en [`00-producto/moscow.md`](00-producto/moscow.md).
 
@@ -19,9 +19,9 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-11 | HU-04 | Should | [`08-lista-simple`](08-lista-simple/spec.md) | `tests/test_lista_simple.py` | pendiente | `estructuras/lista_simple.py`, `dominio/presencia.py` |
 | CA-12 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `estructuras/lista_doble.py`, `dominio/feed.py` |
 | CA-13 | HU-05 | Must | [`01-lista-doble`](01-lista-doble/spec.md) | `tests/test_lista_doble.py` | pasa | `estructuras/lista_doble.py`, `dominio/feed.py` |
-| CA-14 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py`, `dominio/hilos.py` |
-| CA-15 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py`, `dominio/hilos.py` |
-| CA-16 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pendiente | `estructuras/arbol_general.py` |
+| CA-14 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pasa | `estructuras/arbol_general.py`, `dominio/hilos.py` |
+| CA-15 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pasa | `estructuras/arbol_general.py`, `dominio/hilos.py` |
+| CA-16 | HU-06 | Must | [`04-arbol-general`](04-arbol-general/spec.md) | `tests/test_arbol_general.py` | pasa | `estructuras/arbol_general.py` |
 | CA-17 | HU-07 | Should | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/votos.py`, `estructuras/avl.py` |
 | CA-18 | HU-07 | Should | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/votos.py`, `estructuras/avl.py` |
 | CA-19 | HU-07 | Should | [`05-avl`](05-avl/spec.md) | `tests/test_avl.py` | pendiente | `dominio/votos.py` |
@@ -104,6 +104,9 @@ Cada función pública nombrada en un `plan.md` nace de al menos un criterio. La
 | `ArbolGeneral.aceptar` | CA-22 |
 | `ArbolGeneral.mejor_respuesta` | CA-23 |
 | `hilos.mostrar` (sangría por nivel) | CA-15 |
+| `hilos.publicar` / `hilos.tamano_de` | CA-14 |
+| `hilos.responder` / `hilos.existe` | CA-14, CA-16 |
+| `hilos.sesion_de` | CA-13 |
 | `hilos.aceptar` (suma 15 puntos) | CA-22 |
 
 ### Usuarios, votos y fechas ([`05-avl`](05-avl/plan.md))
@@ -185,3 +188,4 @@ Se prueban dentro de la tarea del criterio que las usa: `subir` y `bajar` del mo
 | 1.1 | 2026-11-07 | Se reescribe con los 39 criterios de las historias v1.2 (historia, prioridad, spec, prueba, estado y código) y una tabla inversa función → criterio por componente | La tabla anterior usaba la numeración v1.0 de los criterios y solo llegaba a CA-21; la traza debe poder recorrerse en ambos sentidos |
 | 1.2 | 2026-11-08 | CA-08, CA-34 y CA-36 pasan a «pasa»; CA-06 queda «parcial»; se anota `Grafo.cantidad` | Se implementó el grafo (avance 4); aceptar y rechazar desde la cola llegan con las amistades integradas |
 | 1.3 | 2026-11-08 | CA-05, CA-06 y CA-07 pasan a «pasa»; se agregan a la tabla inversa `amistades.primera`, `pendientes`, `deshacer`, `amigos` y `registrar` | Se integraron las amistades (avance 5) |
+| 1.4 | 2026-11-09 | CA-14, CA-15 y CA-16 pasan a «pasa»; se agregan a la tabla inversa `hilos.publicar`, `tamano_de`, `responder`, `existe` y `sesion_de` | Se implementó el árbol general (avance 6) |
