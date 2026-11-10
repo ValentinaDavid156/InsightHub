@@ -79,9 +79,9 @@ def test_mi_perfil_muestra_usuario_y_puntos(monkeypatch, capsys):
 
 def test_opcion_pendiente_avisa_y_vuelve_al_menu(monkeypatch, capsys):
     """CA-37: una opción aún sin implementar avisa y deja la pantalla en el historial."""
-    salida = _ejecutar(monkeypatch, capsys, ["tester", "3", "0"])
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "8", "0"])
     assert "aún no implementada" in salida
-    assert "Estás en: Plaza: publicar y recorrer" in salida
+    assert "Estás en: Personas que quizá conozcas" in salida
 
 
 def test_opcion_inexistente_no_falla(monkeypatch, capsys):
@@ -99,13 +99,13 @@ def test_atras_en_inicio_informa_que_no_hay_pantalla_previa(monkeypatch, capsys)
 
 def test_atras_vuelve_a_la_pantalla_anterior(monkeypatch, capsys):
     """CA-30 integrado: abrir pantallas y volver atrás en orden inverso."""
-    salida = _ejecutar(monkeypatch, capsys, ["tester", "3", "7", "6", "6", "0"])
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "5", "zzz", "7", "6", "6", "0"])
     estados = [l for l in salida.splitlines() if l.startswith("Estás en:")]
     assert estados == [
         "Estás en: Inicio",
-        "Estás en: Plaza: publicar y recorrer",
+        "Estás en: Buscar usuarios",
         "Estás en: Notificaciones",
-        "Estás en: Plaza: publicar y recorrer",
+        "Estás en: Buscar usuarios",
         "Estás en: Inicio",
     ]
 
@@ -250,6 +250,125 @@ def test_cambiar_usuario_invalido_vuelve_a_pedir(monkeypatch, capsys):
     salida = _ejecutar(monkeypatch, capsys, ["ana", "9", "x", "luis", "0"], _catalogo_de_nombres_con_luis())
     assert "corto" in salida
     assert "Hola, @luis." in salida
+
+
+# ---------- Plaza e hilos en la consola (CA-12, CA-13, CA-14 a CA-16, CA-29) ----------
+# Plaza («3»): 1 publicar, 2 ver, 3 siguiente, 4 anterior, 5 inicio, 6 buscar, 0 volver.
+# Hilos («4»): se escribe el número de la publicación; dentro: 1 responder, 0 volver.
+
+PUBLICA_ANA = ["ana", "3", "1", "Mi pregunta", "Mi cuerpo", "0"]
+
+
+def test_publicar_y_ver_la_plaza(monkeypatch, capsys):
+    """CA-12 integrado: lo publicado aparece en la página."""
+    salida = _ejecutar(
+        monkeypatch, capsys, ["ana", "3", "1", "Mi pregunta", "c", "2", "0", "0"], _catalogo_de_nombres_con_luis()
+    )
+    assert "Publicación #1 creada." in salida
+    assert "#1 @ana" in salida and "Mi pregunta" in salida
+
+
+def test_titulo_vacio_muestra_el_motivo(monkeypatch, capsys):
+    """Título vacío se rechaza y la plaza sigue vacía."""
+    salida = _ejecutar(monkeypatch, capsys, ["ana", "3", "1", "   ", "c", "2", "0", "0"], _catalogo_de_nombres_con_luis())
+    assert "título" in salida
+    assert "No hay publicaciones." in salida
+
+
+def test_plaza_vacia_informa_al_paginar(monkeypatch, capsys):
+    """CA-13 integrado: con la plaza vacía no falla."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "3", "2", "3", "4", "5", "0", "0"])
+    assert salida.count("No hay publicaciones.") == 4
+
+
+def test_paginar_y_avisar_los_limites(monkeypatch, capsys):
+    """CA-13 integrado: 7 publicaciones son 2 páginas; en los extremos se avisa."""
+    publicar = []
+    for i in range(7):
+        publicar += ["1", f"p{i}", "c"]
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        ["ana", "3"] + publicar + ["2", "4", "3", "3", "5", "0", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "Estás en el principio de la plaza." in salida
+    assert "Llegaste al final de la plaza." in salida
+
+
+def test_buscar_por_palabra_en_consola(monkeypatch, capsys):
+    """CA-29 integrado: busca en título y cuerpo; sin coincidencias informa."""
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        ["ana", "3", "1", "Aprender Python", "c", "6", "python", "6", "zzz", "6", "", "0", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "#1 @ana" in salida
+    assert salida.count("Sin coincidencias.") == 2
+
+
+def test_responder_y_ver_el_hilo_con_sangria(monkeypatch, capsys):
+    """CA-14 y CA-15 integrados: el hilo se muestra con sangría por nivel."""
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        PUBLICA_ANA + ["4", "1", "1", "0", "uno", "1", "1", "dos", "1", "2", "tres", "0", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "[0] @ana: Mi pregunta — Mi cuerpo" in salida
+    assert "\n  [1] @ana: uno" in salida
+    assert "\n    [2] @ana: dos" in salida
+    assert "\n      [3] @ana: tres" in salida
+
+
+def test_responder_a_padre_inexistente_informa_y_no_cambia(monkeypatch, capsys):
+    """CA-16 integrado: se muestra el motivo y el menú sigue."""
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        PUBLICA_ANA + ["4", "1", "1", "9", "hola", "1", "abc", "0", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "no existe" in salida
+    assert "Número no válido." in salida
+    assert "hola" not in salida.replace("Hola", "")
+
+
+def test_respuesta_vacia_muestra_el_motivo(monkeypatch, capsys):
+    """La respuesta vacía se rechaza en la consola."""
+    salida = _ejecutar(
+        monkeypatch, capsys, PUBLICA_ANA + ["4", "1", "1", "0", "  ", "0", "0"], _catalogo_de_nombres_con_luis()
+    )
+    assert "vacía" in salida
+
+
+def test_abrir_hilo_inexistente_informa(monkeypatch, capsys):
+    """CA-16 integrado: publicación inexistente o texto en vez de número."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "4", "7", "4", "abc", "0"])
+    assert "Esa publicación no existe." in salida
+    assert "Número no válido." in salida
+    assert "Hasta pronto." in salida
+
+
+def test_responder_avisa_en_consola(monkeypatch, capsys):
+    """RF-09 de la cola integrado: luis responde y ana lee el aviso."""
+    salida = _ejecutar(
+        monkeypatch, capsys,
+        PUBLICA_ANA + ["9", "luis", "4", "1", "1", "0", "hola", "0", "9", "ana", "7", "0"],
+        _catalogo_de_nombres_con_luis(),
+    )
+    assert "@luis respondió a tu publicación «Mi pregunta»." in salida
+
+
+def test_volver_de_plaza_e_hilos_regresa_a_inicio(monkeypatch, capsys):
+    """CA-30 integrado: el 0 de esos submenús es «atrás»."""
+    salida = _ejecutar(monkeypatch, capsys, PUBLICA_ANA + ["4", "1", "0", "0"], _catalogo_de_nombres_con_luis())
+    assert [l for l in salida.splitlines() if l.startswith("Estás en:")] == ["Estás en: Inicio"] * 3
+
+
+def test_submenu_de_plaza_e_hilo_rechazan_opciones(monkeypatch, capsys):
+    """CA-37: extremo, opción inexistente en los submenús."""
+    salida = _ejecutar(
+        monkeypatch, capsys, PUBLICA_ANA + ["3", "x", "0", "4", "1", "x", "0", "0"], _catalogo_de_nombres_con_luis()
+    )
+    assert salida.count("Opción no válida.") == 2
 
 
 def test_entrada_cerrada_dentro_del_submenu_sale_sin_error(monkeypatch, capsys):
