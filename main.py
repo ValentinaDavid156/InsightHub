@@ -2,24 +2,28 @@
 
 Al arrancar crea los 120 perfiles de ejemplo (semilla 706132), pide el @usuario y muestra el
 menú por pantallas (specs/99-sistema/spec.md). Hoy funcionan: entrar, cambiar de @usuario, mi
-perfil, amigos y solicitudes, buscar usuarios, notificaciones y «Volver atrás»; las demás
-pantallas se abren, quedan en el historial y avisan que están pendientes.
+perfil, amigos y solicitudes, plaza, hilos, buscar usuarios, notificaciones y «Volver atrás»;
+la pantalla que falta se abre, queda en el historial y avisa que está pendiente.
 """
 
 from dominio.amistades import Amistades, MENSAJE_SIN_SOLICITUDES, SolicitudInvalidaError
+from dominio.busqueda import buscar_palabra
+from dominio.feed import Plaza, PublicacionInvalidaError
+from dominio.hilos import Hilos
 from dominio.navegacion import MENSAJE_SIN_PANTALLA_PREVIA, Navegacion
 from dominio.notificaciones import MENSAJE_SIN_NOTIFICACIONES
 from dominio.usuarios import UsuarioInvalidoError, generar_comunidad
+from estructuras.arbol_general import RespuestaInvalidaError
 
 PANTALLAS = {
-    "3": "Plaza: publicar y recorrer",
-    "4": "Responder en hilos",
     "8": "Personas que quizá conozcas",
 }
 
 OPCIONES_ACTIVAS = {
     "1": "Mi perfil",
     "2": "Amigos y solicitudes",
+    "3": "Plaza: publicar y recorrer",
+    "4": "Responder en hilos",
     "5": "Buscar usuarios",
     "6": "Volver atrás",
     "7": "Notificaciones",
@@ -150,6 +154,114 @@ def leer_notificaciones(amistades, perfil) -> None:
         print(f"  {aviso}")
 
 
+def _mostrar_publicaciones(publicaciones) -> None:
+    for publicacion in publicaciones:
+        print(f"  #{publicacion.id} @{publicacion.autor} ({publicacion.fecha}): {publicacion.titulo}")
+
+
+def _mostrar_pagina(resultado) -> None:
+    pagina, aviso = resultado
+    _mostrar_publicaciones(pagina)
+    if aviso:
+        print(aviso)
+
+
+def publicar(hilos, perfil) -> None:
+    titulo = input("Título: ").strip()
+    cuerpo = input("Cuerpo: ").strip()
+    try:
+        publicacion = hilos.publicar(perfil.usuario, titulo, cuerpo)
+    except PublicacionInvalidaError as error:
+        print(error)
+        return
+    print(f"Publicación #{publicacion.id} creada.")
+
+
+def buscar_en_plaza(hilos) -> None:
+    encontradas = buscar_palabra(hilos.plaza, input("Palabra: "))
+    if not encontradas:
+        print("Sin coincidencias.")
+    _mostrar_publicaciones(encontradas)
+
+
+def pantalla_plaza(hilos, perfil, nav) -> None:
+    """Submenú de la plaza, con la posición propia de cada persona; su 0 es «atrás»."""
+    sesion = hilos.sesion_de(perfil.id)
+    while True:
+        print("\n--- Plaza ---")
+        print("1. Publicar")
+        print("2. Ver página actual")
+        print("3. Página siguiente")
+        print("4. Página anterior")
+        print("5. Volver al inicio de la plaza")
+        print("6. Buscar por palabra")
+        print("0. Volver atrás")
+        eleccion = input("Opción: ").strip()
+        if eleccion == "0":
+            nav.atras()
+            return
+        if eleccion == "1":
+            publicar(hilos, perfil)
+        elif eleccion == "2":
+            _mostrar_pagina(sesion.ver())
+        elif eleccion == "3":
+            _mostrar_pagina(sesion.siguiente())
+        elif eleccion == "4":
+            _mostrar_pagina(sesion.anterior())
+        elif eleccion == "5":
+            _mostrar_pagina(sesion.inicio())
+        elif eleccion == "6":
+            buscar_en_plaza(hilos)
+        else:
+            print("Opción no válida.")
+
+
+def _leer_numero(mensaje):
+    """Pide un número entero; devuelve None, avisando, si lo escrito no lo es."""
+    texto = input(mensaje).strip()
+    if texto.isascii() and texto.isdigit():
+        return int(texto)
+    print("Número no válido.")
+    return None
+
+
+def responder_en_hilo(hilos, perfil, id_publicacion) -> None:
+    id_padre = _leer_numero("Responder al número (0 = la publicación): ")
+    if id_padre is None:
+        return
+    texto = input("Respuesta: ").strip()
+    try:
+        hilos.responder(id_publicacion, id_padre, perfil.usuario, texto)
+    except RespuestaInvalidaError as error:
+        print(error)
+
+
+def pantalla_hilo(hilos, perfil, nav) -> None:
+    """Abre el hilo de una publicación y permite responder; su 0 es «atrás»."""
+    id_publicacion = _leer_numero("Número de la publicación: ")
+    if id_publicacion is None:
+        nav.atras()
+        return
+    if not hilos.existe(id_publicacion):
+        print("Esa publicación no existe.")
+        nav.atras()
+        return
+    while True:
+        print(f"\n--- Hilo #{id_publicacion} ---")
+        for linea in hilos.mostrar(id_publicacion):
+            print(linea)
+        print("1. Responder")
+        print("0. Volver atrás")
+        eleccion = input("Opción: ").strip()
+        if eleccion == "0":
+            nav.atras()
+            return
+        if eleccion == "1":
+            responder_en_hilo(hilos, perfil, id_publicacion)
+        else:
+            print("Opción no válida.")
+
+
 def _abrir_sesion(catalogo, amistades):
     """Pide el @usuario y prepara su historial. Devuelve (perfil, nav), o (None, None) con EOF."""
     perfil = pedir_usuario(catalogo)
@@ -161,7 +273,7 @@ def _abrir_sesion(catalogo, amistades):
     return perfil, nav
 
 
-def _ciclo(catalogo, amistades) -> None:
+def _ciclo(catalogo, amistades, hilos) -> None:
     perfil, nav = _abrir_sesion(catalogo, amistades)
     if perfil is None:
         return
@@ -176,6 +288,12 @@ def _ciclo(catalogo, amistades) -> None:
         elif eleccion == "2":
             nav.ir_a("Amigos y solicitudes")
             pantalla_amigos(amistades, perfil, nav)
+        elif eleccion == "3":
+            nav.ir_a("Plaza: publicar y recorrer")
+            pantalla_plaza(hilos, perfil, nav)
+        elif eleccion == "4":
+            nav.ir_a("Responder en hilos")
+            pantalla_hilo(hilos, perfil, nav)
         elif eleccion == "5":
             nav.ir_a("Buscar usuarios")
             buscar_usuarios(catalogo)
@@ -199,9 +317,11 @@ def _ciclo(catalogo, amistades) -> None:
 def menu(catalogo=None) -> None:
     if catalogo is None:
         catalogo = generar_comunidad()
+    amistades = Amistades(catalogo)
+    hilos = Hilos(Plaza(), catalogo, amistades.notificaciones)
     try:
-        _ciclo(catalogo, Amistades(catalogo))
-    except EOFError:                         # se cerró la entrada en cualquier pantalla
+        _ciclo(catalogo, amistades, hilos)
+    except EOFError:                        # se cerró la entrada en cualquier pantalla
         pass
     print("Hasta pronto.")
 

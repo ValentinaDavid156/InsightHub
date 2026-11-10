@@ -12,6 +12,10 @@ MENSAJE_INICIO_PLAZA = "Estás en el principio de la plaza."
 MENSAJE_PLAZA_VACIA = "No hay publicaciones."
 
 
+class PublicacionInvalidaError(ValueError):
+    """La publicación se rechaza; el mensaje dice el motivo. La plaza no cambia."""
+
+
 class Publicacion:
     """Una pregunta publicada: identificador, autor, título, cuerpo y fecha (AAAA-MM-DD)."""
 
@@ -37,7 +41,12 @@ class Plaza:
         self._siguiente_id = 1
 
     def publicar(self, autor, titulo, cuerpo, fecha=None):
-        """Crea la publicación y la deja como la primera de la plaza (CA-12)."""
+        """Crea la publicación y la deja como la primera de la plaza (CA-12).
+
+        Lanza PublicacionInvalidaError si el título está vacío; el cuerpo puede ir vacío.
+        """
+        if not isinstance(titulo, str) or not titulo.strip():
+            raise PublicacionInvalidaError("La publicación necesita un título.")
         if fecha is None:
             fecha = datetime.date.today().isoformat()
         publicacion = Publicacion(self._siguiente_id, autor, titulo, cuerpo, fecha)
