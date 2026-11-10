@@ -227,6 +227,18 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** con el montículo vacío se lanza `MonticuloVacioError`; cada recomendación se muestra con su número de amigos en común; la opción 8 solo muestra, sin enviar solicitudes.
 
+## Sesión 24 — Avance 8: consola completa (CA-37)
+
+**Prompt (textual):**
+> Sí, al avance 8
+
+**Síntesis de la respuesta:**
+- Revisó las historias HU-02 a HU-13 contra el menú: todas las funciones Must ya tenían opción en la consola desde los avances 5 a 7.
+- Escribió `tests/test_sistema.py` (15 pruebas) con la comunidad real de 120 perfiles: un recorrido por historia (HU-02, HU-03, HU-05, HU-06, HU-10 a HU-13) con varias personas que se turnan con la opción 9, más RF-01 a RF-04 y RF-07. Pasaron sin cambiar código, salvo una aserción mal planteada en la prueba de la plaza que se quitó: aquí no hubo fase en rojo porque el código ya existía. Resultado: 368 pruebas pasan.
+- CA-37 queda «pasa»: los 24 criterios Must pasan.
+
+**Decisión de la estudiante:** seguir con el avance 8 en orden.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).
