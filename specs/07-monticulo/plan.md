@@ -1,5 +1,5 @@
 # Plan — Montículo máximo
-Versión 1.0
+Versión 1.1
 
 ## 1. De qué implementación mía parto
 **No tengo un montículo en el repositorio.** De **`Semana10/cola_prioridad.py`** (`ColaPrioridad`) tomo solo la idea de desempatar con una **clave compuesta** (`nivel efectivo, llegada, orden`) y de que el tiempo o el orden los aporte quien llama para que sea determinista y probable. Qué cambia para InsightHub:
@@ -63,7 +63,15 @@ Si se actualizan las posiciones antes de mover los elementos, o se olvida una de
 ## 8. Módulos
 `estructuras/monticulo.py` · `dominio/destacada.py` · `dominio/recomendaciones.py` · pruebas en `tests/test_monticulo.py`.
 
+## 9. Decisiones tomadas al implementar (todas de Valentina)
+- **Montículo vacío:** `maximo` y `extraer_maximo` lanzan `MonticuloVacioError` (hereda de `IndexError`), igual que la pila y la cola; el dominio revisa `esta_vacio` antes de pedir.
+- **Elementos:** el montículo guarda elementos cualesquiera y solo los compara con `antes(a, b)`. Las recomendaciones usan `(perfil, amigos_en_comun)`.
+- **Consola:** la opción 8 muestra cada recomendación como `@usuario (N amigos en común)`, en singular si es 1; no envía solicitudes (eso sigue en la opción 2).
+- **Acceso al grafo:** `Amistades` expone `grafo` y `catalogo` para que `recomendaciones.recomendar(amistades, persona)` pida los candidatos sin duplicar la red.
+- **`actualizar` y el arreglo de posiciones** no se implementaron todavía: llegan con la destacada (Should, T-07.12).
+
 ## Historial de cambios
 | Versión | Fecha | Cambio | Motivo |
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial (la carpeta estaba vacía) | Faltaban spec, plan y tasks del montículo; se declara que no hay montículo previo y qué se toma de `cola_prioridad.py`; actualización en sitio con arreglo de posiciones; construcción en O(m); orden de intercambios; alternativas descartadas |
+| 1.1 | 2026-11-10 | Sección 9 con las decisiones de implementación: montículo vacío, elementos genéricos, salida de consola y acceso al grafo | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |

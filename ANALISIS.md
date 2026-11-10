@@ -1,5 +1,5 @@
 # Análisis de complejidad
-Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones), la **lista doble** (con la plaza y la búsqueda por palabra), el **AVL** (con los usuarios), el **grafo**, las **amistades** que unen cola y grafo, y el **árbol general** con los hilos; las demás figuran «pendiente».
+Fuente: los `plan.md` de cada componente en `specs/`. Se completa a medida que se implementa; hoy están implementadas la **pila**, la **cola** (con las notificaciones), la **lista doble** (con la plaza y la búsqueda por palabra), el **AVL** (con los usuarios), el **grafo**, las **amistades** que unen cola y grafo, el **árbol general** con los hilos y el **montículo** con las recomendaciones; las demás figuran «pendiente».
 
 n = elementos de la estructura · k = resultados · g = grado · c = conectados · V, E = vértices y aristas.
 
@@ -36,9 +36,11 @@ n = elementos de la estructura · k = resultados · g = grado · c = conectados 
 | Grafo | agregar_vertice | O(1) amortizado | implementada (`estructuras/grafo.py`) |
 | Grafo | agregar_amistad / eliminar_amistad / son_amigos / amigos | O(g) | implementada |
 | Grafo | candidatos_dos_saltos | O(V + g + E′) | implementada |
-| Montículo | insertar / extraer_maximo / actualizar | O(log n) | pendiente |
-| Montículo | maximo | O(1) | pendiente |
-| Montículo | construir | O(m) | pendiente |
+| Montículo | insertar / extraer_maximo | O(log n) | implementada (`estructuras/monticulo.py`) |
+| Montículo | actualizar | O(log n) | pendiente (Should: destacada) |
+| Montículo | maximo | O(1) | implementada |
+| Montículo | construir | O(m) | implementada |
+| Recomendaciones | recomendar (5 mejores de m candidatos) | O(V + g + E′ + m + 5 log m) | implementada (`dominio/recomendaciones.py`) |
 | Lista simple | conectar / registrar_actividad / salir / caducar / listar | O(c) | pendiente |
 
 ## Análisis por estructura implementada (entrega 2)

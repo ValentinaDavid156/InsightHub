@@ -215,6 +215,18 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** los rechazos lanzan `RespuestaInvalidaError`; las respuestas se numeran por hilo (la publicación es el 0); se rechazan la respuesta y el título vacíos, y el cuerpo puede ir vacío; opción 3 para la plaza y 4 para los hilos.
 
+## Sesión 23 — Avance 7: montículo y recomendaciones
+
+**Prompt (textual):**
+> Sí, al avance 7
+
+**Síntesis de la respuesta:**
+- Consultó 3 decisiones antes de programar y escribió primero las pruebas (rojo): `tests/test_monticulo.py` y las de consola, 28 nuevas; reemplazó la prueba de «opción pendiente» porque ya no queda ninguna.
+- Escribió `estructuras/monticulo.py` (arreglo con `antes(a, b)` recibida, `subir`, `bajar`, `construir` en O(m)), `dominio/recomendaciones.py` y la opción 8 de la consola. Resultado: 353 pruebas pasan; también se probó la consola real (`@meta_x (2 amigos en común)`).
+- CA-35 queda «pasa»: los 24 criterios Must tienen código salvo CA-37, que se cierra con la prueba del sistema. Plan del montículo v1.1.
+
+**Decisión de la estudiante:** con el montículo vacío se lanza `MonticuloVacioError`; cada recomendación se muestra con su número de amigos en común; la opción 8 solo muestra, sin enviar solicitudes.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

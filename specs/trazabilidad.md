@@ -1,5 +1,5 @@
 # Trazabilidad criterio ↔ prueba ↔ código
-Versión 1.4
+Versión 1.5
 
 Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueba y su código (primera tabla), y de una función a los criterios de los que nació (segunda tabla). Se actualiza con cada commit `test(...)`: el estado de la prueba pasa de «pendiente» a «pasa». Las historias están en [`00-producto/historias.md`](00-producto/historias.md) y las prioridades en [`00-producto/moscow.md`](00-producto/moscow.md).
 
@@ -40,7 +40,7 @@ Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueb
 | CA-32 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `estructuras/cola.py`, `dominio/notificaciones.py` |
 | CA-33 | HU-12 | Must | [`03-cola`](03-cola/spec.md) | `tests/test_cola.py` | pasa | `dominio/notificaciones.py` |
 | CA-34 | HU-13 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pasa | `estructuras/grafo.py`, `dominio/recomendaciones.py` |
-| CA-35 | HU-13 | Must | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pendiente | `estructuras/monticulo.py`, `dominio/recomendaciones.py` |
+| CA-35 | HU-13 | Must | [`07-monticulo`](07-monticulo/spec.md) | `tests/test_monticulo.py` | pasa | `estructuras/monticulo.py`, `dominio/recomendaciones.py` |
 | CA-36 | HU-13 | Must | [`06-grafo`](06-grafo/spec.md) | `tests/test_grafo.py` | pasa | `estructuras/grafo.py` |
 | CA-37 | HU-14 | Must | [`99-sistema`](99-sistema/spec.md) | `tests/test_sistema.py` | pendiente | `main.py` |
 | CA-38 | HU-14 | Should | [`99-sistema`](99-sistema/spec.md) | `tests/test_sistema.py` | pendiente | `web.py` |
@@ -189,3 +189,4 @@ Se prueban dentro de la tarea del criterio que las usa: `subir` y `bajar` del mo
 | 1.2 | 2026-11-08 | CA-08, CA-34 y CA-36 pasan a «pasa»; CA-06 queda «parcial»; se anota `Grafo.cantidad` | Se implementó el grafo (avance 4); aceptar y rechazar desde la cola llegan con las amistades integradas |
 | 1.3 | 2026-11-08 | CA-05, CA-06 y CA-07 pasan a «pasa»; se agregan a la tabla inversa `amistades.primera`, `pendientes`, `deshacer`, `amigos` y `registrar` | Se integraron las amistades (avance 5) |
 | 1.4 | 2026-11-09 | CA-14, CA-15 y CA-16 pasan a «pasa»; se agregan a la tabla inversa `hilos.publicar`, `tamano_de`, `responder`, `existe` y `sesion_de` | Se implementó el árbol general (avance 6) |
+| 1.5 | 2026-11-10 | CA-35 pasa a «pasa» | Se implementaron el montículo y las recomendaciones (avance 7) |
