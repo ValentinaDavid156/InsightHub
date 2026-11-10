@@ -2,8 +2,8 @@
 
 Al arrancar crea los 120 perfiles de ejemplo (semilla 706132), pide el @usuario y muestra el
 menú por pantallas (specs/99-sistema/spec.md). Hoy funcionan: entrar, cambiar de @usuario, mi
-perfil, amigos y solicitudes, plaza, hilos, buscar usuarios, notificaciones y «Volver atrás»;
-la pantalla que falta se abre, queda en el historial y avisa que está pendiente.
+perfil, amigos y solicitudes, plaza, hilos, buscar usuarios, notificaciones, «Volver atrás» y
+recomendaciones; ya no queda ninguna pantalla Must pendiente.
 """
 
 from dominio.amistades import Amistades, MENSAJE_SIN_SOLICITUDES, SolicitudInvalidaError
@@ -12,12 +12,9 @@ from dominio.feed import Plaza, PublicacionInvalidaError
 from dominio.hilos import Hilos
 from dominio.navegacion import MENSAJE_SIN_PANTALLA_PREVIA, Navegacion
 from dominio.notificaciones import MENSAJE_SIN_NOTIFICACIONES
+from dominio.recomendaciones import recomendar
 from dominio.usuarios import UsuarioInvalidoError, generar_comunidad
 from estructuras.arbol_general import RespuestaInvalidaError
-
-PANTALLAS = {
-    "8": "Personas que quizá conozcas",
-}
 
 OPCIONES_ACTIVAS = {
     "1": "Mi perfil",
@@ -27,6 +24,7 @@ OPCIONES_ACTIVAS = {
     "5": "Buscar usuarios",
     "6": "Volver atrás",
     "7": "Notificaciones",
+    "8": "Personas que quizá conozcas",
     "9": "Cambiar de @usuario",
 }
 
@@ -53,10 +51,7 @@ def mostrar_menu(nav) -> None:
     print("\n=== InsightHub ===")
     print(f"Estás en: {nav.actual}")
     for numero in "123456789":               # siempre en orden numérico
-        if numero in PANTALLAS:
-            print(f"{numero}. {PANTALLAS[numero]} (pendiente)")
-        else:
-            print(f"{numero}. {OPCIONES_ACTIVAS[numero]}")
+        print(f"{numero}. {OPCIONES_ACTIVAS[numero]}")
     print("0. Salir")
 
 
@@ -262,6 +257,16 @@ def pantalla_hilo(hilos, perfil, nav) -> None:
             print("Opción no válida.")
 
 
+def ver_recomendaciones(amistades, perfil) -> None:
+    """Hasta 5 personas, de más a menos amigos en común (CA-35)."""
+    recomendaciones = recomendar(amistades, perfil.id)
+    if not recomendaciones:
+        print("No hay recomendaciones por ahora.")
+    for recomendado, comunes in recomendaciones:
+        palabra = "amigo" if comunes == 1 else "amigos"
+        print(f"  @{recomendado.usuario} ({comunes} {palabra} en común)")
+
+
 def _abrir_sesion(catalogo, amistades):
     """Pide el @usuario y prepara su historial. Devuelve (perfil, nav), o (None, None) con EOF."""
     perfil = pedir_usuario(catalogo)
@@ -303,13 +308,13 @@ def _ciclo(catalogo, amistades, hilos) -> None:
         elif eleccion == "7":
             nav.ir_a("Notificaciones")
             leer_notificaciones(amistades, perfil)
+        elif eleccion == "8":
+            nav.ir_a("Personas que quizá conozcas")
+            ver_recomendaciones(amistades, perfil)
         elif eleccion == "9":
             perfil, nav = _abrir_sesion(catalogo, amistades)
             if perfil is None:
                 return
-        elif eleccion in PANTALLAS:
-            nav.ir_a(PANTALLAS[eleccion])
-            print("Funcionalidad aún no implementada.")
         else:
             print("Opción no válida.")
 

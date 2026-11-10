@@ -24,20 +24,20 @@ class Amistades:
     """
 
     def __init__(self, catalogo, grafo=None, notificaciones=None):
-        self._catalogo = catalogo
-        self._grafo = Grafo() if grafo is None else grafo
+        self.catalogo = catalogo
+        self.grafo = Grafo() if grafo is None else grafo
         self.notificaciones = Notificaciones() if notificaciones is None else notificaciones
         self._solicitudes = []      # arreglo indexado por id; None = nunca recibió solicitudes
         for perfil in catalogo.perfiles():
-            self._grafo.agregar_vertice(perfil.id)
+            self.grafo.agregar_vertice(perfil.id)
 
     def registrar(self, persona):
         """Registra en la red a un perfil creado después de arrancar. Si ya estaba, no cambia nada."""
-        self._grafo.agregar_vertice(persona)
+        self.grafo.agregar_vertice(persona)
 
     def _cola_de(self, persona, crear=False):
         """La cola de solicitudes de `persona`, o None si no tiene (y no se pidió crearla)."""
-        if self._catalogo.por_id(persona) is None:
+        if self.catalogo.por_id(persona) is None:
             return None
         if persona >= len(self._solicitudes):
             if not crear:
@@ -55,18 +55,18 @@ class Amistades:
         Devuelve el perfil del destinatario. Lanza SolicitudInvalidaError, sin cambiar nada, si
         alguno no existe, es uno mismo, ya son amigos, está repetida o el otro ya te la envió.
         """
-        remitente = self._catalogo.por_id(de)
+        remitente = self.catalogo.por_id(de)
         if remitente is None:
             raise SolicitudInvalidaError("Quien envía la solicitud no existe.")
-        destino = self._catalogo.buscar(usuario_para)
+        destino = self.catalogo.buscar(usuario_para)
         if destino is None:
             raise SolicitudInvalidaError("Ese @usuario no existe.")
         if destino.id == remitente.id:
             raise SolicitudInvalidaError("No puedes enviarte una solicitud a ti mismo.")
         # un perfil recién creado también debe estar en la red; agregar_vertice es idempotente
-        self._grafo.agregar_vertice(remitente.id)
-        self._grafo.agregar_vertice(destino.id)
-        if self._grafo.son_amigos(remitente.id, destino.id):
+        self.grafo.agregar_vertice(remitente.id)
+        self.grafo.agregar_vertice(destino.id)
+        if self.grafo.son_amigos(remitente.id, destino.id):
             raise SolicitudInvalidaError(f"Ya eres amigo de @{destino.usuario}.")
         cola_destino = self._cola_de(destino.id)
         if cola_destino is not None and cola_destino.contiene(remitente.id):
@@ -92,7 +92,7 @@ class Amistades:
         cola = self._cola_de(persona)
         if cola is None or cola.esta_vacia():
             return None
-        return self._catalogo.por_id(cola.frente())
+        return self.catalogo.por_id(cola.frente())
 
     def atender(self, persona, aceptar):
         """Saca la primera solicitud y, si se acepta, crea la amistad y avisa (CA-06, CA-07).
@@ -102,10 +102,10 @@ class Amistades:
         cola = self._cola_de(persona)
         if cola is None or cola.esta_vacia():
             return None
-        remitente = self._catalogo.por_id(cola.desencolar())
+        remitente = self.catalogo.por_id(cola.desencolar())
         if aceptar:
-            self._grafo.agregar_amistad(persona, remitente.id)
-            quien_acepta = self._catalogo.por_id(persona)
+            self.grafo.agregar_amistad(persona, remitente.id)
+            quien_acepta = self.catalogo.por_id(persona)
             self.notificaciones.notificar(
                 remitente.id, f"@{quien_acepta.usuario} aceptó tu solicitud de amistad."
             )
@@ -115,11 +115,11 @@ class Amistades:
 
     def deshacer(self, persona, usuario_otro):
         """Deshace la amistad en ambos sentidos. False si no existe, sin error (CA-08)."""
-        otro = self._catalogo.buscar(usuario_otro)
+        otro = self.catalogo.buscar(usuario_otro)
         if otro is None:
             return False
-        return self._grafo.eliminar_amistad(persona, otro.id)
+        return self.grafo.eliminar_amistad(persona, otro.id)
 
     def amigos(self, persona):
         """Los perfiles de sus amigos, el de la amistad más reciente primero."""
-        return [self._catalogo.por_id(i) for i in self._grafo.amigos(persona)]
+        return [self.catalogo.por_id(i) for i in self.grafo.amigos(persona)]
