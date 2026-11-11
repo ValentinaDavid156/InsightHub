@@ -1,0 +1,17 @@
+comparacion,n,avl_insertar_todo_ms,sin_equilibrar_insertar_todo_ms,avl_buscar_us,sin_equilibrar_buscar_us,avl_altura,sin_equilibrar_altura
+arbol,1000,3.88,18.95,0.559,53.86,9,999
+arbol,2000,8.68,75.17,0.638,108.284,10,1999
+arbol,4000,19.05,300.68,0.671,213.681,11,3999
+arbol,8000,40.59,1199.12,0.954,454.391,12,7999
+
+comparacion,n,lista_doble_por_publicacion_us,arreglo_por_publicacion_us
+plaza,1000,0.204,1.304
+plaza,10000,0.192,3.257
+plaza,100000,0.187,27.991
+plaza,400000,0.547,667.491
+
+comparacion,n,monticulo_ms,ordenar_ms,monticulo_comparaciones,ordenar_comparaciones
+recomendaciones,1000,1.96,6.98,1978,8631
+recomendaciones,10000,22.63,112.78,18929,120252
+recomendaciones,100000,234.52,1609.52,188347,1531684
+

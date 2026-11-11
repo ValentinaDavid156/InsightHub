@@ -1,8 +1,8 @@
 # Bitácora de interacción con la IA — InsightHub
 
 > Registro exigido por el Principio 8 de la [Constitución](specs/CONSTITUTION.md): prompt textual, síntesis de la respuesta y decisión de la estudiante.
-> Herramienta: Claude Code (Anthropic). Fechas de las sesiones: 2026-11-07 y 2026-11-08.
-> Alcance de la IA: **solo documentos** (`specs/`, `moscow.md`, esta bitácora). No escribió código de estructuras ni pruebas. Cada decisión de diseño la tomó la estudiante respondiendo preguntas con opciones y una recomendación.
+> Herramienta: Claude Code (Anthropic). Fechas de las sesiones: 2026-11-07 a 2026-11-10.
+> Alcance de la IA: en las sesiones 1 a 15, documentos (`specs/`, `moscow.md`, esta bitácora). Desde la sesión 16, por decisión de la estudiante, **Claude Code escribió también todo el código y todas las pruebas**, partiendo de su código del curso (`Estructura-datos/`, Semanas 4 a 10). La estudiante tomó cada decisión de diseño respondiendo preguntas con opciones y una recomendación, recibió el detalle de cada cambio y aprobó cada commit.
 
 ---
 
@@ -238,6 +238,20 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 - CA-37 queda «pasa»: los 24 criterios Must pasan.
 
 **Decisión de la estudiante:** seguir con el avance 8 en orden.
+
+## Sesión 25 — Cierre de la entrega final
+
+**Prompt (textual):**
+> Sí, al cierre
+>
+> continuemos
+
+**Síntesis de la respuesta:**
+- Releyó el enunciado de la entrega final y escribió `docs/evidencias/medir.py`, que mide AVL frente a árbol sin equilibrar, lista doble frente a arreglo y montículo frente a ordenar; resultados en `docs/evidencias/mediciones.csv`.
+- Completó `ANALISIS.md`, `README.md`, `moscow.md` v1.4 y `estructuras.md` v1.4, y redactó `docs/informe_final.pdf` (fuente en `docs/informe_final.html`).
+- Corrigió el encabezado de esta bitácora, que todavía decía que la IA solo escribió documentos.
+
+**Decisión de la estudiante:** cerrar sin los Should.
 
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).

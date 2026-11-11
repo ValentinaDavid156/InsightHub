@@ -1,7 +1,7 @@
 # Decisión de estructuras
-Versión 1.2
+Versión 1.4
 
-Ocho estructuras, todas implementadas desde cero: lista simple, lista doble, pila, cola, árbol general, AVL, grafo y montículo.
+Ocho estructuras declaradas: lista simple, lista doble, pila, cola, árbol general, AVL, grafo y montículo. Siete están implementadas desde cero; la lista simple (HU-04, Should) está diseñada pero no implementada.
 
 ## Carpeta de cada componente
 | Estructura | Spec, plan y tasks |
@@ -21,7 +21,7 @@ Ocho estructuras, todas implementadas desde cero: lista simple, lista doble, pil
 | Capacidad | HU | Estructura | Por qué esta | Alternativa descartada | Complejidad clave | Dónde se usa |
 |---|---|---|---|---|---|---|
 | Índice de usuarios y acceso por `@usuario` | HU-01, HU-02 | **AVL** | Garantiza unicidad y búsqueda con altura O(log n) aunque los usuarios lleguen ordenados | Tabla hash: no da orden alfabético ni búsqueda por prefijo | insertar y buscar O(log n) | `dominio/usuarios.py` |
-| Amistades | HU-03 | **Grafo no dirigido con lista de adyacencia** | La red es dispersa: cada persona tiene pocos amigos entre los n posibles | Matriz de adyacencia: n² celdas casi vacías, O(n²) de memoria | agregar y quitar arista O(grado) · vecinos O(grado) | `dominio/red.py` |
+| Amistades | HU-03 | **Grafo no dirigido con lista de adyacencia** | La red es dispersa: cada persona tiene pocos amigos entre los n posibles | Matriz de adyacencia: n² celdas casi vacías, O(n²) de memoria | agregar y quitar arista O(grado) · vecinos O(grado) | `dominio/amistades.py` |
 | Representación de las relaciones | HU-03, HU-13 | **Lista de adyacencia** (frente a matriz de adyacencia) | Con n usuarios y pocos amigos cada uno, la lista guarda solo las aristas que existen: memoria O(n + m). Recorrer los amigos de alguien cuesta O(grado), que es lo que hace la búsqueda a 2 saltos | Matriz de adyacencia: memoria O(n²) casi toda vacía y listar amigos cuesta O(n); solo gana en «¿son amigos?» O(1) frente a O(grado), una consulta poco frecuente con grados pequeños | memoria O(n + m) · vecinos O(grado) · ¿son amigos? O(grado) | `estructuras/grafo.py` |
 | Solicitudes de amistad pendientes | HU-03 | **Cola enlazada** (una por persona) | Se atienden en orden de llegada: encolar al final y desencolar al frente en O(1) | Arreglo dinámico: desencolar del inicio desplaza elementos, O(n) | encolar O(1) · desencolar O(1) | `dominio/amistades.py` |
 | Personas conectadas | HU-04 | **Lista enlazada simple** | Entrar es insertar al inicio en O(1); listar cuesta O(conectados) y no O(todos los usuarios) | Recorrer todo el AVL en cada consulta: O(n) | insertar O(1) · listar O(c) · quitar O(c) | `dominio/presencia.py` |
@@ -58,3 +58,4 @@ Ninguno sustituye una estructura declarada; cada uno se detalla en el `plan.md` 
 | 1.1 | 2026-11-07 | Se asigna una estructura a cada historia aprobada (HU-01 a HU-13). Se suman lista simple y montículo; la red pasa de dirigida a no dirigida; se agregan solicitudes, votos, destacada y búsquedas por fecha y palabra | Las historias v1.1 agregaron amistad con solicitud, presencia, votos y destacada |
 | 1.2 | 2026-11-07 | Agrega la fila «representación de las relaciones» (lista de adyacencia frente a matriz), la tabla de carpetas de cada componente con enlaces a `01-…` a `08-…` y `99-sistema`, la ruta corregida de HU-14 y la separación palabra (CA-29) / fecha (CA-39); la búsqueda de usuarios usa un solo índice por `@usuario` | Faltaba justificar la representación del grafo; las carpetas se renombraron; las historias v1.2 separaron CA-29 y CA-39; el perfil no tiene otro nombre además del `@usuario` |
 | 1.3 | 2026-11-09 | Se declaran los arreglos por id de solicitudes, notificaciones, sesiones de plaza e hilos | Estaban declarados solo en los planes de cada componente |
+| 1.4 | 2026-11-10 | La amistad se implementó en `dominio/amistades.py`, no en `red.py`; se aclara que la lista simple no se implementó; la cabecera pasa a 1.4 (seguía en 1.2) | Dejar la decisión coherente con lo entregado |

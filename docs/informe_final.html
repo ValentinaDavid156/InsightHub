@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Informe técnico InsightHub</title>
+<style>
+@page { size: A4; margin: 2.54cm; }
+body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.38; color: #000; background: #fff; margin: 0; }
+h1 { font-size: 14pt; margin: 14pt 0 5pt; break-after: avoid; }
+h2 { font-size: 12pt; margin: 10pt 0 3pt; break-after: avoid; }
+p { margin: 0 0 6pt; text-align: justify; }
+table { border-collapse: collapse; width: 100%; font-size: 9.8pt; margin: 4pt 0 8pt; break-inside: avoid; }
+th, td { border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 2.5pt 4pt; text-align: left; vertical-align: top; }
+th { font-weight: bold; }
+code { font-family: Consolas, monospace; font-size: 9.6pt; }
+ul { margin: 0 0 6pt; padding-left: 16pt; }
+li { margin-bottom: 2pt; text-align: justify; }
+figure { margin: 6pt 0 8pt; break-inside: avoid; text-align: center; }
+figcaption { font-size: 9.8pt; font-style: italic; text-align: left; margin-top: 2pt; }
+svg { max-width: 100%; height: auto; }
+svg text { font-family: "Times New Roman", serif; font-size: 12px; fill: #000; }
+svg rect { fill: #fff; stroke: #000; }
+svg line, svg path { stroke: #000; fill: none; }
+.portada { height: 24.2cm; display: flex; flex-direction: column; justify-content: center; text-align: center; break-after: page; }
+.portada h1 { font-size: 22pt; margin-bottom: 6pt; }
+.portada p { text-align: center; margin: 3pt 0; font-size: 12.5pt; }
+.ref p { padding-left: 1.27cm; text-indent: -1.27cm; text-align: left; }
+</style>
+</head>
+<body>
+
+<section class="portada">
+<h1>InsightHub</h1>
+<p>Informe técnico del proyecto integrador · Temática B</p>
+<p style="margin-top:48pt"><strong>Valentina David</strong></p>
+<p>Estructuras de Datos · ID 706132</p>
+<p>Universidad Cooperativa de Colombia</p>
+<p>Noviembre de 2026</p>
+<p style="margin-top:48pt;font-size:11pt">Repositorio: github.com/ValentinaDavid156/InsightHub · etiqueta <code>entrega-final</code></p>
+</section>
+
+<h1>1. Descripción del sistema</h1>
+<p>InsightHub es una red social 100 % pública de preguntas y respuestas, inspirada en el ágora: no hay chats ni mensajes privados. Sus miembros entran con un <code>@usuario</code>, se hacen amigos mediante solicitud y aceptación, publican preguntas en una plaza común, responden en hilos anidados, buscan personas y publicaciones, vuelven atrás entre pantallas, leen notificaciones y reciben recomendaciones de contactos. Se usa desde la consola y los datos viven en memoria.</p>
+<p>La priorización MoSCoW calculó 18,5 horas netas de capacidad y asignó 17,75 a las historias Must. <strong>Se entregan completas todas las historias Must</strong>: los 24 criterios de aceptación Must pasan, con 368 pruebas automáticas. No se implementaron las historias Should: votos, mejor respuesta, publicación destacada, conectados, búsqueda por fecha y sitio web. Al quedar fuera «conectados», la lista simple declarada en <code>estructuras.md</code> está diseñada, pero no implementada; el sistema integra las otras siete estructuras.</p>
+
+<h1>2. Arquitectura y diagrama de módulos</h1>
+<p>El código se organiza en tres capas. <code>estructuras/</code> contiene estructuras genéricas que no conocen el dominio; <code>dominio/</code> aplica las reglas de la temática; <code>main.py</code> solo lee, llama al dominio e imprime. Los mensajes de rechazo nacen en el dominio con el motivo y la consola los muestra, de modo que un rechazo nunca altera el estado.</p>
+<figure>
+<svg viewBox="0 0 640 262" role="img" aria-label="Diagrama de módulos en tres capas">
+<rect x="230" y="4" width="180" height="30"/><text x="320" y="24" text-anchor="middle">main.py (consola)</text>
+<g>
+<rect x="4" y="88" width="92" height="44"/><text x="50" y="107" text-anchor="middle">usuarios</text><text x="50" y="123" text-anchor="middle">(Catalogo)</text>
+<rect x="110" y="88" width="92" height="44"/><text x="156" y="107" text-anchor="middle">amistades</text><text x="156" y="123" text-anchor="middle">notificaciones</text>
+<rect x="216" y="88" width="92" height="44"/><text x="262" y="107" text-anchor="middle">feed</text><text x="262" y="123" text-anchor="middle">busqueda</text>
+<rect x="322" y="88" width="92" height="44"/><text x="368" y="115" text-anchor="middle">hilos</text>
+<rect x="428" y="88" width="104" height="44"/><text x="480" y="115" text-anchor="middle">recomendaciones</text>
+<rect x="546" y="88" width="90" height="44"/><text x="591" y="115" text-anchor="middle">navegacion</text>
+</g>
+<text x="58" y="78" style="font-style:italic">dominio/</text>
+<g>
+<rect x="4" y="196" width="92" height="30"/><text x="50" y="216" text-anchor="middle">AVL</text>
+<rect x="110" y="196" width="92" height="30"/><text x="156" y="216" text-anchor="middle">Cola</text>
+<rect x="216" y="196" width="92" height="30"/><text x="262" y="216" text-anchor="middle">Lista doble</text>
+<rect x="322" y="196" width="92" height="30"/><text x="368" y="216" text-anchor="middle">Árbol general</text>
+<rect x="428" y="196" width="104" height="30"/><text x="480" y="216" text-anchor="middle">Montículo</text>
+<rect x="546" y="196" width="90" height="30"/><text x="591" y="216" text-anchor="middle">Pila</text>
+<rect x="110" y="232" width="92" height="28"/><text x="156" y="251" text-anchor="middle">Grafo</text>
+</g>
+<text x="58" y="188" style="font-style:italic">estructuras/</text>
+<line x1="320" y1="34" x2="320" y2="60"/><line x1="50" y1="60" x2="591" y2="60"/>
+<line x1="50" y1="60" x2="50" y2="88"/><line x1="156" y1="60" x2="156" y2="88"/><line x1="262" y1="60" x2="262" y2="88"/><line x1="368" y1="60" x2="368" y2="88"/><line x1="480" y1="60" x2="480" y2="88"/><line x1="591" y1="60" x2="591" y2="88"/>
+<line x1="50" y1="132" x2="50" y2="196"/><line x1="156" y1="132" x2="156" y2="196"/><line x1="262" y1="132" x2="262" y2="196"/><line x1="368" y1="132" x2="368" y2="196"/><line x1="480" y1="132" x2="480" y2="196"/><line x1="591" y1="132" x2="591" y2="196"/>
+<path d="M 202 118 L 206 118 L 206 246 L 202 246"/>
+</svg>
+<figcaption>Figura 1. Módulos en tres capas. Cada módulo del dominio usa la estructura que tiene debajo; amistades usa además el grafo, recomendaciones usa grafo y montículo, y el árbol general recorre con la pila.</figcaption>
+</figure>
+<p>La integración se ve mejor en el flujo de una amistad, que atraviesa cuatro estructuras:</p>
+<figure>
+<svg viewBox="0 0 640 74" role="img" aria-label="Flujo de una solicitud de amistad">
+<rect x="2" y="16" width="130" height="42"/><text x="67" y="33" text-anchor="middle">enviar: AVL comprueba</text><text x="67" y="49" text-anchor="middle">que el destino existe</text>
+<rect x="166" y="16" width="130" height="42"/><text x="231" y="33" text-anchor="middle">Grafo: no son amigos</text><text x="231" y="49" text-anchor="middle">Cola: no está repetida</text>
+<rect x="330" y="16" width="130" height="42"/><text x="395" y="33" text-anchor="middle">Cola del destinatario</text><text x="395" y="49" text-anchor="middle">y aviso (Cola)</text>
+<rect x="494" y="16" width="144" height="42"/><text x="566" y="33" text-anchor="middle">aceptar: sale de la Cola,</text><text x="566" y="49" text-anchor="middle">Grafo en ambos sentidos</text>
+<line x1="132" y1="37" x2="166" y2="37"/><line x1="296" y1="37" x2="330" y2="37"/><line x1="460" y1="37" x2="494" y2="37"/>
+</svg>
+<figcaption>Figura 2. Flujo de una solicitud de amistad, de la consulta al índice hasta la arista del grafo.</figcaption>
+</figure>
+
+<h1>3. Aplicación de Spec-Driven Development</h1>
+<p>Cada componente tiene <code>spec.md</code> (qué hace, con requisitos «CUANDO… EL SISTEMA DEBE» y criterios CA verificables), <code>plan.md</code> (cómo, con complejidad y alternativa descartada) y <code>tasks.md</code> (tareas en orden prueba → código). <code>99-sistema/spec.md</code> describe cómo encajan los contratos y <code>trazabilidad.md</code> enlaza cada criterio con su prueba y su código, en ambos sentidos. Las pruebas se escribieron antes del código en los avances 1 a 7, y se comprobó que fallaran. El avance 8 fue distinto: la prueba del sistema pasó de una vez, porque integraba código que ya existía.</p>
+<p>Implementar obligó a tomar decisiones que la especificación no fijaba. Cada una quedó registrada en el historial del documento, con su motivo:</p>
+<table>
+<tr><th style="width:27%">Documento</th><th style="width:40%">Qué cambió</th><th>Por qué</th></tr>
+<tr><td><code>06-grafo/spec</code> v1.1</td><td>De grafo dirigido de «seguimientos» a amistad no dirigida</td><td>Las historias pasaron a amistad con solicitud y aceptación</td></tr>
+<tr><td><code>moscow</code> v1.2</td><td>Must de 12,25 a 17,75 h; total de 20 a 29 h</td><td>La estimación suponía código ya preparado y no contaba las specs</td></tr>
+<tr><td><code>01-lista-doble/spec</code> v1.2</td><td>Retroceder llega al principio si faltan menos de 5</td><td>La posición se desalineaba si alguien publicaba durante la sesión</td></tr>
+<tr><td><code>05-avl/spec</code> v1.2</td><td>La arroba inicial del <code>@usuario</code> es opcional</td><td>Al implementar la entrada hubo que decidir cómo se escribe</td></tr>
+<tr><td><code>03-cola/spec</code> v1.2</td><td>Se rechaza la solicitud cruzada, con aviso</td><td>La spec no cubría que dos personas se enviaran solicitud a la vez</td></tr>
+<tr><td><code>99-sistema/spec</code> v1.2</td><td>La consola permite cambiar de <code>@usuario</code></td><td>Con una sola sesión y datos en memoria nadie podía aceptar una solicitud</td></tr>
+<tr><td><code>04-arbol-general/spec</code> v1.2</td><td>Se rechaza la respuesta vacía</td><td>La spec no definía el texto vacío</td></tr>
+</table>
+
+<h1>4. Estructuras de datos</h1>
+<p>Todas están hechas con nodos o arreglos propios, sin <code>heapq</code>, <code>deque</code> ni equivalentes. Parten del código del curso (Semanas 5, 7 y 10). n es el número de elementos; las mediciones están en la sección 5.</p>
+
+<h2>4.1 Lista doble (plaza)</h2>
+<p><strong>Qué es:</strong> nodos enlazados en ambos sentidos. <strong>Implementación:</strong> adaptada de Semana 7; cada sesión guarda un marcador propio sobre la lista y se mueve de 5 en 5. <strong>Dónde:</strong> la plaza (<code>dominio/feed.py</code>). <strong>Complejidad:</strong> publicar al frente O(1); avanzar y retroceder página O(1); buscar por palabra O(n·m). <strong>Descartada:</strong> arreglo, porque insertar al frente desplaza todo (O(n)); lista simple, porque retroceder exigiría recorrer desde el inicio.</p>
+
+<h2>4.2 Pila (historial y recorrido de hilos)</h2>
+<p><strong>Qué es:</strong> LIFO sobre nodos, de Semana 10. <strong>Dónde:</strong> «atrás» (<code>dominio/navegacion.py</code>) y el recorrido del árbol general. <strong>Complejidad:</strong> apilar, desapilar y tope O(1). <strong>Descartada:</strong> lista doble con cursor, porque no se necesita «adelante».</p>
+
+<h2>4.3 Cola enlazada (solicitudes y notificaciones)</h2>
+<p><strong>Qué es:</strong> FIFO con referencias al frente y al final. <strong>Implementación:</strong> <code>ColaEnlazada</code> de Semana 10 con <code>contiene</code>. <strong>Dónde:</strong> una cola de solicitudes y una de avisos por persona, y el nivel 1 del recorrido del grafo. <strong>Complejidad:</strong> encolar y desencolar O(1); <code>contiene</code> O(k), con k pequeño. <strong>Descartada:</strong> <code>list</code> con <code>pop(0)</code>, O(n); cola circular, que reserva memoria fija por persona aunque esté vacía.</p>
+
+<h2>4.4 Árbol general (hilos)</h2>
+<p><strong>Qué es:</strong> árbol de ancho variable en representación primer hijo / hermano derecho (Knuth, 1997). <strong>Implementación:</strong> los dos enlaces del <code>NodoArbol</code> de Semana 10 cambian de significado. El recorrido apila primero el hermano y luego el hijo: como la pila saca lo último, se baja por una rama completa antes de seguir. <strong>Dónde:</strong> un árbol por publicación (<code>dominio/hilos.py</code>). <strong>Complejidad:</strong> responder, buscar y recorrer O(n). <strong>Descartada:</strong> <code>list</code> de hijos, por usar una estructura nativa como soporte; lista plana con id de padre, porque armar el hilo cuesta más; recursión, porque un hilo muy profundo agotaría la pila de Python.</p>
+<figure>
+<svg viewBox="0 0 640 112" role="img" aria-label="Representación primer hijo y hermano derecho">
+<rect x="90" y="4" width="78" height="26"/><text x="129" y="22" text-anchor="middle">[0] pregunta</text>
+<rect x="30" y="56" width="54" height="26"/><text x="57" y="74" text-anchor="middle">[1]</text>
+<rect x="130" y="56" width="54" height="26"/><text x="157" y="74" text-anchor="middle">[2]</text>
+<rect x="230" y="56" width="54" height="26"/><text x="257" y="74" text-anchor="middle">[4]</text>
+<rect x="30" y="86" width="54" height="24"/><text x="57" y="103" text-anchor="middle">[3]</text>
+<line x1="110" y1="30" x2="60" y2="56"/><line x1="84" y1="69" x2="130" y2="69" stroke-dasharray="4 3"/><line x1="184" y1="69" x2="230" y2="69" stroke-dasharray="4 3"/><line x1="57" y1="82" x2="57" y2="86"/>
+<text x="310" y="46">Línea continua: <tspan font-style="italic">izquierdo</tspan> = primer hijo.</text>
+<text x="310" y="66">Línea punteada: <tspan font-style="italic">derecho</tspan> = hermano derecho.</text>
+<text x="310" y="86">Orden al mostrar: 0, 1, 3, 2, 4.</text>
+</svg>
+<figcaption>Figura 3. Un hilo con dos enlaces por nodo, sin importar cuántas respuestas tenga cada uno.</figcaption>
+</figure>
+
+<h2>4.5 AVL (usuarios)</h2>
+<p><strong>Qué es:</strong> árbol de búsqueda con diferencia de alturas de a lo sumo 1 en cada nodo (Adelson-Velsky y Landis, 1962). <strong>Implementación:</strong> parte del <code>NodoArbol</code> y de la convención de altura de Semana 10 (vacío = −1); inserción ordenada, cuatro rotaciones y búsqueda por prefijo que descarta las ramas fuera del tramo. <strong>Dónde:</strong> el catálogo de usuarios (<code>dominio/usuarios.py</code>). <strong>Complejidad:</strong> insertar y buscar O(log n); prefijo O(log n + k). <strong>Descartada:</strong> tabla hash, sin orden ni prefijo; árbol sin equilibrar, que con claves ordenadas degenera en una lista.</p>
+
+<h2>4.6 Grafo no dirigido (amistades)</h2>
+<p><strong>Qué es:</strong> lista de adyacencia con nodos propios. <strong>Implementación:</strong> <code>agregar_amistad</code> valida todo antes de tocar nada, para que la amistad nunca quede en un solo sentido. Los candidatos a 2 saltos usan la cola y dos arreglos temporales. <strong>Dónde:</strong> <code>dominio/amistades.py</code> y <code>dominio/recomendaciones.py</code>. <strong>Complejidad:</strong> crear, deshacer y listar O(g), con g el número de amigos; candidatos O(V + g + E′). <strong>Descartada:</strong> matriz de adyacencia, O(V²) de memoria casi vacía.</p>
+
+<h2>4.7 Montículo máximo (recomendaciones)</h2>
+<p><strong>Qué es:</strong> árbol completo en un arreglo (Williams, 1964). <strong>Implementación:</strong> recibe la función <code>antes(a, b)</code>; <code>construir</code> baja cada padre desde el último hasta la raíz, en O(m) (Floyd, 1964). <strong>Dónde:</strong> los 5 mejores candidatos, por amigos en común y luego alfabéticamente. <strong>Complejidad:</strong> insertar y extraer O(log n); máximo O(1); construir O(m). <strong>Descartada:</strong> ordenar los m candidatos, O(m log m).</p>
+
+<h2>4.8 Lista simple (conectados): no implementada</h2>
+<p>Se especificó en <code>08-lista-simple/</code> para HU-04 (inserción O(1), listar O(c) con c conectados, caducidad a los 30 segundos), pero HU-04 es Should y no entró en la capacidad.</p>
+
+<h1>5. Comparación empírica de decisiones</h1>
+<p>Se midió con <code>docs/evidencias/medir.py</code>: mediana de 7 repeticiones en Python 3.13. Los tiempos varían con la carga del equipo; la altura y las comparaciones son deterministas. El análisis completo y los tiempos de cada comparación están en <code>ANALISIS.md</code>.</p>
+<table>
+<tr><th>n (claves ordenadas)</th><th>Altura AVL</th><th>Altura sin equilibrar</th><th>Insertar todo AVL</th><th>Insertar todo sin equilibrar</th><th>Buscar AVL</th><th>Buscar sin equilibrar</th></tr>
+<tr><td>1 000</td><td>9</td><td>999</td><td>3,88 ms</td><td>18,95 ms</td><td>0,56 µs</td><td>53,86 µs</td></tr>
+<tr><td>2 000</td><td>10</td><td>1 999</td><td>8,68 ms</td><td>75,17 ms</td><td>0,64 µs</td><td>108,28 µs</td></tr>
+<tr><td>4 000</td><td>11</td><td>3 999</td><td>19,05 ms</td><td>300,68 ms</td><td>0,67 µs</td><td>213,68 µs</td></tr>
+<tr><td>8 000</td><td>12</td><td>7 999</td><td>40,59 ms</td><td>1 199,12 ms</td><td>0,95 µs</td><td>454,39 µs</td></tr>
+</table>
+<p>Al duplicar n, insertar todo sin equilibrar se multiplica por 4 y buscar por 2, como predicen O(n²) y O(n). El AVL casi no cambia al buscar. Esto justifica el costo de programar las rotaciones.</p>
+<table>
+<tr><th>m candidatos</th><th>Comparaciones montículo</th><th>Comparaciones ordenar</th><th>Montículo</th><th>Ordenar</th></tr>
+<tr><td>1 000</td><td>1 978</td><td>8 631</td><td>1,96 ms</td><td>6,98 ms</td></tr>
+<tr><td>10 000</td><td>18 929</td><td>120 252</td><td>22,63 ms</td><td>112,78 ms</td></tr>
+<tr><td>100 000</td><td>188 347</td><td>1 531 684</td><td>234,52 ms</td><td>1 609,52 ms</td></tr>
+</table>
+<p>El montículo hace cerca de 2 comparaciones por candidato, frente a un crecimiento m log m al ordenar. Con los 120 perfiles de la demostración la diferencia no se percibe: la decisión se justifica por el crecimiento. Para la plaza, publicar en la lista doble se mantuvo cerca de 0,2 µs, mientras que <code>insert(0, x)</code> en un arreglo pasó de 1,3 µs con 1 000 elementos a 28 µs con 100 000.</p>
+
+<h1>6. Pruebas y trazabilidad</h1>
+<p>La suite tiene 368 pruebas con pytest y todas pasan: AVL y usuarios 73, grafo y amistades 62, cola y notificaciones 56, consola 41, lista doble 36, árbol e hilos 36, montículo y recomendaciones 25, pila 24 y sistema 15. Cada docstring nombra el criterio que verifica. Cubren casos extremos como estructura vacía, duplicados, las cuatro rotaciones, un hilo de 2 000 niveles y entradas inválidas. <code>tests/test_sistema.py</code> recorre por consola cada historia Must con la comunidad real de 120 perfiles.</p>
+
+<h1>7. Dificultades</h1>
+<ul>
+<li><strong>Integrar lo que se probó por separado.</strong> Al probar la consola a mano, el menú salía en desorden (1, 2, 3, 4, 7, 8, 5, 6, 0), aunque las pruebas pasaban. Se corrigió y se agregó la prueba que faltaba.</li>
+<li><strong>Una consola de una sola sesión.</strong> Hasta integrar las amistades no se notó que, con datos en memoria y una sola persona, nadie podía aceptar una solicitud. Se resolvió con la opción «Cambiar de <code>@usuario</code>».</li>
+<li><strong>Casos que la especificación no previó.</strong> La solicitud cruzada, la posición desalineada al paginar y los textos vacíos aparecieron al implementar y obligaron a volver a la spec.</li>
+<li><strong>Medir con ruido.</strong> Varias corridas mostraron puntos anómalos por la carga del equipo. Por eso se usa la mediana y se reportan además medidas deterministas.</li>
+<li><strong>Capacidad.</strong> Las horas alcanzaron para los Must; ningún Should entró, y con ello quedó sin implementar una estructura declarada.</li>
+</ul>
+
+<h1>8. Declaración de uso de inteligencia artificial</h1>
+<p>Se usó Claude Code (Anthropic, 2026) durante todo el proyecto. La IA <strong>redactó las especificaciones, escribió todo el código y todas las pruebas</strong>, las mediciones y este informe, por decisión de la estudiante y a partir de su código del curso. La estudiante definió la temática, tomó cada decisión de diseño eligiendo entre opciones con su justificación, recibió el detalle de cada cambio y aprobó cada commit. El registro prompt por prompt está en <code>BITACORA.md</code>. El enunciado del curso permite la IA para entender conceptos, depurar y revisar, y pide que el estudiante escriba las pruebas; este uso fue más allá y se declara aquí para que la evaluación lo tenga en cuenta. La estudiante responde por explicar el código en la sustentación.</p>
+
+<h1>9. Conclusiones</h1>
+<ul>
+<li>Elegir la estructura por su operación dominante se reflejó en las mediciones: el AVL evita la degeneración con claves ordenadas y el montículo reduce las comparaciones cuando solo se necesitan los mejores.</li>
+<li>Las ventajas asintóticas importan a escala. Con los 120 perfiles de la demostración varias alternativas descartadas también funcionarían, y las mediciones lo muestran.</li>
+<li>Especificar antes de programar hizo visibles las decisiones, y las preguntas que quedaron abiertas aparecieron al integrar, no al probar cada estructura por separado.</li>
+<li>Una estructura correcta no basta: los errores más visibles estuvieron en la unión entre componentes, lo que justifica la prueba de sistema.</li>
+</ul>
+
+<h1>Referencias</h1>
+<div class="ref">
+<p>Adelson-Velsky, G. M., y Landis, E. M. (1962). An algorithm for the organization of information. <em>Soviet Mathematics Doklady, 3</em>, 1259–1263.</p>
+<p>Anthropic. (2026). <em>Claude Code</em> [Software]. https://claude.com/claude-code</p>
+<p>Cormen, T. H., Leiserson, C. E., Rivest, R. L., y Stein, C. (2022). <em>Introduction to algorithms</em> (4.ª ed.). MIT Press.</p>
+<p>Floyd, R. W. (1964). Algorithm 245: Treesort 3. <em>Communications of the ACM, 7</em>(12), 701.</p>
+<p>Goodrich, M. T., Tamassia, R., y Goldwasser, M. H. (2013). <em>Data structures and algorithms in Python</em>. Wiley.</p>
+<p>Knuth, D. E. (1997). <em>The art of computer programming: Vol. 1. Fundamental algorithms</em> (3.ª ed.). Addison-Wesley.</p>
+<p>Python Software Foundation. (2026). <em>Python 3.13 documentation</em>. https://docs.python.org/3.13/</p>
+<p>Williams, J. W. J. (1964). Algorithm 232: Heapsort. <em>Communications of the ACM, 7</em>(6), 347–348.</p>
+</div>
+</body>
+</html>

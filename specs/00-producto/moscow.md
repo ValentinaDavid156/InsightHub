@@ -1,5 +1,8 @@
 # Priorización MoSCoW y capacidad
-Versión 1.3
+Versión 1.4
+
+## Resultado de la entrega final
+Todas las historias Must están implementadas (los 24 criterios Must pasan). Ninguna historia Should se implementó: quedan fuera HU-04 (conectados, y con ella la lista simple), HU-07, HU-08, HU-09, CA-38 (web) y CA-39 (fecha). Las estimaciones de abajo son las de la planificación; la implementación la escribió Claude Code con las decisiones de la estudiante (ver [`BITACORA.md`](../../BITACORA.md)).
 
 ## Criterio de estimación
 Cada estructura la escribo y la entiendo yo, línea por línea. Cuando ya tengo una implementación propia de una semana del curso (lista doble de Semana7, pila y cola de Semana10), la estimación baja un poco porque parto de mi propio código, pero igual lo reescribo y lo adapto. Las historias, criterios y estructuras están en [`historias.md`](historias.md) y [`estructuras.md`](estructuras.md).
@@ -63,3 +66,4 @@ Orden sugerido de implementación:
 | 1.1 | 2026-11-07 | Capacidad de 20 h (13 h netas); 14 historias repartidas; el sitio web pasa a Should y la consola queda como Must; votos, mejor respuesta, destacada y conectados quedan como Should | Los Must con web sumaban 13.75 h y no cabían en 13 h; se decidió dejar la web para el final |
 | 1.2 | 2026-11-07 | Se quita «se parte del código ya preparado» y se reestima escribiendo cada estructura (Must de 12.25 a 17.75 h, +5.5 h; Should de 6.25 a 9 h); se suman 2.5 h de specs; el cierre pasa de 5 a 6 h; el total sube de 20 a 29 h (18.5 h netas); se resuelven las dependencias HU-12→HU-08 y HU-14→web con CA-38 y CA-39 | Escribo y entiendo yo cada estructura; el tiempo de specs no estaba contado; 5 h no alcanzaban para informe, análisis, bitácora, README y sustentación; ningún Must debe depender de un Should |
 | 1.3 | 2026-11-08 | Sin cambios de prioridad: se mantienen los Must y los Should; a la entrega 2 están implementadas la pila, la cola, la lista doble y el AVL (partes Must) | Dejar constancia de que la priorización sigue vigente tras el avance funcional |
+| 1.4 | 2026-11-10 | Se agrega el resultado de la entrega final: Must completos, Should fuera, y quién escribió la implementación | Cierre del proyecto; el criterio de estimación suponía escribir cada estructura a mano |
