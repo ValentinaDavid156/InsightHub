@@ -38,7 +38,7 @@ Al arrancar, la comunidad tiene 120 perfiles de ejemplo (semilla `706132`). Escr
 | 2 | Amigos y solicitudes: ver amigos, enviar, revisar y deshacer |
 | 3 | Plaza: publicar, recorrer de 5 en 5 y buscar por palabra |
 | 4 | Hilos: escribir el número de una publicación, ver el hilo y responder (0 = la publicación) |
-| 5 | Buscar usuarios por prefijo |
+| 5 | Buscar usuarios por prefijo; con el `@usuario` completo muestra su perfil |
 | 6 | Volver atrás |
 | 7 | Leer notificaciones |
 | 8 | Personas que quizá conozcas |

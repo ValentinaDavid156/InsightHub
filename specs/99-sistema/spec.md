@@ -1,5 +1,5 @@
 # Spec del sistema — InsightHub
-Versión 1.2 · Estado: aprobada para implementar
+Versión 1.3 · Estado: aprobada para implementar
 
 ## 1. Qué hace el sistema
 InsightHub es una red social **100 % pública** de preguntas y respuestas. Los miembros entran con su `@usuario`, hacen amigos con solicitud y aceptación, publican preguntas en una plaza común, responden en hilos anidados, votan, buscan, navegan con «atrás», reciben notificaciones y obtienen recomendaciones de contactos. **No hay chats ni mensajes privados** ([`CONSTITUTION.md`](../CONSTITUTION.md)).
@@ -11,7 +11,8 @@ Historia: **HU-14**. Criterios: **CA-37** (consola, Must) y **CA-38** (sitio web
 ## 2. Componentes y lo que expone cada uno
 | Componente | Estructura | Operaciones que expone | Spec |
 |---|---|---|---|
-| Plaza | Lista doble | `insertar_al_frente`, `inicio`, `pagina`, `avanzar`, `retroceder`, `buscar_palabra`, `esta_vacia`, `tamano` | [`01-lista-doble`](../01-lista-doble/spec.md) |
+| Plaza | Lista doble | `insertar_al_frente`, `inicio`, `pagina`, `avanzar`, `retroceder`, `esta_vacia`, `tamano` | [`01-lista-doble`](../01-lista-doble/spec.md) |
+| Búsqueda por palabra | Recorrido de la lista doble (`dominio/busqueda.py`) | `buscar_palabra` | [`01-lista-doble`](../01-lista-doble/spec.md) |
 | Historial | Pila | `apilar`, `desapilar`, `tope`, `esta_vacia`, `tamano` | [`02-pila`](../02-pila/spec.md) |
 | Solicitudes y notificaciones | Cola | `encolar`, `desencolar`, `frente`, `contiene`, `esta_vacia`, `tamano` | [`03-cola`](../03-cola/spec.md) |
 | Hilos | Árbol general | `abrir_hilo`, `responder`, `buscar`, `recorrer`, `profundidad`, `tamano`, `aceptar`, `mejor_respuesta` | [`04-arbol-general`](../04-arbol-general/spec.md) |
@@ -117,3 +118,4 @@ EL SISTEMA DEBE funcionar completo en sus partes Must aunque ninguna parte Shoul
 | 1.0 | 2026-11-07 | Se reescribe: tabla de ocho componentes con las operaciones que expone cada uno; flujos de integración (solicitud → cola, aceptar → grafo y aviso, responder → árbol y aviso, cada pantalla → pila); consola Must (menús numerados) y web Should; criterios CA-37 y CA-38; mapa de criterios por componente | La spec 0.1 tenía seis componentes con las historias viejas (seguir en vez de amistad) y no describía las interfaces; decisiones tomadas en la consulta del sistema |
 | 1.1 | 2026-11-08 | RF-04: la consola pide el `@usuario` al arrancar y luego muestra los menús | Decisión de Valentina al implementar la entrada (el AVL de usuarios) |
 | 1.2 | 2026-11-08 | RF-04: la consola permite cambiar de `@usuario` sin borrar los datos; caso extremo | Con una sola sesión y datos en memoria nadie podía aceptar una solicitud desde la consola; decisión de Valentina |
+| 1.3 | 2026-11-13 | Tabla de componentes: `buscar_palabra` sale de la lista doble a su propia fila, porque es un recorrido en `dominio/busqueda.py` | El plan de la lista doble v1.2 ya la había movido; la tabla no coincidía con el código |

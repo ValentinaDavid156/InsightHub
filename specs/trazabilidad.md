@@ -1,5 +1,5 @@
 # Trazabilidad criterio ↔ prueba ↔ código
-Versión 1.6
+Versión 1.7
 
 Se recorre en los dos sentidos: de un criterio a la spec que lo define, su prueba y su código (primera tabla), y de una función a los criterios de los que nació (segunda tabla). Se actualiza con cada commit `test(...)`: el estado de la prueba pasa de «pendiente» a «pasa». Las historias están en [`00-producto/historias.md`](00-producto/historias.md) y las prioridades en [`00-producto/moscow.md`](00-producto/moscow.md).
 
@@ -123,7 +123,7 @@ Cada función pública nombrada en un `plan.md` nace de al menos un criterio. La
 | `Catalogo.entrar` | CA-03 |
 | `Catalogo.crear_perfil` | CA-03, CA-04 |
 | `usuarios.normalizar_usuario` | CA-04 |
-| `Catalogo.buscar` | CA-03 |
+| `Catalogo.buscar` | CA-03 · RF-05 del AVL (consola: «Buscar usuarios») |
 | `Catalogo.buscar_por_prefijo` | CA-27, CA-28 |
 | `Catalogo.por_id` | CA-01 |
 | `Catalogo.perfiles` | CA-01 |
@@ -191,3 +191,4 @@ Se prueban dentro de la tarea del criterio que las usa: `subir` y `bajar` del mo
 | 1.4 | 2026-11-09 | CA-14, CA-15 y CA-16 pasan a «pasa»; se agregan a la tabla inversa `hilos.publicar`, `tamano_de`, `responder`, `existe` y `sesion_de` | Se implementó el árbol general (avance 6) |
 | 1.5 | 2026-11-10 | CA-35 pasa a «pasa» | Se implementaron el montículo y las recomendaciones (avance 7) |
 | 1.6 | 2026-11-10 | CA-37 pasa a «pasa»: los 24 criterios Must pasan | Se agregó la prueba del sistema por consola (avance 8) |
+| 1.7 | 2026-11-13 | `Catalogo.buscar` también cubre RF-05 (perfil de otra persona en la consola) | RF-05 no tenía criterio CA y no estaba en la consola; se agregaron 4 pruebas en `tests/test_arranque.py` |

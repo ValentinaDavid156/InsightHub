@@ -253,6 +253,17 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Decisión de la estudiante:** cerrar sin los Should.
 
+## Sesión 26 — Correcciones después de la entrega
+
+**Prompt (textual):**
+> puedes revisar nuevamente el repositorio y me confirmas si si lo puedo subir?
+>
+> Sí, corrígelos
+
+**Síntesis de la respuesta:** revisó el repositorio desde un clon nuevo de GitHub y señaló tres detalles. Corrigió los planes del AVL, el grafo y el montículo, que decían «lo escribo desde cero», y la tabla de `99-sistema`, que ponía `buscar_palabra` en la lista doble. Para RF-05 del AVL escribió primero 4 pruebas en `tests/test_arranque.py` (una falló en rojo) y luego el código: en «Buscar usuarios», si se escribe un `@usuario` completo se muestra su perfil con sus puntos. Resultado: 372 pruebas pasan. Actualizó la spec y el plan del AVL, la trazabilidad, el README y las cifras del informe.
+
+**Decisión de la estudiante:** corregir los tres detalles en commits nuevos, sin mover la etiqueta `entrega-final`.
+
 ## Supuestos de la IA pendientes de tu revisión
 - Una persona con **30 s o más** sin actividad figura desconectada (CA-10 dice «tras 30 segundos»).
 - Prefijo vacío y palabra vacía devuelven resultado vacío (no la comunidad ni la plaza completas).

@@ -1,9 +1,9 @@
 # Plan — Montículo máximo
-Versión 1.1
+Versión 1.2
 
 ## 1. De qué implementación mía parto
 **No tengo un montículo en el repositorio.** De **`Semana10/cola_prioridad.py`** (`ColaPrioridad`) tomo solo la idea de desempatar con una **clave compuesta** (`nivel efectivo, llegada, orden`) y de que el tiempo o el orden los aporte quien llama para que sea determinista y probable. Qué cambia para InsightHub:
-- Mi `ColaPrioridad` es de tres niveles fijos con una cola FIFO por nivel; un montículo es un árbol completo guardado por posiciones, con prioridades arbitrarias. Es nuevo y lo escribo desde cero.
+- Mi `ColaPrioridad` es de tres niveles fijos con una cola FIFO por nivel; un montículo es un árbol completo guardado por posiciones, con prioridades arbitrarias. Es nuevo: no hay antecedente en el curso.
 - La comparación no está fija: el montículo recibe una función `antes(a, b)` que dice cuál va primero, y así sirve para las dos tareas (actividad y amigos en común).
 - No uso `heapq`.
 
@@ -75,3 +75,4 @@ Si se actualizan las posiciones antes de mover los elementos, o se olvida una de
 |---|---|---|---|
 | 1.0 | 2026-11-07 | Versión inicial (la carpeta estaba vacía) | Faltaban spec, plan y tasks del montículo; se declara que no hay montículo previo y qué se toma de `cola_prioridad.py`; actualización en sitio con arreglo de posiciones; construcción en O(m); orden de intercambios; alternativas descartadas |
 | 1.1 | 2026-11-10 | Sección 9 con las decisiones de implementación: montículo vacío, elementos genéricos, salida de consola y acceso al grafo | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |
+| 1.2 | 2026-11-13 | Sección 1: «lo escribo desde cero» pasa a «no hay antecedente en el curso» | Coherencia con la declaración de uso de IA |

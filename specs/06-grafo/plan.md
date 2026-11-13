@@ -1,12 +1,12 @@
 # Plan — Grafo
-Versión 1.2
+Versión 1.3
 
 ## 1. De qué implementación mía parto
 No tengo un grafo propio en el repositorio. Parto de dos piezas mías:
 - **`Semana5/nodo.py`** (`Nodo` con `dato` y `siguiente`): cada arista es un nodo de la lista de adyacencia de una persona, con `dato` = id del amigo.
 - **`Semana10/cola.py`** (`ColaEnlazada`): el recorrido por niveles para llegar a los amigos de los amigos.
 
-Qué cambia para InsightHub: el grafo es nuevo y lo escribo desde cero. Es **no dirigido**: la amistad se guarda en las dos listas a la vez, de modo que `a ∈ lista(b) ⇔ b ∈ lista(a)`, nunca hay una persona consigo misma ni repetida (la versión anterior era dirigida, de «seguimientos»).
+Qué cambia para InsightHub: el grafo es nuevo: no hay antecedente en el curso. Es **no dirigido**: la amistad se guarda en las dos listas a la vez, de modo que `a ∈ lista(b) ⇔ b ∈ lista(a)`, nunca hay una persona consigo misma ni repetida (la versión anterior era dirigida, de «seguimientos»).
 
 ## 2. Estructura elegida y por qué
 **Grafo no dirigido con lista de adyacencia**: un arreglo indexado por el id de la persona guarda la cabeza de su lista de amigos (nodos propios) y su grado. Justificación de la representación (frente a la matriz) en [`estructuras.md`](../00-producto/estructuras.md): la red es dispersa, la lista usa memoria O(V + E) y listar amigos cuesta O(grado).
@@ -70,3 +70,4 @@ El número de amigos en común sale gratis: `w` se encuentra una vez por cada am
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Pasa de dirigido a no dirigido; se declara el punto de partida (`Nodo` de Semana5 y `ColaEnlazada` de Semana10); orden de punteros al crear y deshacer; candidatos a 2 saltos con arreglos temporales; alternativas descartadas | El plan seguía siendo del grafo dirigido de «seguimientos»; decisiones tomadas en la consulta del componente |
 | 1.2 | 2026-11-08 | Sección 9 con las decisiones de implementación: rechazos con True/False, candidatos como (id, comunes) e ids | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |
+| 1.3 | 2026-11-13 | Sección 1: «lo escribo desde cero» pasa a «no hay antecedente en el curso» | Coherencia con la declaración de uso de IA |

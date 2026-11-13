@@ -1,8 +1,8 @@
 # Plan — AVL
-Versión 1.2
+Versión 1.3
 
 ## 1. De qué implementación mía parto
-**No tengo en el repositorio una implementación propia de árbol de búsqueda ni de AVL**: lo más cercano es **`Semana10/arbol_binario.py`** (`NodoArbol` con `izquierdo` y `derecho`, `inorden` y la convención de altura **vacío = −1, hoja = 0**). Qué cambia para InsightHub (casi todo es nuevo y lo escribo desde cero):
+**No tengo en el repositorio una implementación propia de árbol de búsqueda ni de AVL**: lo más cercano es **`Semana10/arbol_binario.py`** (`NodoArbol` con `izquierdo` y `derecho`, `inorden` y la convención de altura **vacío = −1, hoja = 0**). Qué cambia para InsightHub (casi todo es nuevo: no hay antecedente en el curso):
 - `NodoArbol` gana `clave`, `valor` y `altura`; pasa de «árbol sin orden» a árbol de búsqueda (menores a la izquierda, mayores a la derecha).
 - Se agregan la inserción ordenada y las **cuatro rotaciones** que mantienen el equilibrio. Eso no existe en mi código de Semana10.
 - Se conserva el `inorden` de Semana10 como base de «en orden alfabético».
@@ -86,6 +86,7 @@ En cada nodo: si la clave empieza por el prefijo, se visitan los dos lados (prim
 - **Arroba inicial:** opcional; se guarda sin ella y en minúsculas.
 - **Catálogo:** `Catalogo` junta el AVL (`@usuario` → `Perfil`) y un arreglo indexado por id; los ids van de 0 en el orden de creación y no se reutilizan.
 - **`entrar`:** devuelve `(perfil, creado)`. La consulta de perfiles (`buscar`, `buscar_por_prefijo`) nunca lanza error: texto vacío o inválido da `None` o `[]`.
+- **Consultar un perfil (RF-05):** en «Buscar usuarios», si lo escrito es un `@usuario` completo, además de la lista se muestra su perfil con sus puntos; si no existe, se informa «Sin coincidencias.». La insignia llega con los votos (Should).
 - **Comunidad inicial:** 40 nombres fijos (sin tildes ni ñ) con número del 01 al 99, sorteados con `random.Random(706132)`; los repetidos se vuelven a sortear. La lista la aprobó Valentina.
 
 ## Historial de cambios
@@ -94,3 +95,4 @@ En cada nodo: si la clave empieza por el prefijo, se visitan los dos lados (prim
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se aclara que no hay implementación previa y qué se toma de Semana10; tres instancias del mismo árbol; rotaciones con su orden de punteros; búsqueda por prefijo; reglas de votos e insignia; generación con semilla; alternativas descartadas | El plan no justificaba la elección ni explicaba las rotaciones; decisiones tomadas en la consulta del componente |
 | 1.2 | 2026-11-08 | Se agrega la sección 10 con las decisiones de implementación: duplicado, ausente, errores, arroba opcional, ids y nombres de ejemplo | Al implementar hubo que cerrar detalles que el plan no fijaba; decisiones de Valentina |
+| 1.3 | 2026-11-13 | Sección 1: «lo escribo desde cero» pasa a «no hay antecedente en el curso»; sección 10: cómo se consulta el perfil de otra persona (RF-05) | Coherencia con la declaración de uso de IA; RF-05 no estaba en la consola |

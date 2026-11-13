@@ -1,5 +1,5 @@
 # Spec — AVL (usuarios, votos y fechas)
-Versión 1.2 · Estado: aprobada para implementar
+Versión 1.3 · Estado: aprobada para implementar
 
 ## 1. Contexto y objetivo
 Tres cosas de InsightHub necesitan encontrarse rápido y en orden:
@@ -31,7 +31,7 @@ CUANDO se busque un prefijo, EL SISTEMA DEBE devolver todos los usuarios cuyo `@
 SI nadie coincide, o el prefijo está vacío, ENTONCES EL SISTEMA DEBE devolver un resultado vacío sin error.
 
 **RF-05 — Consultar un perfil.**
-CUANDO se pida un `@usuario`, EL SISTEMA DEBE devolver su perfil (con sus puntos e insignia) o decir que no existe.
+CUANDO se pida un `@usuario`, EL SISTEMA DEBE devolver su perfil (con sus puntos, y su insignia cuando existan los votos) o decir que no existe.
 
 ### Votos (Should)
 **RF-06 — Votar.**
@@ -112,3 +112,4 @@ SI ese día no hubo publicaciones, ENTONCES EL SISTEMA DEBE devolver un resultad
 | 1.0 | 2026-11-07 | Versión inicial | Creación |
 | 1.1 | 2026-11-07 | Se reescribe con requisitos CUANDO/EL SISTEMA DEBE; criterios CA-01 a CA-04, CA-27, CA-28 (Must) y CA-17 a CA-21, CA-39 (Should) en vez de los CA-10 a CA-12 viejos; CA-21 (insignias) queda aquí; CA-29 pasa a la lista doble; un solo índice por `@usuario`; reglas del `@usuario` (3 a 20, sin distinguir mayúsculas); 120 perfiles de ejemplo | La numeración de las historias cambió; CA-21 no tenía dueño; la búsqueda por palabra recorre la plaza; decisiones tomadas en la consulta del componente |
 | 1.2 | 2026-11-08 | La arroba inicial del `@usuario` es opcional (RF-02) y se agrega el caso extremo | Al implementar la entrada hubo que decidir si se escribe con arroba; decisión de Valentina |
+| 1.3 | 2026-11-13 | RF-05: la insignia se muestra cuando existan los votos | La insignia depende de los puntos por votos (CA-21, Should); el resto de RF-05 es Must y quedó en la consola |
