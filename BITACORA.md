@@ -106,7 +106,7 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 
 **Síntesis de la respuesta:** corrió un script que comprobó: 39 criterios, cada uno con exactamente una spec dueña y una fila en `trazabilidad.md`; todas las historias con al menos 2 criterios; Must 17.75 h ≤ 18.5 h netas; 3 Won't con razón; 135 enlaces entre `.md` sin ninguno roto; 58 filas de historial, todas con motivo y fecha 2026-11-07; ningún término de implementación en las specs (se corrigió «sin recursión» en la pila).
 
-**Decisión de la estudiante:** _(completar)_
+**Decisión de la estudiante:** aprobó la verificación y pidió hacer un commit por componente.
 
 ## Sesión 15 — Esqueleto del repositorio
 
@@ -265,4 +265,8 @@ Mensajes siguientes: «Instalo git y clono» · «continua».
 - 2026-11-07: creé la estructura del repositorio, la constitución, las historias, MoSCoW, la decisión de estructuras y spec/plan/tasks de cada componente; ese mismo día los reescribí con la numeración v1.2.
 
 ## Qué se dificultó
-(Completa con tu experiencia real.)
+- **Grafos (autodidacta):** no lo vimos en clase, así que investigamos cómo hacerlo. Usamos una lista de adyacencia. Lo difícil fue validar: que nadie se agregue a sí mismo, no duplicar amistades y que la amistad quede en ambos sentidos. Con un recorrido por niveles sugerimos amigos de amigos.
+- **AVL:** no habíamos visto árboles equilibrados. Lo más difícil fue programar bien las cuatro rotaciones al insertar, porque un error en los enlaces o en la altura desbalanceaba el árbol.
+- **Pilas, colas y lista doble:** las colas atienden solicitudes y notificaciones en orden de llegada. La pila guarda el historial para «volver atrás» y recorre los hilos sin recursión. La lista doble muestra la plaza de 5 en 5, con lo más nuevo arriba.
+- **Conectar las estructuras:** el perfil se guarda una sola vez en el AVL, y las demás estructuras solo usan su id, para no duplicar datos.
+- **Consola:** los datos viven en memoria, porque guardar en archivos quedó como Won't. Para probar con varias personas agregamos «cambiar de `@usuario`». También validamos que el programa no se caiga si se escriben letras donde van números u opciones que no existen.
