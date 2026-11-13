@@ -154,6 +154,31 @@ def test_buscar_usuarios_sin_coincidencias_informa(monkeypatch, capsys):
     assert salida.count("Sin coincidencias.") == 2
 
 
+def test_buscar_el_usuario_exacto_muestra_su_perfil(monkeypatch, capsys):
+    """RF-05 (AVL): escribir un @usuario completo muestra el perfil de esa persona con sus puntos."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "5", "andres", "0"], _catalogo_de_nombres())
+    assert "Perfil de @andres: 0 puntos." in salida
+
+
+def test_buscar_el_usuario_exacto_con_arroba_y_mayusculas(monkeypatch, capsys):
+    """RF-05 (AVL): la consulta del perfil no distingue mayúsculas y acepta la @ inicial."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "5", "@ANA", "0"], _catalogo_de_nombres())
+    assert "Perfil de @ana: 0 puntos." in salida
+
+
+def test_buscar_solo_un_prefijo_no_muestra_ningun_perfil(monkeypatch, capsys):
+    """RF-05 (AVL): «an» no es un @usuario completo, así que solo se listan coincidencias."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "5", "an", "0"], _catalogo_de_nombres())
+    assert "Perfil de @" not in salida
+
+
+def test_buscar_un_usuario_que_no_existe_lo_dice(monkeypatch, capsys):
+    """RF-05 (AVL): si el @usuario no existe, la consola lo dice sin fallar."""
+    salida = _ejecutar(monkeypatch, capsys, ["tester", "5", "zzz", "0"], _catalogo_de_nombres())
+    assert "Sin coincidencias." in salida
+    assert "Perfil de @" not in salida
+
+
 # ---------- Amigos, solicitudes y notificaciones en la consola (CA-05 a CA-08, CA-32, CA-33) ----------
 # Secuencias: «2» abre Amigos; dentro: 1 ver, 2 enviar, 3 revisar, 4 deshacer, 0 volver.
 # «9» cambia de @usuario.
