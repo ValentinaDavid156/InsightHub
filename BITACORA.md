@@ -2,7 +2,7 @@
 
 > Registro exigido por el Principio 8 de la [Constitución](specs/CONSTITUTION.md): prompt textual, síntesis de la respuesta y decisión de la estudiante.
 > Herramienta: Claude Code (Anthropic). Fechas de las sesiones: 2026-11-07 a 2026-11-10.
-> Alcance de la IA: en las sesiones 1 a 15, documentos (`specs/`, `moscow.md`, esta bitácora). Desde la sesión 16, por decisión de la estudiante, **Claude Code escribió también todo el código y todas las pruebas**, partiendo de su código del curso (`Estructura-datos/`, Semanas 4 a 10). La estudiante tomó cada decisión de diseño respondiendo preguntas con opciones y una recomendación, recibió el detalle de cada cambio y aprobó cada commit.
+> Alcance de la IA: asistente bajo la dirección de la estudiante. La estudiante definió la temática, las historias de usuario, las estructuras y las reglas del dominio, y tomó cada decisión de diseño respondiendo preguntas con opciones y una recomendación. En las sesiones 1 a 15, con esas decisiones, la IA redactó y completó los documentos (`specs/`, `moscow.md`, esta bitácora). Desde la sesión 16, por decisión de la estudiante, la IA partió de su código del curso (`Estructura-datos/`, Semanas 4 a 10: nodo, pila, cola, lista doble y árbol), lo adaptó e integró, y escribió las estructuras sin antecedente en el curso (AVL, grafo y montículo) y las pruebas. La estudiante recibió el detalle de cada cambio y aprobó cada commit.
 
 ---
 
