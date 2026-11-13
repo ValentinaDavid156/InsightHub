@@ -62,6 +62,9 @@ def buscar_usuarios(catalogo) -> None:
         print("Sin coincidencias.")
     for perfil in encontrados:
         print(f"  @{perfil.usuario}")
+    exacto = catalogo.buscar(prefijo)
+    if exacto is not None:
+        print(f"Perfil de @{exacto.usuario}: {exacto.puntos} puntos.")
 
 
 def ver_amigos(amistades, perfil) -> None:
